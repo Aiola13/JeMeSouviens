@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cubeBleu : MonoBehaviour {
+public class testB : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
