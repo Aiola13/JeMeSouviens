@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b7429bbcecc74b98ffded284cb5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCube: {fileID: 1060507889}
+  dir: 0
 --- !u!131 &1386368814
 GUITexture:
   m_ObjectHideFlags: 0
@@ -321,6 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b7429bbcecc74b98ffded284cb5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCube: {fileID: 1060507889}
+  dir: 0
 --- !u!131 &2049983908
 GUITexture:
   m_ObjectHideFlags: 0
