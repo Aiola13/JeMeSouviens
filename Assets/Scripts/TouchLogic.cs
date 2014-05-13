@@ -18,18 +18,25 @@ public class TouchLogic : MonoBehaviour {
 				if(this.guiTexture.HitTest(Input.GetTouch(i).position)) {
 					// the current touch is hitting our guiTexture
 					if(Input.GetTouch(i).phase == TouchPhase.Began){
-						// a finger began touching the screen
+						// A finger touched the screen
 
-						// calls the function "OnTouchBegan
+						// calls the function "OnTouchBegan"
 						this.SendMessage("OnTouchBegan");
 						//Debug.Log("Touch began on:" + this.name);
 					}
 					if(Input.GetTouch(i).phase == TouchPhase.Ended){
-						// a finger stopped touching the screen
+						// A finger was lifted from the screen
 
-						// calls the function "OnTouchEnd
+						// calls the function "OnTouchEnd"
 						this.SendMessage("OnTouchEnd");
 						//Debug.Log("Touch ended on:" + this.name);
+					}
+					if(Input.GetTouch(i).phase == TouchPhase.Stationary){
+						// A finger is touching the screen but hasn't moved
+						
+						// calls the function "OnTouchStationary"
+						this.SendMessage("OnTouchStationary");
+						//Debug.Log("Touch stationary on:" + this.name);
 					}
 				}
 
