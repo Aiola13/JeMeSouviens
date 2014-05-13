@@ -14,7 +14,7 @@ public class TouchTest : TouchLogic {
 		}
 	}
 
-	void OnTouchBegan () {
+	public override void OnTouchBegan() {
 		if (this.name == "Right Button") {
 		// move right
 			dir = 1.0f;
@@ -38,16 +38,16 @@ public class TouchTest : TouchLogic {
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
-	void OnTouchEnd () {
+	public override void OnTouchEnd () {
 		Camera.main.backgroundColor = Color.blue;
 		dir = 0.0f;
 	}
 
-	void OnTouchStationary () {
+	public override void OnTouchStationary () {
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
-	void OnTouchMoved () {
+	public override void OnTouchMoved () {
 
 	} 
 }

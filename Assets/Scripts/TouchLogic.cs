@@ -20,27 +20,19 @@ public class TouchLogic : MonoBehaviour {
 
 					if(Input.GetTouch(i).phase == TouchPhase.Began){
 					// A finger touched the screen
-
-						// calls the function "OnTouchBegan"
-						this.SendMessage("OnTouchBegan");
+						OnTouchBegan();
 					}
 					if(Input.GetTouch(i).phase == TouchPhase.Ended){
 					// A finger was lifted from the screen
-
-						// calls the function "OnTouchEnd"
-						this.SendMessage("OnTouchEnd");
+						OnTouchEnd();
 					}
 					if(Input.GetTouch(i).phase == TouchPhase.Stationary){
 					// A finger is touching the screen but hasn't moved
-						
-						// calls the function "OnTouchStationary"
-						this.SendMessage("OnTouchStationary");
+						OnTouchStationary();
 					}
 					if(Input.GetTouch(i).phase == TouchPhase.Moved){
 						// A finger moved on the screen.
-						
-						// calls the function "OnTouchMoved"
-						this.SendMessage("OnTouchMoved");
+						OnTouchMoved();
 					}
 				}
 
@@ -48,6 +40,21 @@ public class TouchLogic : MonoBehaviour {
 
 			}
 		}
+	}
 
+	public virtual void OnTouchBegan() {
+		print (name + " is not using OnToucBegan()");
+	}
+
+	public virtual void OnTouchEnd() {
+		print (name + " is not using OnToucEnd()");
+	}
+
+	public virtual void OnTouchStationary() {
+		print (name + " is not using OnTouchStationary()");
+	}
+
+	public virtual void OnTouchMoved() {
+		print (name + " is not using OnTouchMoved()");
 	}
 }
