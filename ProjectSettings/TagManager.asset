@@ -3,6 +3,15 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - ing_sucre
+  - ing_farine
+  - ing_lait
+  - ing_vanille
+  - ing_sirop_erable
+  - ing_pomme
+  - ing_rhum
+  - ing_fleur_oranger
+  - ing_abricot
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
