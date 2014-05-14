@@ -19,6 +19,8 @@ public class testA: MonoBehaviour {
 			move.x += 0.1f;
 		
 		transform.position += move;
-		
+
+
+		//coooooooooontraia
 	}
 }
