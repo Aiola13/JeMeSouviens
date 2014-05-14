@@ -21,6 +21,7 @@ public class testA: MonoBehaviour {
 		transform.position += move;
 
 
-		//coooooooooontraia
+		//Voiture
+
 	}
 }
