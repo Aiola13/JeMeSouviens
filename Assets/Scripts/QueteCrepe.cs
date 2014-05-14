@@ -20,6 +20,7 @@ public class QueteCrepe : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         creerListe();
+        afficherListe();
 	}
 	
 	// Update is called once per frame
@@ -29,17 +30,19 @@ public class QueteCrepe : MonoBehaviour {
 
     void creerListe() {
 
-        Random.seed = 78;
+        // On détermine combien on veut d'ingrédients optionnels (entre 1 et 3)
+
+        int nbOptionnels = Random.Range(1, 4);
 
         // Ajout des ingrédients obligatoires dans le tableau
+
+        liste_ing = new GameObject[3 + nbOptionnels];
 
         liste_ing[0] = ing_sucre;
         liste_ing[1] = ing_farine;
         liste_ing[2] = ing_lait;
 
-        // On détermine combien on veut d'ingrédients optionnels (entre 1 et 3)
-
-        int nbOptionnels = Random.Range(1, 4);
+        // Ajout des ingrédients optionnels ds le tableau
 
         ingDejaTire = new int[nbOptionnels];
 
@@ -106,6 +109,14 @@ public class QueteCrepe : MonoBehaviour {
             }
         }
         return verif;
+    }
+
+    void afficherListe()
+    {
+        for (int i = 0; i < liste_ing.Length; i++)
+        {
+            Debug.Log(liste_ing[i].tag);
+        }
     }
 
 }
