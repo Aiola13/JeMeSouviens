@@ -148,7 +148,7 @@ GameObject:
   - 65: {fileID: 507869272}
   - 23: {fileID: 507869271}
   - 114: {fileID: 507869270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CubeBleu
   m_TagString: Draggable
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 507869269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 400546ef050920a4499cd1e9ad0fd661, type: 3}
   m_Name: 
@@ -232,7 +232,7 @@ GameObject:
   - 65: {fileID: 1060507887}
   - 23: {fileID: 1060507886}
   - 114: {fileID: 1060507890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CubeRouge
   m_TagString: Draggable
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1060507885}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 400546ef050920a4499cd1e9ad0fd661, type: 3}
   m_Name: 
