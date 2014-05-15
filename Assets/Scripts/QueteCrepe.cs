@@ -13,6 +13,8 @@ public class QueteCrepe : MonoBehaviour {
     public GameObject ing_fleur_oranger;
     public GameObject ing_abricot;
 
+    public Texture noemie;
+
     GameObject[] liste_ing;
 
     int[] ingDejaTire;
@@ -20,12 +22,13 @@ public class QueteCrepe : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         creerListe();
-        afficherListe();
+        afficherListeDebug();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+
 	}
 
     void creerListe() {
@@ -111,12 +114,53 @@ public class QueteCrepe : MonoBehaviour {
         return verif;
     }
 
-    void afficherListe()
+    void afficherListeDebug()
     {
         for (int i = 0; i < liste_ing.Length; i++)
         {
             Debug.Log(liste_ing[i].tag);
         }
+    }
+
+    void OnGUI()
+    {
+        //GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "This is a title");
+           // print("You clicked the button!");
+
+
+        
+        if (!noemie)
+        {
+            Debug.LogError("Ajouter la photo de Noemie!");
+            return;
+        }
+
+        //GUI.BeginGroup(new Rect(Screen.width / 2 - 400, Screen.height / 2 - 300, 800, 600));
+        //GUI.Box(new Rect(0, 0, 800, 600), "This box is now centered! - here you would put your main menu");
+        //GUI.EndGroup();
+
+        //GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height / 3));
+
+            // Affichage de la photo
+            GUI.Box(new Rect(0, Screen.height - (Screen.height / 3), Screen.width/4, Screen.height/3), new GUIContent(noemie));
+
+            // Affichage de la quête
+            GUI.Box(new Rect(Screen.width / 4, Screen.height - (Screen.height / 3), Screen.width - (Screen.width / 4), Screen.height / 3), texteQuete());
+
+        //GUI.EndGroup();
+
+    }
+
+    string texteQuete()
+    {
+        string quete = "Bonjour que dirais-tu de m'aider à préparer des crêpes?\n";
+        quete += "Pour la crêpe d'aujourd'hui nous avons besoin des ingrédients suivants :\n";
+        for (int i = 0; i < liste_ing.Length; i++)
+        {
+            quete += "- " + liste_ing[i].tag + "\n";
+        }
+
+            return quete;
     }
 
 }
