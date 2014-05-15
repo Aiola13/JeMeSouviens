@@ -1335,13 +1335,15 @@ MonoBehaviour:
   ing_sucre: {fileID: 1365027464}
   ing_farine: {fileID: 685130971}
   ing_lait: {fileID: 834711405}
+  ing_oeuf: {fileID: 780062598}
+  ing_sel: {fileID: 730059742}
   ing_vanille: {fileID: 1140873800}
   ing_sirop_erable: {fileID: 1457544122}
   ing_pomme: {fileID: 952903844}
   ing_rhum: {fileID: 716262917}
   ing_fleur_oranger: {fileID: 366336469}
   ing_abricot: {fileID: 1908213696}
-  noemie: {fileID: 0}
+  noemie: {fileID: 2800000, guid: 3b4d5c4d514c032459f0845c40671979, type: 3}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
