@@ -148,7 +148,6 @@ GameObject:
   - 65: {fileID: 507869272}
   - 23: {fileID: 507869271}
   - 114: {fileID: 507869270}
-  - 114: {fileID: 507869275}
   m_Layer: 0
   m_Name: CubeBleu
   m_TagString: Draggable
@@ -162,17 +161,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 507869269}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faeeba19d76b71a4ab90dfaf85c6c9e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 400546ef050920a4499cd1e9ad0fd661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDepth: 10
-  lastTouch: 0
-  curPos: {x: 0, y: 0, z: 0}
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
-  isDragging: 0
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
 --- !u!23 &507869271
 Renderer:
   m_ObjectHideFlags: 0
@@ -224,17 +220,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &507869275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 507869269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e5a9f085a9e4a418da38cce3b5d76e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1060507885
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +232,6 @@ GameObject:
   - 65: {fileID: 1060507887}
   - 23: {fileID: 1060507886}
   - 114: {fileID: 1060507890}
-  - 114: {fileID: 1060507891}
   m_Layer: 0
   m_Name: CubeRouge
   m_TagString: Draggable
@@ -312,28 +296,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1060507885}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faeeba19d76b71a4ab90dfaf85c6c9e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camDepth: 10
-  lastTouch: 0
-  curPos: {x: 0, y: 0, z: 0}
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
-  isDragging: 0
---- !u!114 &1060507891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1060507885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e5a9f085a9e4a418da38cce3b5d76e, type: 3}
+  m_Script: {fileID: 11500000, guid: 400546ef050920a4499cd1e9ad0fd661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
 --- !u!1 &1386368812
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b7429bbcecc74b98ffded284cb5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
   myCube: {fileID: 1060507889}
   dir: 0
   canTouch: 1
@@ -423,6 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b7429bbcecc74b98ffded284cb5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
   myCube: {fileID: 1060507889}
   dir: 0
   canTouch: 1
@@ -470,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1761748228
 Transform:
   m_ObjectHideFlags: 0
@@ -497,7 +473,6 @@ GameObject:
   - 92: {fileID: 1822364902}
   - 124: {fileID: 1822364901}
   - 81: {fileID: 1822364900}
-  - 114: {fileID: 1822364905}
   - 114: {fileID: 1822364906}
   m_Layer: 0
   m_Name: Main Camera
@@ -567,28 +542,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &1822364905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1822364899}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04adcd1eef3b1d4ca3b3cc470a17761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1822364906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1822364899}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61cac5cc65a273144b0665dbc3092ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
 --- !u!1 &1989027613
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89b7429bbcecc74b98ffded284cb5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  dragging: 0
+  ObjectToDrag: {fileID: 0}
   myCube: {fileID: 1060507889}
   dir: 0
   canTouch: 1
