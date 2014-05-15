@@ -7,10 +7,11 @@ public class TouchTest : TouchLogic {
 	public float dir = 0.0f;
 	public bool canTouch = true;
 
-	void Update() {
+
+	public override void Update() {
 		if (canTouch) {
 		// we can touch the screen
-			CheckTouches();
+			base.Update();
 		}
 	}
 
@@ -31,14 +32,13 @@ public class TouchTest : TouchLogic {
 					tex.GetComponent<TouchTest>().canTouch = !(tex.GetComponent<TouchTest>().canTouch);
 				}
 			}
-			
 		}
 
 		Camera.main.backgroundColor = Color.red;
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
-	public override void OnTouchEnd () {
+	public override void OnTouchEnded () {
 		Camera.main.backgroundColor = Color.blue;
 		dir = 0.0f;
 	}
@@ -47,7 +47,4 @@ public class TouchTest : TouchLogic {
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
-	public override void OnTouchMoved () {
-
-	} 
 }
