@@ -10,12 +10,16 @@ public class TouchLogic : MonoBehaviour {
 	public float dist;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
-
-	private Vector3 dragPos;
+	private Vector3 startPos;
+	private int draggable = 8;					// number of the draggable layer
+	
+	private Vector4 dropPos;					// x, y, w, h  -- Screen position
 
 	void Start () {
 		guiInfo = GameObject.Find("Info").guiText;
-		//guiInfo.text = "w: " + Screen.width + " h: " + Screen.height;
+		guiInfo.text = "w: " + Screen.width + " h: " + Screen.height;
+
+		dropPos = new Vector4(Screen.width/3, Screen.height/3, Screen.width/3, Screen.height/3);
 	}
 	
 	public virtual void Update () {
@@ -94,8 +98,8 @@ public class TouchLogic : MonoBehaviour {
 
 
 				#region Dragging
-				if (Input.touchCount != 1) {
-					dragging = false; 
+				if (dragging && Input.touchCount > 1) {
+					OnDragEnded(); 
 					return;
 				}
 				if(Input.GetTouch(i).phase == TouchPhase.Began) {
@@ -152,24 +156,49 @@ public class TouchLogic : MonoBehaviour {
 		Touch touch = Input.touches[0]; // we allow the drag only with the first finger touched
 		Vector3 pos = touch.position;
 
+		Ray ray = Camera.main.ScreenPointToRay(pos);
 		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay(pos); 
-		if(Physics.Raycast(ray, out hit) && (hit.collider.tag == "Draggable")) {
+		if(Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == draggable)) {
 			ObjectToDrag = hit.transform;
 			dist = hit.transform.position.z - Camera.main.transform.position.z;
-			dragPos = new Vector3(pos.x, pos.y, dist);
-			dragPos = Camera.main.ScreenToWorldPoint(dragPos);
+			startPos = new Vector3(pos.x, pos.y, dist);
+			startPos = Camera.main.ScreenToWorldPoint(startPos);
 			dragging = true;
 		}
 	}
 	public virtual void OnDragMoved() {
-		dragPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+		Vector3 dragPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, dist);
 		dragPos = Camera.main.ScreenToWorldPoint(dragPos);
 		ObjectToDrag.position = dragPos;
 	}
 	public virtual void OnDragEnded() {
 		dragging = false;
+		if (CheckPos()) {
+		// the object was dragged to the right place
+		}
+		else {
+		// the object was dragged to the wrong place, we reset its position
+			ResetPosition();
+		}
 	}
 
+
+	public void ResetPosition() {
+		ObjectToDrag.position = startPos;
+	}
+	
+	public bool CheckPos() {
+		Vector2 fingerPos = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+		if (fingerPos.x > dropPos.x && fingerPos.y < dropPos.y) {
+			return true;
+		}
+		else
+			return false;
+	}
 	#endregion
+
+	void OnGUI() {
+		GUI.Box(new Rect(dropPos.x, Screen.height - dropPos.y, dropPos.z, dropPos.w), "Allowed Drop");
+
+	}
 }
