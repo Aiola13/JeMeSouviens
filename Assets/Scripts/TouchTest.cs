@@ -34,17 +34,17 @@ public class TouchTest : TouchLogic {
 			}
 		}
 
-		Camera.main.backgroundColor = Color.red;
+		//Camera.main.backgroundColor = Color.red;
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
 	public override void OnTouchEnded () {
-		Camera.main.backgroundColor = Color.blue;
+		//Camera.main.backgroundColor = Color.blue;
 		dir = 0.0f;
 	}
 
 	public override void OnTouchStationary () {
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
-
+	
 }

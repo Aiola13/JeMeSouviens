@@ -3,6 +3,7 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Draggable
   - ing_sucre
   - ing_farine
   - ing_lait
@@ -14,6 +15,7 @@ TagManager:
   - ing_abricot
   - ing_oeuf
   - ing_sel
+  
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
