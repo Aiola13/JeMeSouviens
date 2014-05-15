@@ -6,6 +6,8 @@ public class QueteCrepe : MonoBehaviour {
     public GameObject ing_sucre;
     public GameObject ing_farine;
     public GameObject ing_lait;
+    public GameObject ing_oeuf;
+   // public GameObject ing_sel;
     public GameObject ing_vanille;
     public GameObject ing_sirop_erable;
     public GameObject ing_pomme;
@@ -18,6 +20,8 @@ public class QueteCrepe : MonoBehaviour {
     GameObject[] liste_ing;
 
     int[] ingDejaTire;
+
+    bool showGUI = true;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +48,7 @@ public class QueteCrepe : MonoBehaviour {
         liste_ing[0] = ing_sucre;
         liste_ing[1] = ing_farine;
         liste_ing[2] = ing_lait;
+        liste_ing[3] = ing_oeuf;
 
         // Ajout des ingrédients optionnels ds le tableau
 
@@ -124,30 +129,31 @@ public class QueteCrepe : MonoBehaviour {
 
     void OnGUI()
     {
-        //GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "This is a title");
-           // print("You clicked the button!");
-
-
-        
+      
         if (!noemie)
         {
             Debug.LogError("Ajouter la photo de Noemie!");
             return;
         }
 
-        //GUI.BeginGroup(new Rect(Screen.width / 2 - 400, Screen.height / 2 - 300, 800, 600));
-        //GUI.Box(new Rect(0, 0, 800, 600), "This box is now centered! - here you would put your main menu");
-        //GUI.EndGroup();
-
-        //GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height / 3));
+        if (showGUI)
+        {
+            //GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
 
             // Affichage de la photo
-            GUI.Box(new Rect(0, Screen.height - (Screen.height / 3), Screen.width/4, Screen.height/3), new GUIContent(noemie));
+            GUI.Box(new Rect(0, Screen.height - (Screen.height / 3), Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
 
             // Affichage de la quête
             GUI.Box(new Rect(Screen.width / 4, Screen.height - (Screen.height / 3), Screen.width - (Screen.width / 4), Screen.height / 3), texteQuete());
 
-        //GUI.EndGroup();
+            // Bouton de validation 
+            if (GUI.Button(new Rect(10, 70, 50, 30), "Ok"))
+            {
+                showGUI = false;
+            }
+
+            //GUI.EndGroup();
+        }
 
     }
 
