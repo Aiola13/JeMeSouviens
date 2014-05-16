@@ -17,8 +17,8 @@ public class TouchLogicDrag : MonoBehaviour {
 	
 
 	void Start () {
-		guiInfo = GameObject.Find("Info_drop").guiText;
-		guiInfo.text = "dropBox x: " + dropBox.x + " y: " + dropBox.y + " w: " + dropBox.z + " h: " + dropBox.w;
+		//guiInfo = GameObject.Find("Info_drop").guiText;
+		//guiInfo.text = "dropBox x: " + dropBox.x + " y: " + dropBox.y + " w: " + dropBox.z + " h: " + dropBox.w;
 	}
 
 	void OnGUI() {
