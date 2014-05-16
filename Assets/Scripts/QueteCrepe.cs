@@ -66,7 +66,9 @@ public class QueteCrepe : MonoBehaviour {
                 while (verifDejaTire(ingredientOpt, j, ingDejaTireOpt))
                 {
                     ingredientOpt = Random.Range(1, 7);
+
                 }
+                ingDejaTireOpt[j] = ingredientOpt;
                 j++;
             }
 
@@ -104,7 +106,6 @@ public class QueteCrepe : MonoBehaviour {
     {
         ingDejaTireObl = new int[3];
 
-
         for (int i = 0; i < 3; i++)
         {
             int ingredientObl = Random.Range(1, 6);
@@ -118,7 +119,9 @@ public class QueteCrepe : MonoBehaviour {
                 while (verifDejaTire(ingredientObl, i, ingDejaTireObl))
                 {
                     ingredientObl = Random.Range(1, 6);
+
                 }
+                ingDejaTireObl[i] = ingredientObl;
             }
 
             switch (ingredientObl)
@@ -180,21 +183,25 @@ public class QueteCrepe : MonoBehaviour {
 
         if (showGUI)
         {
-            //GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
+            GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
 
             // Affichage de la photo
-            GUI.Box(new Rect(0, Screen.height - (Screen.height / 3), Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
+            GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
 
             // Affichage de la quête
-            GUI.Box(new Rect(Screen.width / 4, Screen.height - (Screen.height / 3), Screen.width - (Screen.width / 4), Screen.height / 3), texteQuete());
+            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2*(Screen.width / 4), Screen.height / 3), texteQuete());
 
             // Bouton de validation 
-            if (GUI.Button(new Rect(10, 70, 50, 30), "Ok"))
+            if (GUI.Button(new Rect(5*(Screen.width / 6), 50, 100, 100), "Ok"))
             {
                 showGUI = false;
+                // interpolation pour aller plus près du plan de travail
+                float temps = 1000.0f;
+                Vector3 posArrive = new Vector3(0, 2, -3);
+                transform.position = Vector3.Lerp(transform.position, posArrive, temps);
             }
 
-            //GUI.EndGroup();
+            GUI.EndGroup();
         }
 
     }
