@@ -16,35 +16,37 @@ public class TouchTest : TouchLogic {
 	}
 
 	public override void OnTouchBegan() {
-		if (this.name == "Right Button") {
+		if (name == "Right Button") {
 		// move right
 			dir = 1.0f;
 		}
-		else if (this.name == "Left Button") {
+		else if (name == "Left Button") {
 		// move left
 			dir = -1.0f;
 		}
-		else if (this.name == "Enable Touch") {
+		else if (name == "Enable Touch") {
 		// we enable/disable touches for all GUItexture except the one that allow us to switch between states
-			GUITexture[] guiTex = FindObjectsOfType(typeof(GUITexture)) as GUITexture[];
-			foreach (GUITexture tex in guiTex) {
-				if (tex.name != "Enable Touch") {
-					tex.GetComponent<TouchTest>().canTouch = !(tex.GetComponent<TouchTest>().canTouch);
-				}
-			}
+			DisableTouch ();
 		}
-
-		//Camera.main.backgroundColor = Color.red;
-		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
 
 	public override void OnTouchEnded () {
-		//Camera.main.backgroundColor = Color.blue;
 		dir = 0.0f;
 	}
 
 	public override void OnTouchStationary () {
 		myCube.Translate(10*Time.deltaTime*dir,0,0);
 	}
-	
+
+
+	void DisableTouch () {
+	// enable/disable touches for all GUItexture except the one that allow us to switch between states
+		GUITexture[] guiTex = FindObjectsOfType(typeof(GUITexture)) as GUITexture[];
+		foreach (GUITexture tex in guiTex) {
+			if (tex.name != "Enable Touch") {
+				tex.GetComponent<TouchTest>().canTouch = !(tex.GetComponent<TouchTest>().canTouch);
+			}
+		}
+	}
+
 }
