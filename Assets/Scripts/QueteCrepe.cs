@@ -15,9 +15,8 @@ public class QueteCrepe : MonoBehaviour {
     public GameObject ing_fleur_oranger;
     public GameObject ing_abricot;
 
-    public Texture noemie;
-
-    GameObject[] liste_ing;
+    public GameObject[] liste_ing;
+    public GameObject[] ingNoemie;
 
     int nbOptionnels;
     int[] ingDejaTireOpt;
@@ -32,12 +31,16 @@ public class QueteCrepe : MonoBehaviour {
         nbOptionnels = Random.Range(1, 4);
         
         liste_ing = new GameObject[3 + nbOptionnels];
+
+        ingNoemie = new GameObject[2];
         
         ingredientsObligatoires();
+
+        ingredientsMisParNoemie();
         
         ingredientsOptionnels();
         
-        afficherListeDebug();
+        //afficherListeDebug();
 	}
 	
 	// Update is called once per frame
@@ -99,6 +102,14 @@ public class QueteCrepe : MonoBehaviour {
                     break;
 
             }
+        }
+    }
+
+    void ingredientsMisParNoemie()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+
         }
     }
 
@@ -172,41 +183,7 @@ public class QueteCrepe : MonoBehaviour {
         }
     }
 
-    void OnGUI()
-    {
-      
-        if (!noemie)
-        {
-            Debug.LogError("Ajouter la photo de Noemie!");
-            return;
-        }
-
-        if (showGUI)
-        {
-            GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
-
-            // Affichage de la photo
-            GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
-
-            // Affichage de la quête
-            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2*(Screen.width / 4), Screen.height / 3), texteQuete());
-
-            // Bouton de validation 
-            if (GUI.Button(new Rect(5*(Screen.width / 6), 50, 100, 100), "Ok"))
-            {
-                showGUI = false;
-                // interpolation pour aller plus près du plan de travail
-                float temps = 1000.0f;
-                Vector3 posArrive = new Vector3(0, 2, -3);
-                transform.position = Vector3.Lerp(transform.position, posArrive, temps);
-            }
-
-            GUI.EndGroup();
-        }
-
-    }
-
-    string texteQuete()
+    public string texteQuete()
     {
         string quete = "Bonjour que dirais-tu de m'aider à préparer des crêpes?\n";
         quete += "J'ai déjà mis quelques ingrédients dans le saladier!\n";
@@ -219,7 +196,7 @@ public class QueteCrepe : MonoBehaviour {
             return quete;
     }
 
-    string nomIngredient(string tag)
+    public string nomIngredient(string tag)
     {
         string nomIng = "";
 
