@@ -15,7 +15,8 @@ public class QueteCrepe : MonoBehaviour {
     public GameObject ing_fleur_oranger;
     public GameObject ing_abricot;
 
-    GameObject[] liste_ing;
+    public GameObject[] liste_ing;
+    public GameObject[] ingNoemie;
 
     int nbOptionnels;
     int[] ingDejaTireOpt;
@@ -30,12 +31,16 @@ public class QueteCrepe : MonoBehaviour {
         nbOptionnels = Random.Range(1, 4);
         
         liste_ing = new GameObject[3 + nbOptionnels];
+
+        ingNoemie = new GameObject[2];
         
         ingredientsObligatoires();
+
+        ingredientsMisParNoemie();
         
         ingredientsOptionnels();
         
-        afficherListeDebug();
+        //afficherListeDebug();
 	}
 	
 	// Update is called once per frame
@@ -97,6 +102,14 @@ public class QueteCrepe : MonoBehaviour {
                     break;
 
             }
+        }
+    }
+
+    void ingredientsMisParNoemie()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+
         }
     }
 
@@ -183,7 +196,7 @@ public class QueteCrepe : MonoBehaviour {
             return quete;
     }
 
-    string nomIngredient(string tag)
+    public string nomIngredient(string tag)
     {
         string nomIng = "";
 

@@ -60,6 +60,13 @@ public class GameManagerCrepe : MonoBehaviour
 
         queteCrepe = GetComponent<QueteCrepe>();
 
+        listeIngQuete = queteCrepe.liste_ing;
+
+        listeIngSaladier = new GameObject[listeIngQuete.Length + 2];
+
+        listeIngSaladier[0] = queteCrepe.ingNoemie[0];
+        listeIngSaladier[1] = queteCrepe.ingNoemie[1];
+
 	}
 	
 	// Update is called once per frame
@@ -165,12 +172,12 @@ public class GameManagerCrepe : MonoBehaviour
         bool queteAccomplie = true;
         bool dansLeSaladier = false;
 
-        if (listeIngQuete.Length != listeIngSaladier.Length){
+        if (listeIngQuete.Length + 2 != listeIngSaladier.Length){
             queteAccomplie = false;
         }
         else{
 
-            for (int i = 0; i < listeIngSaladier.Length; i++)
+            for (int i = 2; i < listeIngSaladier.Length; i++)
             {
                 int compteur = 0;
                 while (!dansLeSaladier)
@@ -190,4 +197,17 @@ public class GameManagerCrepe : MonoBehaviour
 
         return queteAccomplie;
     }
+
+    string contenuDuSaladier()
+    {
+        string contenuDuSaladier = "Les ingrédients actuellement dans le saladier sont : \n";
+
+        for (int i = 0; i < listeIngSaladier.Length; i++)
+        {
+            contenuDuSaladier += "- " + queteCrepe.nomIngredient(listeIngSaladier[i].tag) + "\n";
+        }
+
+        return contenuDuSaladier;
+    }
+
 }
