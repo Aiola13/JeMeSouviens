@@ -9,8 +9,7 @@ public class TouchLogic : MonoBehaviour {
 
 	void Start () {
 		guiInfo = GameObject.Find("Info_pos").guiText;
-
-		guiInfo.text = "Screen width: " + Screen.width + "  Screen height: " + Screen.height + "\n ";
+		guiInfo.text = "Screen width: " + Screen.width + "  Screen height: " + Screen.height;
 	}
 	
 	public virtual void Update () {
