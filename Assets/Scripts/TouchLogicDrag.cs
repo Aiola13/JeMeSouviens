@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TouchLogicDrag : MonoBehaviour {
@@ -7,25 +7,25 @@ public class TouchLogicDrag : MonoBehaviour {
 	
 	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
 	
-	public float dist;
+	public float distCam;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
-	private Vector3 startPos;
+	//private Vector3 startPos;
 	private int draggable = 8;					// number of the draggable layer
 	
 	private Vector4 dropBox;					// x, y, w, h  -- x,y respects GUI coordinates (origin top left and y grows down)
 	
-	void Start () {
-		//dropBox = new Vector4( Screen.width/3, Screen.height/3, Screen.width/3, Screen.height/3);
-		dropBox = new Vector4(60, 90, 100, 70);
 
+	void Start () {
 		guiInfo = GameObject.Find("Info_drop").guiText;
 		guiInfo.text = "dropBox x: " + dropBox.x + " y: " + dropBox.y + " w: " + dropBox.z + " h: " + dropBox.w;
 	}
 
 	void OnGUI() {
+		dropBox = new Vector4( Screen.width/3, Screen.height - Screen.height/3, Screen.width/3, Screen.height/3);
 		GUI.Box(new Rect(dropBox.x, dropBox.y, dropBox.z, dropBox.w), "Allowed Drop");
 	}
+
 
 	public void Update () {
 		if (Input.touches.Length > 0) {
@@ -57,14 +57,14 @@ public class TouchLogicDrag : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == draggable)) {
 			ObjectToDrag = hit.transform;
-			dist = hit.transform.position.z - Camera.main.transform.position.z;
-			startPos = new Vector3(pos.x, pos.y, dist);
-			startPos = Camera.main.ScreenToWorldPoint(startPos);
+			distCam = hit.transform.position.z - Camera.main.transform.position.z;
+			//startPos = new Vector3(pos.x, pos.y, distCam);
+			//startPos = Camera.main.ScreenToWorldPoint(startPos);
 			dragging = true;
 		}
 	}
 	public void OnDragMoved() {
-		Vector3 dragPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, dist);
+		Vector3 dragPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, distCam);
 		dragPos = Camera.main.ScreenToWorldPoint(dragPos);
 		ObjectToDrag.position = dragPos;
 	}
@@ -77,11 +77,12 @@ public class TouchLogicDrag : MonoBehaviour {
 			// the object was dragged to the wrong place, we reset its position
 			ResetPosition();
 		}
+		ObjectToDrag = null;
 	}
 	
 	
 	public void ResetPosition() {
-		ObjectToDrag.position = startPos;
+		ObjectToDrag.position = ObjectToDrag.GetComponent<IngredientOriginalPos>().originalPos;
 	}
 	
 	public bool CheckPos() {
