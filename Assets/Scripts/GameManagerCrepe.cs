@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManagerCrepe : MonoBehaviour
 {
@@ -23,9 +24,9 @@ public class GameManagerCrepe : MonoBehaviour
     public GameState curGameState;
     public GameState prevGameState;
 
-    GameObject[] listeIngQuete;
+	List<GameObject> listeIngQuete;
 
-    GameObject[] listeIngSaladier;
+	List<GameObject> listeIngSaladier;
 
     #endregion
 
@@ -60,13 +61,9 @@ public class GameManagerCrepe : MonoBehaviour
 
         queteCrepe = GetComponent<QueteCrepe>();
 
-        listeIngQuete = queteCrepe.liste_ing;
+        listeIngQuete = queteCrepe.liste_quete;
 
-        listeIngSaladier = new GameObject[listeIngQuete.Length + 2];
-
-        listeIngSaladier[0] = queteCrepe.ingNoemie[0];
-        listeIngSaladier[1] = queteCrepe.ingNoemie[1];
-
+		listeIngSaladier = queteCrepe.liste_saladier;
 	}
 	
 	// Update is called once per frame
@@ -166,7 +163,7 @@ public class GameManagerCrepe : MonoBehaviour
     }
 
     #endregion
-
+	/*
     bool queteAccomplie()
     {
         bool queteAccomplie = true;
@@ -197,12 +194,12 @@ public class GameManagerCrepe : MonoBehaviour
 
         return queteAccomplie;
     }
-
+	*/
     string contenuDuSaladier()
     {
         string contenuDuSaladier = "Les ingrédients actuellement dans le saladier sont : \n";
 
-        for (int i = 0; i < listeIngSaladier.Length; i++)
+        for (int i = 0; i < listeIngSaladier.Count; i++)
         {
             contenuDuSaladier += "- " + queteCrepe.nomIngredient(listeIngSaladier[i].tag) + "\n";
         }

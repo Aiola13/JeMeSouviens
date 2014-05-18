@@ -1,46 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class QueteCrepe : MonoBehaviour {
 
+	// Ingrédients obligatoires
     public GameObject ing_sucre;
     public GameObject ing_farine;
     public GameObject ing_lait;
     public GameObject ing_oeuf;
     public GameObject ing_sel;
+
+	// Ingrédients optionnels
     public GameObject ing_vanille;
     public GameObject ing_sirop_erable;
     public GameObject ing_pomme;
     public GameObject ing_rhum;
     public GameObject ing_fleur_oranger;
-    public GameObject ing_abricot;
+    public GameObject ing_bleuet;
 
-    public GameObject[] liste_ing;
-    public GameObject[] ingNoemie;
+	public List<GameObject> liste_quete;
+	public List<GameObject> liste_saladier;
 
-    int nbOptionnels;
-    int[] ingDejaTireOpt;
-
-    int[] ingDejaTireObl;
-
-    bool showGUI = true;
+	List<GameObject> ing_obligatoire;
+	List<GameObject> ing_optionnels;
+	
 
 	// Use this for initialization
 	void Start () {
-        
-        nbOptionnels = Random.Range(1, 4);
-        
-        liste_ing = new GameObject[3 + nbOptionnels];
 
-        ingNoemie = new GameObject[2];
-        
-        ingredientsObligatoires();
+		intitalisationListe();
 
-        ingredientsMisParNoemie();
+		Shuffle(ing_obligatoire);
         
-        ingredientsOptionnels();
+		Shuffle(ing_optionnels);
         
-        //afficherListeDebug();
+		repartition();
+        
+		afficherListeDebug();
 	}
 	
 	// Update is called once per frame
@@ -49,138 +46,79 @@ public class QueteCrepe : MonoBehaviour {
 
 	}
 
-    void ingredientsOptionnels()
-    {
-        ingDejaTireOpt = new int[nbOptionnels];
+	void intitalisationListe(){
 
-        int j = 0;
+		// Initialisation de la liste d'ingrédients aléatoire
+		ing_obligatoire = new List<GameObject>();
+		ing_obligatoire.Add(ing_sucre);
+		ing_obligatoire.Add(ing_farine);
+		ing_obligatoire.Add(ing_lait);
+		ing_obligatoire.Add(ing_oeuf);
+		ing_obligatoire.Add(ing_sel);
 
-        for (int i = 3; i < 3 + nbOptionnels; i++)
-        {
-            int ingredientOpt = Random.Range(1, 7);
+		// Initialisation de la liste d'ingrédients optionnels
+		ing_optionnels = new List<GameObject>();
+		ing_optionnels.Add(ing_vanille);
+		ing_optionnels.Add(ing_sirop_erable);
+		ing_optionnels.Add(ing_pomme);
+		ing_optionnels.Add(ing_rhum);
+		ing_optionnels.Add(ing_fleur_oranger);
+		ing_optionnels.Add(ing_bleuet);
+	}
 
-            if (j == 0)
-            {
-                ingDejaTireOpt[j] = ingredientOpt;
-                j++;
-            }
-            else
-            {
-                while (verifDejaTire(ingredientOpt, j, ingDejaTireOpt))
-                {
-                    ingredientOpt = Random.Range(1, 7);
+	// Permet de séléctionner les ingrédients optionnels à retirer
+	void selectionIngOptionnels(){
 
-                }
-                ingDejaTireOpt[j] = ingredientOpt;
-                j++;
-            }
+		int nbAEnlever = Random.Range(1, 4);
 
-            switch (ingredientOpt)
-            {
-                case 1:
-                    liste_ing[i] = ing_vanille;
-                    break;
+		for (int i = 0; i<nbAEnlever; i++){
+			int k = Random.Range(0 ,ing_optionnels.Count + 1);
+			ing_optionnels.RemoveAt(k);
+		}
+	}
 
-                case 2:
-                    liste_ing[i] = ing_sirop_erable;
-                    break;
 
-                case 3:
-                    liste_ing[i] = ing_pomme;
-                    break;
+	// Algo permettant de mélanger la liste passée en paramêtre
+	public void Shuffle(IList<GameObject> list)  
+	{  
+		int n = list.Count;  
+		while (n > 1) {  
+			n--;  
+			int k = Random.Range(0 ,n + 1);  
+			GameObject value = list[k];  
+			list[k] = list[n];  
+			list[n] = value;  
+		}  
+	}
 
-                case 4:
-                    liste_ing[i] = ing_rhum;
-                    break;
-
-                case 5:
-                    liste_ing[i] = ing_fleur_oranger;
-                    break;
-
-                case 6:
-                    liste_ing[i] = ing_abricot;
-                    break;
-
-            }
-        }
-    }
-
-    void ingredientsMisParNoemie()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-
-        }
-    }
-
-    void ingredientsObligatoires()
-    {
-        ingDejaTireObl = new int[3];
-
-        for (int i = 0; i < 3; i++)
-        {
-            int ingredientObl = Random.Range(1, 6);
-
-            if (i == 0)
-            {
-                ingDejaTireObl[i] = ingredientObl;
-            }
-            else
-            {
-                while (verifDejaTire(ingredientObl, i, ingDejaTireObl))
-                {
-                    ingredientObl = Random.Range(1, 6);
-
-                }
-                ingDejaTireObl[i] = ingredientObl;
-            }
-
-            switch (ingredientObl)
-            {
-                case 1:
-                    liste_ing[i] = ing_sucre;
-                    break;
-
-                case 2:
-                    liste_ing[i] = ing_farine;
-                    break;
-
-                case 3:
-                    liste_ing[i] = ing_lait;
-                    break;
-
-                case 4:
-                    liste_ing[i] = ing_oeuf;
-                    break;
-
-                case 5:
-                    liste_ing[i] = ing_sel;
-                    break;
-
-            }
-        }
-    }
-
-    bool verifDejaTire(int numIng, int nbIngDejaTire, int[] tab)
-    {
-        bool verif = false;
-
-        for (int i = 0; i < nbIngDejaTire; i++)
-        {
-            if (numIng == tab[i])
-            {
-                verif = true;
-            }
-        }
-        return verif;
-    }
+	// Répartition des ingrédiants obligatoires : Les 2 premiers de la liste sont ceux que Noémie a déja mis dans le saladier
+	// Les 3 derniers font partis de la quête
+	void repartition(){
+		for (int i = 0; i<ing_obligatoire.Count; i++){
+			if (i < 2 ){
+				liste_saladier.Add(ing_obligatoire[i]);
+			}
+			else {
+				liste_quete.Add(ing_obligatoire[i]);
+			}
+		}
+		for (int i = 0; i<ing_optionnels.Count; i++){
+			liste_quete.Add(ing_optionnels[i]);
+		}
+	}
+	
 
     void afficherListeDebug()
     {
-        for (int i = 0; i < liste_ing.Length; i++)
+		for (int i = 0; i < liste_quete.Count; i++)
         {
-            Debug.Log(liste_ing[i].tag);
+			Debug.Log(liste_quete[i].tag);
         }
+
+		for (int i = 0; i < liste_saladier.Count; i++)
+		{
+			Debug.Log(liste_saladier[i].tag);
+		}
     }
 
     public string texteQuete()
@@ -188,9 +126,9 @@ public class QueteCrepe : MonoBehaviour {
         string quete = "Bonjour que dirais-tu de m'aider à préparer des crêpes?\n";
         quete += "J'ai déjà mis quelques ingrédients dans le saladier!\n";
         quete += "Voici les ingrédients que tu dois ajouter pour finir la pâte :\n";
-        for (int i = 0; i < liste_ing.Length; i++)
+        for (int i = 0; i < liste_quete.Count; i++)
         {
-            quete += "- " + nomIngredient(liste_ing[i].tag) + "\n";
+			quete += "- " + nomIngredient(liste_quete[i].tag) + "\n";
         }
 
             return quete;

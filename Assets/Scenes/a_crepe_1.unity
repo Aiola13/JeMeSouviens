@@ -149,6 +149,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d4864b2ff7efd0f4db1c1fff7210f4d9, type: 2}
+      propertyPath: m_Name
+      value: ing_bleuet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d4864b2ff7efd0f4db1c1fff7210f4d9, type: 2}
   m_RootGameObject: {fileID: 1908213696}
@@ -1442,9 +1446,9 @@ MonoBehaviour:
   ing_pomme: {fileID: 952903844}
   ing_rhum: {fileID: 716262917}
   ing_fleur_oranger: {fileID: 366336469}
-  ing_abricot: {fileID: 1908213696}
-  liste_ing: []
-  ingNoemie: []
+  ing_bleuet: {fileID: 1908213696}
+  liste_quete: []
+  liste_saladier: []
 --- !u!114 &1188117295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2222,7 +2226,7 @@ GameObject:
   - 23: {fileID: 1908213697}
   - 114: {fileID: 1908213701}
   m_Layer: 8
-  m_Name: ing_abricot
+  m_Name: ing_bleuet
   m_TagString: ing_abricot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
