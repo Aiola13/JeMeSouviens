@@ -52,9 +52,10 @@ public class TouchLogicDrag : MonoBehaviour {
 	public void OnDragBegan() {
 		Touch touch = Input.touches[0]; // we allow the drag only with the first finger touched
 		Vector3 pos = touch.position;
-		
+
 		Ray ray = Camera.main.ScreenPointToRay(pos);
 		RaycastHit hit;
+
 		if(Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == draggable)) {
 			ObjectToDrag = hit.transform;
 			distCam = hit.transform.position.z - Camera.main.transform.position.z;

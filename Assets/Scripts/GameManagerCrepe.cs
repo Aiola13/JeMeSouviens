@@ -114,11 +114,6 @@ public class GameManagerCrepe : MonoBehaviour
         {
             GUI.BeginGroup(new Rect(Screen.width - (Screen.width/4), 0, Screen.width/4, Screen.height));
 
-            if (GUI.Button(new Rect(0, 0, 100, 100), "Demander de l'aide à Skypi!"))
-            {
-                curGameState = GameState.aideDeSkypi;
-                prevGameState = GameState.preparationPate;
-            }
 
             if (GUI.Button(new Rect(0, (Screen.height / 3), 100, 100), "Quels sont les ingrédients dans le saladier?"))
             {

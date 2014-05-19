@@ -100,6 +100,7 @@ public class QueteCrepe : MonoBehaviour {
 		for (int i = 0; i<ing_obligatoire.Count; i++){
 			if (i < 2 ){
 				liste_saladier.Add(ing_obligatoire[i]);
+                Destroy(ing_obligatoire[i]);
 			}
 			else {
 				liste_quete.Add(ing_obligatoire[i]);
@@ -143,8 +144,8 @@ public class QueteCrepe : MonoBehaviour {
 
         switch (tag)
         {
-            case "ing_abricot":
-                nomIng = "un abricot";
+            case "ing_bleuet":
+                nomIng = "des bleuets";
                 break;
             case "ing_sucre":
                 nomIng = "du sucre";
