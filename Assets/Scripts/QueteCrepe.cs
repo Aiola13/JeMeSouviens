@@ -31,6 +31,8 @@ public class QueteCrepe : MonoBehaviour {
 
 		intitalisationListe();
 
+        selectionIngOptionnels();
+
 		Shuffle(ing_obligatoire);
         
 		Shuffle(ing_optionnels);
@@ -69,10 +71,11 @@ public class QueteCrepe : MonoBehaviour {
 	// Permet de séléctionner les ingrédients optionnels à retirer
 	void selectionIngOptionnels(){
 
-		int nbAEnlever = Random.Range(1, 4);
+        int nbAEnlever = Random.Range(3, ing_optionnels.Count);
 
-		for (int i = 0; i<nbAEnlever; i++){
-			int k = Random.Range(0 ,ing_optionnels.Count + 1);
+        for (int i = 0; i < nbAEnlever; i++)
+        {
+			int k = Random.Range(0 ,ing_optionnels.Count);
 			ing_optionnels.RemoveAt(k);
 		}
 	}

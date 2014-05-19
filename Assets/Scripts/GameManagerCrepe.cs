@@ -119,9 +119,21 @@ public class GameManagerCrepe : MonoBehaviour
                 prevGameState = GameState.preparationPate;
             }
 
-            if (GUI.Button(new Rect(0, (Screen.height / 3), 100, 100), "Quels sont les ingrédients à ajouter déjà?"))
+            if (GUI.Button(new Rect(0, (Screen.height / 3), 100, 100), "Quels sont les ingrédients dans le saladier?"))
             {
+                GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
 
+                GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
+
+                GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), contenuDuSaladier());
+
+                if (GUI.Button(new Rect(5 * (Screen.width / 6), 50, 100, 100), "D'accord!"))
+                {
+                    curGameState = prevGameState;
+                    prevGameState = GameState.aideDeSkypi;
+                }
+
+                GUI.EndGroup();
 
             }
 
@@ -150,10 +162,8 @@ public class GameManagerCrepe : MonoBehaviour
 
             GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), "Pour mettre des ingrédients dans le saladier, il te suffit de les faire glisser dedans!");
 
-            // Bouton de validation 
             if (GUI.Button(new Rect(5 * (Screen.width / 6), 50, 100, 100), "Merci Skypi!"))
             {
-                // Passage à létat suivant
                 curGameState = prevGameState;
                 prevGameState = GameState.aideDeSkypi;
             }
