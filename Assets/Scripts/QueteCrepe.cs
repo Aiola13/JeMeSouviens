@@ -39,7 +39,7 @@ public class QueteCrepe : MonoBehaviour {
         
 		repartition();
         
-		afficherListeDebug();
+		//afficherListeDebug();
 	}
 	
 	// Update is called once per frame
