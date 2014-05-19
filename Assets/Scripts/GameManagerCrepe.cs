@@ -69,6 +69,7 @@ public class GameManagerCrepe : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 	
+
 	}
 
     #region GUI
@@ -160,7 +161,22 @@ public class GameManagerCrepe : MonoBehaviour
 
             GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(skypi));
 
-            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), "Pour mettre des ingrédients dans le saladier, il te suffit de les faire glisser dedans!");
+            string aide = "";
+
+            switch (prevGameState)
+            {
+                case GameState.preparationPate: aide = "Pour mettre des ingrédients dans le saladier, il te suffit de les faire glisser dedans! \nVoici ce qu'il manque :\n";
+                    aide += ingredientManquants();
+                    break;
+                case GameState.etalerLeBeurre: aide = "Étale le beurre en utilisant ton doigt sur la poële";
+                    break;
+                case GameState.cuissonCrepe: aide = "Étale la pâte à crêpe en penchant la tablette !";
+                    break;
+                default: aide = "Je ne sais pas quoi te dire";
+                    break;
+            }
+
+            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), aide);
 
             if (GUI.Button(new Rect(5 * (Screen.width / 6), 50, 100, 100), "Merci Skypi!"))
             {
@@ -173,38 +189,24 @@ public class GameManagerCrepe : MonoBehaviour
     }
 
     #endregion
-	/*
+
+    #region verifEtatDuSaladier
+
     bool queteAccomplie()
     {
         bool queteAccomplie = true;
-        bool dansLeSaladier = false;
 
-        if (listeIngQuete.Length + 2 != listeIngSaladier.Length){
-            queteAccomplie = false;
-        }
-        else{
-
-            for (int i = 2; i < listeIngSaladier.Length; i++)
+        for (int i = 0; i < listeIngQuete.Count; i++)
+        {
+            if (!listeIngSaladier.Contains(listeIngQuete[i]))
             {
-                int compteur = 0;
-                while (!dansLeSaladier)
-                {
-                    if (listeIngSaladier[i].tag == listeIngQuete[compteur].tag && compteur < listeIngSaladier.Length)
-                    {
-                        dansLeSaladier = true;
-                    }
-                    else if (compteur >= listeIngSaladier.Length)
-                    {
-                        queteAccomplie = false;
-                    }
-                    compteur++;
-                }
+                queteAccomplie = false;
             }
         }
 
         return queteAccomplie;
     }
-	*/
+
     string contenuDuSaladier()
     {
         string contenuDuSaladier = "Les ingrédients actuellement dans le saladier sont : \n";
@@ -216,5 +218,27 @@ public class GameManagerCrepe : MonoBehaviour
 
         return contenuDuSaladier;
     }
+
+    string ingredientManquants()
+    {
+        string ingManquant = "";
+
+        for (int i = 0; i < listeIngQuete.Count; i++)
+        {
+            if (!listeIngSaladier.Contains(listeIngQuete[i]))
+            {
+                ingManquant += "- " + queteCrepe.nomIngredient(listeIngQuete[i].tag) + "\n";
+            }
+        }
+        return ingManquant;
+    }
+
+    void ajoutIngredientSaladier()
+    {
+
+
+    }
+
+    #endregion
 
 }
