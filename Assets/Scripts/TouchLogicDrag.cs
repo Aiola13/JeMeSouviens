@@ -4,15 +4,13 @@ using System.Collections;
 public class TouchLogicDrag : MonoBehaviour {
 	
 	private GUIText guiInfo;
-	
-	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
-	
+
 	public float distCam;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
 	//private Vector3 startPos;
 	private int draggable = 8;					// number of the draggable layer
-	
+
 	private Vector4 dropBox;					// x, y, w, h  -- x,y respects GUI coordinates (origin top left and y grows down)
 	
 
@@ -27,7 +25,7 @@ public class TouchLogicDrag : MonoBehaviour {
 	}
 
 
-	public void Update () {
+	void Update () {
 		if (Input.touches.Length > 0) {
 			#region Dragging
 			if (dragging && Input.touchCount > 1) {
@@ -49,7 +47,7 @@ public class TouchLogicDrag : MonoBehaviour {
 	}
 	
 	#region methods for Dragging
-	public void OnDragBegan() {
+	void OnDragBegan() {
 		Touch touch = Input.touches[0]; // we allow the drag only with the first finger touched
 		Vector3 pos = touch.position;
 		
@@ -57,21 +55,25 @@ public class TouchLogicDrag : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == draggable)) {
 			ObjectToDrag = hit.transform;
+			GameObject bol = GameObject.FindGameObjectWithTag("Saladier");
+			float bolZ = bol.transform.position.z;
+			ObjectToDrag.position = new Vector3(ObjectToDrag.position.x, ObjectToDrag.position.y, bolZ);
 			distCam = hit.transform.position.z - Camera.main.transform.position.z;
 			//startPos = new Vector3(pos.x, pos.y, distCam);
 			//startPos = Camera.main.ScreenToWorldPoint(startPos);
 			dragging = true;
 		}
 	}
-	public void OnDragMoved() {
+	void OnDragMoved() {
 		Vector3 dragPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, distCam);
 		dragPos = Camera.main.ScreenToWorldPoint(dragPos);
 		ObjectToDrag.position = dragPos;
 	}
-	public void OnDragEnded() {
+	void OnDragEnded() {
 		dragging = false;
 		if (CheckPos()) {
 			// the object was dragged to the right place
+			print (ObjectToDrag.name + " a coorectement ete ajoute");
 		}
 		else {
 			// the object was dragged to the wrong place, we reset its position
@@ -80,12 +82,12 @@ public class TouchLogicDrag : MonoBehaviour {
 		ObjectToDrag = null;
 	}
 	
-	
-	public void ResetPosition() {
+
+	private void ResetPosition() {
 		ObjectToDrag.position = ObjectToDrag.GetComponent<IngredientOriginalPos>().originalPos;
 	}
 	
-	public bool CheckPos() {
+	private bool CheckPos() {
 		Vector2 fingerPos = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
 		fingerPos.y = Screen.height - fingerPos.y; // we convert the finger coordinates into gui coordinates
 		
