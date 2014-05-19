@@ -197,6 +197,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9f7409658ab3854cb3c825473356ee0, type: 2}
+    - target: {fileID: 100000, guid: 7536ad54f59b13646b28a945dcd7674a, type: 2}
+      propertyPath: m_TagString
+      value: Saladier
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7536ad54f59b13646b28a945dcd7674a, type: 2}
   m_RootGameObject: {fileID: 1250522198}
@@ -710,6 +714,7 @@ GameObject:
   - 33: {fileID: 780062601}
   - 23: {fileID: 780062599}
   - 95: {fileID: 780062600}
+  - 114: {fileID: 780062603}
   m_Layer: 0
   m_Name: ing_oeuf
   m_TagString: Untagged
@@ -773,6 +778,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 819083494}
+--- !u!114 &780062603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 780062598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb86b05d294f064c91089c2ac937e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &793957828
 Prefab:
   m_ObjectHideFlags: 0
@@ -1520,7 +1537,7 @@ GameObject:
   - 95: {fileID: 1250522199}
   m_Layer: 0
   m_Name: Saladier
-  m_TagString: Untagged
+  m_TagString: Saladier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
