@@ -3,13 +3,13 @@ using System.Collections;
 
 public class TouchLogic : MonoBehaviour {
 
-	private GUIText guiInfo;
+	//private GUIText guiTextPos;
 	
 	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
 
 	void Start () {
-		guiInfo = GameObject.Find("Info_pos").guiText;
-		guiInfo.text = "Screen width: " + Screen.width + "  Screen height: " + Screen.height;
+		//guiTextPos = GameObject.Find("Info_pos").guiText;
+		//guiTextPos.text = "Screen width: " + Screen.width + "  Screen height: " + Screen.height;
 	}
 	
 	public virtual void Update () {
@@ -25,7 +25,7 @@ public class TouchLogic : MonoBehaviour {
 
 				lastTouch = i;
 
-				/*
+				/* draw a ray from screen to scene
 				ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
 				Debug.DrawRay (Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), new Vector3(0,0,100), Color.green);
 
@@ -35,13 +35,15 @@ public class TouchLogic : MonoBehaviour {
 				}
 				*/
 
-				if (guiInfo) {
+				/*
+				if (guiTextPos) {
 					Vector3 curPos = Input.GetTouch(i).position;
 					Vector3 realCurPos = Camera.main.ScreenToWorldPoint(new Vector3(curPos.x, curPos.y, 10));
-					guiInfo.text =  "ScreenPos   x: " + curPos.x + " y: " + curPos.y + " z: " + curPos.z + 
+					guiTextPos.text =  "ScreenPos   x: " + curPos.x + " y: " + curPos.y + " z: " + curPos.z + 
 									"\nlastTouch: " + lastTouch + " phase: " + Input.GetTouch(i).phase + 
 									"\nWorldPos   x: " + realCurPos.x + " y: " + realCurPos.y + " z: " + realCurPos.z;
 				}
+				*/
 
 				#region Touches on guiTextures
 				if(this.guiTexture != null && this.guiTexture.HitTest(Input.GetTouch(i).position)) {
