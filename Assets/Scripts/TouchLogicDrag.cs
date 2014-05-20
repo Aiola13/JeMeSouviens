@@ -7,8 +7,6 @@ public class TouchLogicDrag : MonoBehaviour {
 
 	
 	private GUIText guiInfo;
-	
-	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
 
     public AudioClip sonDragOK;
 	public float distCam;
