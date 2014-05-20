@@ -1985,9 +1985,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be82f6842bbe405479862ee2dd2195d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  queteCrepe: {fileID: 0}
-  noemie: {fileID: 2800000, guid: 3b4d5c4d514c032459f0845c40671979, type: 3}
+  queteCrepe: {fileID: 1188117294}
+  noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
   skypi: {fileID: 2800000, guid: c3fd0349d53619f47be2b965bb02fa77, type: 3}
+  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   curGameState: 0
   prevGameState: 0
   musiqueAmbiance: {fileID: 0}
