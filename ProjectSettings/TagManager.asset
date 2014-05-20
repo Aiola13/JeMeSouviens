@@ -5,7 +5,7 @@ TagManager:
   tags:
   - 
   - 
-  - Draggable
+  - Saladier
   - ing_sucre
   - ing_farine
   - ing_lait
@@ -17,9 +17,13 @@ TagManager:
   - ing_abricot
   - ing_oeuf
   - ing_sel
+<<<<<<< HEAD
   - ing_bleuet
   - Saladier
   - Skypi
+=======
+  - 
+>>>>>>> 01c4b667f2763dc4f32da44f0b347848ba877e19
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
