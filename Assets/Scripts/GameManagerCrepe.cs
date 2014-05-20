@@ -28,7 +28,6 @@ public class GameManagerCrepe : MonoBehaviour
 	static private int brd = Screen.height/100;
 
 	List<GameObject> listeIngQuete;
-
 	List<GameObject> listeIngSaladier;
 
     #endregion
@@ -67,6 +66,7 @@ public class GameManagerCrepe : MonoBehaviour
         listeIngQuete = queteCrepe.liste_quete;
 
 		listeIngSaladier = queteCrepe.liste_saladier;
+
 	}
 	
 	// Update is called once per frame
@@ -94,11 +94,13 @@ public class GameManagerCrepe : MonoBehaviour
 
 			GUI.DrawTexture(new Rect(brd, Screen.height*2/3, Screen.width-brd*2, Screen.height/3 -brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
 			GUI.DrawTexture(new Rect(brd*2, Screen.height*2/3+brd, Screen.width/5, Screen.height/3 -brd*3), noemie, ScaleMode.ScaleToFit, true, 0);
-			GUI.Box(new Rect(Screen.width*1/4 , Screen.height*2/3+brd*2, Screen.width-20, Screen.height/3 -10), queteCrepe.texteQuete(), style);
+			GUI.Box(new Rect(Screen.width*1/4 , Screen.height*7/10+brd*2, Screen.width-20, Screen.height/5 -10), queteCrepe.texteQuete(), style);
 
 			//style.alignment = TextAnchor.MiddleCenter;
 			style.fontSize = Screen.height/28;
 			GUI.Box(new Rect(Screen.width*2/3 , Screen.height*2/3+brd*2, Screen.width/10, Screen.height/3 -10), "TOUCHER POUR CONTINUER !", style);
+
+
 
             // Bouton de validation 
             if (Input.touches.Length == 1)
