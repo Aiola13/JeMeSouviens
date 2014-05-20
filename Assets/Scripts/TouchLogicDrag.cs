@@ -6,7 +6,8 @@ public class TouchLogicDrag : MonoBehaviour {
 	private GUIText guiInfo;
 	
 	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
-	
+
+    public AudioClip sonDragOK;
 	public float distCam;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
@@ -72,6 +73,7 @@ public class TouchLogicDrag : MonoBehaviour {
 		dragging = false;
 		if (CheckPos()) {
 			// the object was dragged to the right place
+            audio.PlayOneShot(sonDragOK);
 		}
 		else {
 			// the object was dragged to the wrong place, we reset its position

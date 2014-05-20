@@ -40,6 +40,10 @@ public class QueteCrepe : MonoBehaviour {
 		repartition();
         
 		afficherListeDebug();
+
+        // Musique d'ambiance ici ?
+
+
 	}
 	
 	// Update is called once per frame
