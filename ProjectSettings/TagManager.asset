@@ -9,12 +9,14 @@ TagManager:
   - ing_sirop_erable
   - ing_vanille
   - ing_oeuf
-  - ing_abricot
+  - ing_bleuet
   - ing_lait
   - ing_farine
   - ing_sucre
   - ing_sel
   - ing_fleur_oranger
+  - Skypi
+  - Saladier
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

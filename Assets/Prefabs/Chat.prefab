@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 95: {fileID: 9500000}
+  - 65: {fileID: 6500000}
   m_Layer: 0
   m_Name: Chat
   m_TagString: Untagged
@@ -73,9 +74,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: .258819133, y: -1.1313344e-08, z: -.965925813, w: 4.22219593e-08}
+  m_LocalPosition: {x: -1.40115476, y: 1.07177031, z: -1.01412749}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children:
   - {fileID: 400002}
   - {fileID: 400004}
@@ -99,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
-  m_LocalPosition: {x: .0928942189, y: .709558606, z: 1.34341776}
+  m_LocalPosition: {x: .141121536, y: -.447019666, z: -1.18959868}
   m_LocalScale: {x: .3817738, y: .3817738, z: .3817738}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -110,7 +111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
-  m_LocalPosition: {x: -.101496436, y: .709558606, z: 1.34341776}
+  m_LocalPosition: {x: -.0881306827, y: -.459880531, z: -1.20632446}
   m_LocalScale: {x: .3817738, y: .3817738, z: .3817738}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -198,6 +199,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_Mesh: {fileID: 4300004, guid: ea595e2dbfe38c84e93e842837951de2, type: 3}
+--- !u!65 &6500000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .920000017, y: 1.63999999, z: 2.3900001}
+  m_Center: {x: 0, y: 0, z: -.25}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 2
