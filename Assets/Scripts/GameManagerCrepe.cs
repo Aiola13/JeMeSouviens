@@ -27,12 +27,9 @@ public class GameManagerCrepe : MonoBehaviour
 
 	static private int brd = Screen.height/100;
 
-<<<<<<< HEAD
-	List<string> listeIngSaladier;
-=======
 	List<GameObject> listeIngQuete;
-	List<GameObject> listeIngSaladier;
->>>>>>> 6fda35f639192ef6c87f21b37f9c4b13ec672eeb
+	List<string> listeIngSaladier;
+
     public AudioClip musiqueAmbiance;
     
 

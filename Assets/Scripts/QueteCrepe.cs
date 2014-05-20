@@ -51,20 +51,7 @@ public class QueteCrepe : MonoBehaviour {
 
 	void intitalisationListe(){
 
-        //Recuperation des gameobjects
 
-        ing_sucre = GameObject.Find("Ingredients/ing_sucre");
-        ing_farine = GameObject.Find("Ingredients/ing_farine");
-        ing_lait = GameObject.Find("Ingredients/ing_lait");
-        ing_oeuf = GameObject.Find("Ingredients/ing_oeuf");
-        ing_sel = GameObject.Find("Ingredients/ing_sel");
-
-        ing_vanille = GameObject.Find("Ingredients/ing_vanille");
-        ing_sirop_erable = GameObject.Find("Ingredients/ing_sirop_erable");
-        ing_pomme = GameObject.Find("Ingredients/ing_pomme");
-        ing_rhum = GameObject.Find("Ingredients/ing_rhum");
-        ing_fleur_oranger = GameObject.Find("Ingredients/ing_fleur_oranger");
-        ing_bleuet = GameObject.Find("Ingredients/ing_bleuet");
 
 		// Initialisation de la liste d'ingrédients aléatoire
 		ing_obligatoire = new List<GameObject>();

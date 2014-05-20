@@ -1946,17 +1946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a30117c8761fd74b936261d3d851c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ing_sucre: {fileID: 1365027464}
-  ing_farine: {fileID: 685130971}
-  ing_lait: {fileID: 834711405}
-  ing_oeuf: {fileID: 935825675}
-  ing_sel: {fileID: 730059742}
-  ing_vanille: {fileID: 1140873800}
-  ing_sirop_erable: {fileID: 280438195}
-  ing_pomme: {fileID: 53393659}
-  ing_rhum: {fileID: 716262917}
-  ing_fleur_oranger: {fileID: 366336469}
-  ing_bleuet: {fileID: 1908213696}
   liste_quete: []
   liste_saladier: []
 --- !u!114 &1188117295
@@ -1985,13 +1974,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be82f6842bbe405479862ee2dd2195d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  queteCrepe: {fileID: 1188117294}
   noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
-  skypi: {fileID: 2800000, guid: c3fd0349d53619f47be2b965bb02fa77, type: 3}
+  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   curGameState: 0
   prevGameState: 0
-  musiqueAmbiance: {fileID: 0}
+  musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
@@ -2412,7 +2400,7 @@ GameObject:
   - 65: {fileID: 1639554849}
   m_Layer: 0
   m_Name: Chat
-  m_TagString: Untagged
+  m_TagString: Skypi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
