@@ -5,22 +5,22 @@ using System.Collections.Generic;
 public class QueteCrepe : MonoBehaviour {
 
 	// Ingrédients obligatoires
-    public GameObject ing_sucre;
-    public GameObject ing_farine;
-    public GameObject ing_lait;
-    public GameObject ing_oeuf;
-    public GameObject ing_sel;
+    private GameObject ing_sucre;
+    private GameObject ing_farine;
+    private GameObject ing_lait;
+    private GameObject ing_oeuf;
+    private GameObject ing_sel;
 
 	// Ingrédients optionnels
-    public GameObject ing_vanille;
-    public GameObject ing_sirop_erable;
-    public GameObject ing_pomme;
-    public GameObject ing_rhum;
-    public GameObject ing_fleur_oranger;
-    public GameObject ing_bleuet;
+    private GameObject ing_vanille;
+    private GameObject ing_sirop_erable;
+    private GameObject ing_pomme;
+    private GameObject ing_rhum;
+    private GameObject ing_fleur_oranger;
+    private GameObject ing_bleuet;
 
 	public List<GameObject> liste_quete;
-	public List<GameObject> liste_saladier;
+	public List<string> liste_saladier;
 
 	List<GameObject> ing_obligatoire;
 	List<GameObject> ing_optionnels;
@@ -40,8 +40,6 @@ public class QueteCrepe : MonoBehaviour {
 		repartition();
         
 		//afficherListeDebug();
-		afficherListeDebug();
-
 
 	}
 	
@@ -52,6 +50,21 @@ public class QueteCrepe : MonoBehaviour {
 	}
 
 	void intitalisationListe(){
+
+        //Recuperation des gameobjects
+
+        ing_sucre = GameObject.Find("Ingredients/ing_sucre");
+        ing_farine = GameObject.Find("Ingredients/ing_farine");
+        ing_lait = GameObject.Find("Ingredients/ing_lait");
+        ing_oeuf = GameObject.Find("Ingredients/ing_oeuf");
+        ing_sel = GameObject.Find("Ingredients/ing_sel");
+
+        ing_vanille = GameObject.Find("Ingredients/ing_vanille");
+        ing_sirop_erable = GameObject.Find("Ingredients/ing_sirop_erable");
+        ing_pomme = GameObject.Find("Ingredients/ing_pomme");
+        ing_rhum = GameObject.Find("Ingredients/ing_rhum");
+        ing_fleur_oranger = GameObject.Find("Ingredients/ing_fleur_oranger");
+        ing_bleuet = GameObject.Find("Ingredients/ing_bleuet");
 
 		// Initialisation de la liste d'ingrédients aléatoire
 		ing_obligatoire = new List<GameObject>();
@@ -102,7 +115,7 @@ public class QueteCrepe : MonoBehaviour {
 	void repartition(){
 		for (int i = 0; i<ing_obligatoire.Count; i++){
 			if (i < 2 ){
-				liste_saladier.Add(ing_obligatoire[i]);
+				liste_saladier.Add(ing_obligatoire[i].tag);
                 Destroy(ing_obligatoire[i]);
 			}
 			else {
@@ -124,7 +137,7 @@ public class QueteCrepe : MonoBehaviour {
 
 		for (int i = 0; i < liste_saladier.Count; i++)
 		{
-			Debug.Log(liste_saladier[i].tag);
+			Debug.Log(liste_saladier[i]);
 		}
     }
 

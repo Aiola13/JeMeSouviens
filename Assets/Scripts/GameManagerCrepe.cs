@@ -16,7 +16,7 @@ public class GameManagerCrepe : MonoBehaviour
         aideDeSkypi
     }
 
-    public QueteCrepe queteCrepe;
+    private QueteCrepe queteCrepe;
 
     public Texture noemie;
     public Texture skypi;
@@ -26,7 +26,7 @@ public class GameManagerCrepe : MonoBehaviour
 
 	List<GameObject> listeIngQuete;
 
-	List<GameObject> listeIngSaladier;
+	List<string> listeIngSaladier;
     public AudioClip musiqueAmbiance;
     
 
@@ -61,9 +61,7 @@ public class GameManagerCrepe : MonoBehaviour
 
         curGameState = GameState.queteNoemie;
 
-        queteCrepe = GetComponent<QueteCrepe>();
-
-        listeIngQuete = queteCrepe.liste_quete;
+        queteCrepe = new QueteCrepe();
 
 		listeIngSaladier = queteCrepe.liste_saladier;
 
@@ -124,30 +122,24 @@ public class GameManagerCrepe : MonoBehaviour
         {
             GUI.BeginGroup(new Rect(Screen.width - (Screen.width/4), 0, Screen.width/4, Screen.height));
 
-
-            if (GUI.Button(new Rect(0, (Screen.height / 3), 100, 100), "Quels sont les ingrédients dans le saladier?"))
+            if (GUI.Button(new Rect(0, 0, 150, 100), "La pâte est prête!"))
             {
-                GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
-
-                GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
-
-                GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), contenuDuSaladier());
-
-                if (GUI.Button(new Rect(5 * (Screen.width / 6), 50, 100, 100), "D'accord!"))
+                if (queteAccomplie())
                 {
-                    curGameState = prevGameState;
-                    prevGameState = GameState.aideDeSkypi;
+                    Debug.Log("Quete accomplie");
+                    curGameState = GameState.etalerLeBeurre;
+                    prevGameState = GameState.preparationPate;
+                }
+                else
+                {
+                    Debug.Log("Quete echouee");
+                    curGameState = GameState.aideDeSkypi;
+                    prevGameState = GameState.preparationPate;
                 }
 
-                GUI.EndGroup();
-
             }
 
-            if (GUI.Button(new Rect(0, 2 * (Screen.height / 3), 100, 100), "La pâte est prête!"))
-            {
-                curGameState = GameState.etalerLeBeurre;
-                prevGameState = GameState.preparationPate;
-            }
+            GUI.Box(new Rect(0, Screen.height / 2, Screen.width / 4, Screen.height / 3), contenuDuSaladier());
 
             GUI.EndGroup();
         }
@@ -203,7 +195,7 @@ public class GameManagerCrepe : MonoBehaviour
 
         for (int i = 0; i < listeIngQuete.Count; i++)
         {
-            if (!listeIngSaladier.Contains(listeIngQuete[i]))
+            if (!listeIngSaladier.Contains(listeIngQuete[i].tag))
             {
                 queteAccomplie = false;
             }
@@ -218,7 +210,7 @@ public class GameManagerCrepe : MonoBehaviour
 
         for (int i = 0; i < listeIngSaladier.Count; i++)
         {
-            contenuDuSaladier += "- " + queteCrepe.nomIngredient(listeIngSaladier[i].tag) + "\n";
+            contenuDuSaladier += "- " + queteCrepe.nomIngredient(listeIngSaladier[i]) + "\n";
         }
 
         return contenuDuSaladier;
@@ -230,7 +222,7 @@ public class GameManagerCrepe : MonoBehaviour
 
         for (int i = 0; i < listeIngQuete.Count; i++)
         {
-            if (!listeIngSaladier.Contains(listeIngQuete[i]))
+            if (!listeIngSaladier.Contains(listeIngQuete[i].tag))
             {
                 ingManquant += "- " + queteCrepe.nomIngredient(listeIngQuete[i].tag) + "\n";
             }
