@@ -24,7 +24,7 @@ public class QueteCrepe : MonoBehaviour {
 
 	List<GameObject> ing_obligatoire;
 	List<GameObject> ing_optionnels;
-	
+
 
 	// Use this for initialization
 	void Start () {
@@ -145,14 +145,17 @@ public class QueteCrepe : MonoBehaviour {
     {
         string quete = "Bonjour que dirais-tu de m'aider à préparer des crêpes?\n";
         quete += "J'ai déjà mis quelques ingrédients dans le saladier!\n";
-        quete += "Voici les ingrédients que tu dois ajouter pour finir la pâte :\n";
-        for (int i = 0; i < liste_quete.Count; i++)
-        {
-			quete += "- " + nomIngredient(liste_quete[i].tag) + "\n";
-        }
+        quete += "Voici les ingrédients que tu dois ajouter pour finir la pâte :\n\n";
 
-            return quete;
+		for (int i = 0; i < liste_quete.Count; i++)
+		{
+			quete += "- " + nomIngredient(liste_quete[i].tag) + "\t";
+			if(i==1 || i==3) quete += "\n";
+		}
+
+        return quete;
     }
+
 
     public string nomIngredient(string tag)
     {
@@ -160,39 +163,40 @@ public class QueteCrepe : MonoBehaviour {
 
         switch (tag)
         {
-            case "ing_bleuet":
-                nomIng = "des bleuets";
-                break;
-            case "ing_sucre":
-                nomIng = "du sucre";
-                break;
-            case "ing_farine":
-                nomIng = "de la farine";
-                break;
-            case "ing_lait":
-                nomIng = "du lait";
-                break;
-            case "ing_oeuf":
-                nomIng = "des oeufs";
-                break;
-            case "ing_sel":
-                nomIng = "du sel";
-                break;
-            case "ing_vanille":
-                nomIng = "de la vanille";
-                break;
-            case "ing_sirop_erable":
-                nomIng = "du sirop d'érable";
-                break;
-            case "ing_pomme":
-                nomIng = "une pomme";
-                break;
-            case "ing_rhum":
-                nomIng = "du rhum";
-                break;
-            case "ing_fleur_oranger":
-                nomIng = "de la fleur d'oranger";
-                break;
+
+			case "ing_bleuet":
+				nomIng = "des bleuets\t\t\t\t\t";
+				break;
+			case "ing_sucre":
+				nomIng = "du sucre\t\t\t\t\t";
+				break;
+			case "ing_farine":
+				nomIng = "de la farine\t\t\t\t";
+				break;
+			case "ing_lait":
+				nomIng = "du lait\t\t\t\t\t\t\t";
+				break;
+			case "ing_oeuf":
+				nomIng = "des oeufs\t\t\t\t\t";
+				break;
+			case "ing_sel":
+				nomIng = "du sel\t\t\t\t\t\t\t";
+				break;
+			case "ing_vanille":
+				nomIng = "de la vanille\t\t\t\t";
+				break;
+			case "ing_sirop_erable":
+				nomIng = "du sirop d'érable\t\t";
+				break;
+	        case "ing_pomme":
+				nomIng = "une pomme\t\t\t\t";
+				break;
+			case "ing_rhum":
+				nomIng = "du rhum\t\t\t\t\t\t";
+				break;
+			case "ing_fleur_oranger":
+				nomIng = "de la fleur d'oranger\t";
+				break;
 
         }
 

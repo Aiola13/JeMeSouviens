@@ -31,9 +31,11 @@ public class TouchLogicDrag : MonoBehaviour {
 
 	/*
 	void OnGUI() {
-		GUI.Box(new Rect(dropBox.x, dropBox.y, dropBox.z, dropBox.w), "Allowed Drop");
+		dropBox = new Vector4( Screen.width/3, Screen.height - Screen.height/3, Screen.width/3, Screen.height/3);
+		//GUI.Box(new Rect(dropBox.x, dropBox.y, dropBox.z, dropBox.w), "Allowed Drop");
 	}
 	*/
+
 
 	void Update () {
 		if (Input.touches.Length > 0) {

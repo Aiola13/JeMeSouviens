@@ -18,15 +18,21 @@ public class GameManagerCrepe : MonoBehaviour
 
     private QueteCrepe queteCrepe;
 
-    public Texture noemie;
-    public Texture skypi;
+    public Texture2D noemie;
+    public Texture2D skypi;
+	public Texture2D Tex_dialogue;
 
     public GameState curGameState;
     public GameState prevGameState;
 
-	List<GameObject> listeIngQuete;
+	static private int brd = Screen.height/100;
 
+<<<<<<< HEAD
 	List<string> listeIngSaladier;
+=======
+	List<GameObject> listeIngQuete;
+	List<GameObject> listeIngSaladier;
+>>>>>>> 6fda35f639192ef6c87f21b37f9c4b13ec672eeb
     public AudioClip musiqueAmbiance;
     
 
@@ -64,13 +70,12 @@ public class GameManagerCrepe : MonoBehaviour
         queteCrepe = new QueteCrepe();
 
 		listeIngSaladier = queteCrepe.liste_saladier;
-
+	
         //Musique d'ambiance ici ?
         AudioSource sourceAudio = gameObject.AddComponent<AudioSource>();
         audio.clip = musiqueAmbiance;
         audio.loop = true;
         audio.Play();
-        
         
 	}
 	
@@ -93,16 +98,23 @@ public class GameManagerCrepe : MonoBehaviour
         if (curGameState == GameState.queteNoemie)
         {
 
-            GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height / 3), Screen.width, Screen.height / 3));
+			GUIStyle style = new GUIStyle ();
+			style.fontSize = Screen.height/36;
+			style.alignment = TextAnchor.MiddleLeft;
+			style.font = (Font)Resources.Load("Roboto-Regular");
 
-            // Affichage de la photo
-            GUI.Box(new Rect(0, 0, Screen.width / 4, Screen.height / 3), new GUIContent(noemie));
+			GUI.DrawTexture(new Rect(brd, Screen.height*2/3, Screen.width-brd*2, Screen.height/3 -brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+			GUI.DrawTexture(new Rect(brd*2, Screen.height*2/3+brd, Screen.width/5, Screen.height/3 -brd*3), noemie, ScaleMode.ScaleToFit, true, 0);
+			GUI.Box(new Rect(Screen.width*1/4 , Screen.height*7/10+brd*2, Screen.width-20, Screen.height/5 -10), queteCrepe.texteQuete(), style);
 
-            // Affichage de la quête
-            GUI.Box(new Rect(Screen.width / 4, 0, Screen.width - 2 * (Screen.width / 4), Screen.height / 3), queteCrepe.texteQuete());
+			//style.alignment = TextAnchor.MiddleCenter;
+			style.fontSize = Screen.height/28;
+			GUI.Box(new Rect(Screen.width*2/3 , Screen.height*2/3+brd*2, Screen.width/10, Screen.height/3 -10), "TOUCHER POUR CONTINUER !", style);
+
+
 
             // Bouton de validation 
-            if (GUI.Button(new Rect(5 * (Screen.width / 6), 50, 100, 100), "J'ai compris!"))
+            if (Input.touches.Length == 1)
             {
                 // interpolation pour aller plus près du plan de travail
                 float temps = 1000.0f;
@@ -113,8 +125,6 @@ public class GameManagerCrepe : MonoBehaviour
                 curGameState = GameState.preparationPate;
                 prevGameState = GameState.queteNoemie; 
             }
-
-            GUI.EndGroup();
 
         }
 
