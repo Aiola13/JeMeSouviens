@@ -4,26 +4,17 @@
 TagManager:
   tags:
   - 
-  - 
-  - Saladier
-  - ing_sucre
-  - ing_farine
-  - ing_lait
-  - ing_vanille
-  - ing_sirop_erable
   - ing_pomme
   - ing_rhum
-  - ing_fleur_oranger
-  - ing_abricot
+  - ing_sirop_erable
+  - ing_vanille
   - ing_oeuf
+  - ing_abricot
+  - ing_lait
+  - ing_farine
+  - ing_sucre
   - ing_sel
-<<<<<<< HEAD
-  - ing_bleuet
-  - Saladier
-  - Skypi
-=======
-  - 
->>>>>>> 01c4b667f2763dc4f32da44f0b347848ba877e19
+  - ing_fleur_oranger
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -33,7 +24,7 @@ TagManager:
   Builtin Layer 5: 
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: Draggable
+  User Layer 8: 
   User Layer 9: 
   User Layer 10: 
   User Layer 11: 

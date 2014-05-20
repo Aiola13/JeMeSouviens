@@ -27,6 +27,8 @@ public class GameManagerCrepe : MonoBehaviour
 	List<GameObject> listeIngQuete;
 
 	List<GameObject> listeIngSaladier;
+    public AudioClip musiqueAmbiance;
+    
 
     #endregion
 
@@ -64,6 +66,14 @@ public class GameManagerCrepe : MonoBehaviour
         listeIngQuete = queteCrepe.liste_quete;
 
 		listeIngSaladier = queteCrepe.liste_saladier;
+
+        //Musique d'ambiance ici ?
+        AudioSource sourceAudio = gameObject.AddComponent<AudioSource>();
+        audio.clip = musiqueAmbiance;
+        audio.loop = true;
+        audio.Play();
+        
+        
 	}
 	
 	// Update is called once per frame

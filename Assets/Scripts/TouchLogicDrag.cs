@@ -2,9 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class TouchLogicDrag : MonoBehaviour {
+
+	//private GUIText guiTextDrop;
+
 	
 	private GUIText guiInfo;
+	
+	public static int lastTouch = 0;			// so other scripts can know what was the last touch on screen
 
+    public AudioClip sonDragOK;
 	public float distCam;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
@@ -15,15 +21,19 @@ public class TouchLogicDrag : MonoBehaviour {
 	
 
 	void Start () {
-		//guiInfo = GameObject.Find("Info_drop").guiText;
-		//guiInfo.text = "dropBox x: " + dropBox.x + " y: " + dropBox.y + " w: " + dropBox.z + " h: " + dropBox.w;
+		Vector2 boxPos = new Vector2(Screen.width * 37/100, Screen.height - Screen.height  * 40/100);
+		Vector2 boxSize = new Vector2(Screen.width  * 26/100, Screen.height  * 35/100);
+		dropBox = new Vector4(boxPos.x, boxPos.y, boxSize.x, boxSize.y);
+
+		//guiTextDrop = GameObject.Find("Info_drop").guiText;
+		//guiTextDrop.text = "dropBox x: " + dropBox.x + " y: " + dropBox.y + " w: " + dropBox.z + " h: " + dropBox.w;
 	}
 
+	/*
 	void OnGUI() {
-		dropBox = new Vector4( Screen.width/3, Screen.height - Screen.height/3, Screen.width/3, Screen.height/3);
 		GUI.Box(new Rect(dropBox.x, dropBox.y, dropBox.z, dropBox.w), "Allowed Drop");
 	}
-
+	*/
 
 	void Update () {
 		if (Input.touches.Length > 0) {
@@ -57,8 +67,10 @@ public class TouchLogicDrag : MonoBehaviour {
 		if(Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == draggable)) {
 			ObjectToDrag = hit.transform;
 			GameObject bol = GameObject.FindGameObjectWithTag("Saladier");
-			float bolZ = bol.transform.position.z;
-			ObjectToDrag.position = new Vector3(ObjectToDrag.position.x, ObjectToDrag.position.y, bolZ);
+			if (bol) {
+				float bolZ = bol.transform.position.z;
+				ObjectToDrag.position = new Vector3(ObjectToDrag.position.x, ObjectToDrag.position.y, bolZ);
+			}
 			distCam = hit.transform.position.z - Camera.main.transform.position.z;
 			//startPos = new Vector3(pos.x, pos.y, distCam);
 			//startPos = Camera.main.ScreenToWorldPoint(startPos);
@@ -74,7 +86,10 @@ public class TouchLogicDrag : MonoBehaviour {
 		dragging = false;
 		if (CheckPos()) {
 			// the object was dragged to the right place
-			print (ObjectToDrag.name + " a coorectement ete ajoute");
+			print (ObjectToDrag.name + " a correctement ete ajoute");
+			Destroy(ObjectToDrag.gameObject);
+
+            audio.PlayOneShot(sonDragOK);
 		}
 		else {
 			// the object was dragged to the wrong place, we reset its position
