@@ -594,6 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319c2aa1aa720ca419e004ec1a1b9488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonDragOK: {fileID: 0}
   distCam: 0
   dragging: 0
   ObjectToDrag: {fileID: 0}
@@ -608,6 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04adcd1eef3b1d4ca3b3cc470a17761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 80
 --- !u!1 &1989027613
 GameObject:
   m_ObjectHideFlags: 0

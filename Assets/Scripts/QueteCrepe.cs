@@ -25,33 +25,31 @@ public class QueteCrepe : MonoBehaviour {
 	List<GameObject> ing_obligatoire;
 	List<GameObject> ing_optionnels;
 
-
-	// Use this for initialization
 	void Start () {
+		// Ingrédients obligatoires
+		ing_sucre = GameObject.FindGameObjectWithTag("ing_sucre");
+		ing_farine = GameObject.FindGameObjectWithTag("ing_farine");
+		ing_lait = GameObject.FindGameObjectWithTag("ing_lait");
+		ing_oeuf = GameObject.FindGameObjectWithTag("ing_oeuf");
+		ing_sel = GameObject.FindGameObjectWithTag("ing_sel");
+		
+		// Ingrédients optionnels
+		ing_vanille = GameObject.FindGameObjectWithTag("ing_vanille");
+		ing_sirop_erable = GameObject.FindGameObjectWithTag("ing_sirop_erable");
+		ing_pomme = GameObject.FindGameObjectWithTag("ing_pomme");
+		ing_rhum = GameObject.FindGameObjectWithTag("ing_rhum");
+		ing_fleur_oranger = GameObject.FindGameObjectWithTag("ing_fleur_oranger");
+		ing_bleuet = GameObject.FindGameObjectWithTag("ing_bleuet");
 
-		intitalisationListe();
-
-        selectionIngOptionnels();
-
+		initialisationListe();
+		selectionIngOptionnels();
 		Shuffle(ing_obligatoire);
-        
 		Shuffle(ing_optionnels);
-        
 		repartition();
-        
 		//afficherListeDebug();
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-
 	}
 
-	void intitalisationListe(){
-
-
+	void initialisationListe(){
 
 		// Initialisation de la liste d'ingrédients aléatoire
 		ing_obligatoire = new List<GameObject>();
@@ -97,7 +95,7 @@ public class QueteCrepe : MonoBehaviour {
 		}  
 	}
 
-	// Répartition des ingrédiants obligatoires : Les 2 premiers de la liste sont ceux que Noémie a déja mis dans le saladier
+	// Répartition des ingrédients obligatoires : Les 2 premiers de la liste sont ceux que Noémie a déja mis dans le saladier
 	// Les 3 derniers font partis de la quête
 	void repartition(){
 		for (int i = 0; i<ing_obligatoire.Count; i++){
