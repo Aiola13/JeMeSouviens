@@ -18,18 +18,35 @@ public class TouchLogicSwipe : MonoBehaviour {
 			if(touch.phase == TouchPhase.Ended) { 
 				
 				if((fp.x - lp.x) > 80) { // left swipe
-					print("left");
+					OnSwipeLeft();
 				}
 				else if((fp.x - lp.x) < -80) { // right swipe
-					print("right");
+					OnSwipeRight();
 				}
 				else if((fp.y - lp.y) < -80 ) { // up swipe
-					print("up");
+					OnSwipeUp();
 				}
 				else if((fp.y - lp.y) > 80 ) { // down swipe
-					print("down");
+					OnSwipeDown();
 				}
 			}
 		}
 	}
+
+
+
+
+	private void OnSwipeLeft() {
+		print("left");
+	}
+	private void OnSwipeRight() {
+		print("right");
+	}
+	private void OnSwipeUp() {
+		print("up");
+	}
+	private void OnSwipeDown() {
+		print("down");
+	}
+
 }
