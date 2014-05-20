@@ -147,38 +147,38 @@ public class QueteCrepe : MonoBehaviour {
         switch (tag)
         {
             case "ing_abricot":
-                nomIng = "un abricot       ";
-                break;
-            case "ing_sucre":
-                nomIng = "du sucre         ";
-                break;
-            case "ing_farine":
-                nomIng = "de la farine     ";
-                break;
-            case "ing_lait":
-                nomIng = "du lait          ";
-                break;
-            case "ing_oeuf":
-                nomIng = "des oeufs        ";
-                break;
-            case "ing_sel":
-                nomIng = "du sel           ";
-                break;
-            case "ing_vanille":
-                nomIng = "de la vanille    ";
-                break;
-            case "ing_sirop_erable":
-                nomIng = "du sirop d'érable";
-                break;
-            case "ing_pomme":
-                nomIng = "une pomme        ";
-                break;
-            case "ing_rhum":
-                nomIng = "du rhum          ";
-                break;
-            case "ing_fleur_oranger":
-                nomIng = "de la fleur d'oranger";
-                break;
+				nomIng = "un abricot\t\t\t\t\t";
+				break;
+			case "ing_sucre":
+				nomIng = "du sucre\t\t\t\t\t";
+				break;
+			case "ing_farine":
+				nomIng = "de la farine\t\t\t\t";
+				break;
+			case "ing_lait":
+				nomIng = "du lait\t\t\t\t\t\t\t";
+				break;
+			case "ing_oeuf":
+				nomIng = "des oeufs\t\t\t\t\t";
+				break;
+			case "ing_sel":
+				nomIng = "du sel\t\t\t\t\t\t\t";
+				break;
+			case "ing_vanille":
+				nomIng = "de la vanille\t\t\t\t";
+				break;
+			case "ing_sirop_erable":
+				nomIng = "du sirop d'érable\t\t";
+				break;
+	        case "ing_pomme":
+				nomIng = "une pomme\t\t\t\t";
+				break;
+			case "ing_rhum":
+				nomIng = "du rhum\t\t\t\t\t\t";
+				break;
+			case "ing_fleur_oranger":
+				nomIng = "de la fleur d'oranger\t";
+				break;
 
         }
 
