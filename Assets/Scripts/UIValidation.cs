@@ -14,16 +14,16 @@ public class UIValidation : TouchLogic {
 			GameManagerCrepe.boutonValidation = true;
 		}
 	}
-
-
-
-
+	
+	
+	
+	
 	// Parameters: prev State, curr State
 	void ChangeState (GameManagerCrepe.GameState prev, GameManagerCrepe.GameState current) { 
 		GameManagerCrepe.curGameState = current;
 		GameManagerCrepe.prevGameState = prev;
 	}
-
+	
 	// active et affiche la texture t
 	void AfficherTexture(GUITexture t) {
 		t.guiTexture.enabled = true;
