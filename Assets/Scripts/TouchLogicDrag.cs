@@ -89,7 +89,7 @@ public class TouchLogicDrag : MonoBehaviour {
 
             if (GameManagerCrepe.queteCrepe.ajouterIngredientSaladier(ObjectToDrag.gameObject))
             {
-                print(ObjectToDrag.name + " a correctement ete ajoute");
+                //print(ObjectToDrag.name + " a correctement ete ajoute");
 
                 ObjectToDrag.gameObject.SetActive(false);
 
@@ -97,7 +97,7 @@ public class TouchLogicDrag : MonoBehaviour {
             }
             else
             {
-                print(ObjectToDrag.name + " ne fait pas partie de la quete");
+                //print(ObjectToDrag.name + " ne fait pas partie de la quete");
 
                 ResetPosition();
             }
