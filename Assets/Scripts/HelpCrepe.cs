@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HelpCrepe : TouchLogic {
 
-    public override void OnTouchBegan(){
+    public override void OnTouchBeganAnywhere(){
         Touch touch = Input.touches[0];
         Vector3 pos = touch.position;
 
@@ -12,10 +12,11 @@ public class HelpCrepe : TouchLogic {
         
 
         if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-            Debug.Log("Miaou!!");
+			// Passage à létat suivant
+			GameManagerCrepe.curGameState = GameManagerCrepe.GameState.aideDeSkypi;
+			GameManagerCrepe.prevGameState = GameManagerCrepe.GameState.preparationPate;
 
-            //curGameState = GameManagerCrepe.GameState.aideDeSkypi;
-            //prevGameState = GameManagerCrepe.GameState.preparationPate;
+			print ("INHELPCREPE  cur : " + GameManagerCrepe.curGameState + "    prev :  " + GameManagerCrepe.prevGameState);
         }
     }
 

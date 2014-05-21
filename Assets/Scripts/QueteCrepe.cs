@@ -189,4 +189,19 @@ public class QueteCrepe : MonoBehaviour {
 
     }
 
+
+
+	public bool queteAccomplie() {
+		bool queteAccomplie = true;
+		
+		for (int i = 0; i < liste_quete.Count; i++) {
+			if (!liste_saladier.Contains(liste_quete[i].tag)) {
+				queteAccomplie = false;
+			}
+		}
+		
+		return queteAccomplie;
+	}
+
+
 }
