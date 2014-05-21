@@ -3,8 +3,9 @@ using System.Collections;
 
 public class TouchLogicSwipe : MonoBehaviour {
 
-	private Vector2 fp ;  // first finger position
-	private Vector2 lp;  // last finger position
+	public float dist = 100;	// distance to register a swipe in any given direction
+	private Vector2 fp ; 	 	// first finger position
+	private Vector2 lp;  		// last finger position
 	
 	void Update() {
 		foreach (Touch touch in Input.touches) {
@@ -17,16 +18,16 @@ public class TouchLogicSwipe : MonoBehaviour {
 			}
 			if(touch.phase == TouchPhase.Ended) { 
 				
-				if((fp.x - lp.x) > 80) { // left swipe
+				if((fp.x - lp.x) > dist) { // left swipe
 					OnSwipeLeft();
 				}
-				else if((fp.x - lp.x) < -80) { // right swipe
+				else if((fp.x - lp.x) < -dist) { // right swipe
 					OnSwipeRight();
 				}
-				else if((fp.y - lp.y) < -80 ) { // up swipe
+				else if((fp.y - lp.y) < -dist) { // up swipe
 					OnSwipeUp();
 				}
-				else if((fp.y - lp.y) > 80 ) { // down swipe
+				else if((fp.y - lp.y) > dist) { // down swipe
 					OnSwipeDown();
 				}
 			}

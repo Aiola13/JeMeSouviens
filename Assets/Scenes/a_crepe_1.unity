@@ -702,6 +702,68 @@ Prefab:
   m_RootGameObject: {fileID: 1908213696}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &489207422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 489207424}
+  - 131: {fileID: 489207423}
+  - 114: {fileID: 489207425}
+  m_Layer: 0
+  m_Name: GUI_Fleche
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!131 &489207423
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489207422}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: c9a5af9c99219ea42b716d22c841f7b3, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
+--- !u!4 &489207424
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489207422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .930000007, y: .800000012, z: 0}
+  m_LocalScale: {x: .100000001, y: .150000006, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &489207425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 489207422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf294f0e32ee9a4aa148d5c59a27656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fleche: {fileID: 489207423}
+  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
+  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
 --- !u!1 &685130971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,6 +1929,7 @@ GameObject:
   - 114: {fileID: 1188117294}
   - 114: {fileID: 1188117295}
   - 114: {fileID: 1188117296}
+  - 114: {fileID: 1188117297}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1976,10 +2039,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
-  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
-  curGameState: 0
-  prevGameState: 0
   musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
+--- !u!114 &1188117297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188117288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf294f0e32ee9a4aa148d5c59a27656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fleche: {fileID: 489207423}
+  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
+  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
