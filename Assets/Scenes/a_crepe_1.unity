@@ -757,11 +757,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 489207422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 2396f0ffb61b41740ad9b5ad92095810, type: 3}
-=======
-  m_Script: {fileID: 11500000, guid: e9940558c1eba0840afa9740858c6b30, type: 3}
->>>>>>> transition
   m_Name: 
   m_EditorClassIdentifier: 
   fleche: {fileID: 489207423}
@@ -2042,6 +2038,7 @@ MonoBehaviour:
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
+  miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
 --- !u!114 &1188117297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2055,7 +2052,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fleche: {fileID: 489207423}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
-  miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0

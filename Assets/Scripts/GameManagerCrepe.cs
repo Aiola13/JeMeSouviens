@@ -22,12 +22,12 @@ public class GameManagerCrepe : MonoBehaviour {
 	GUIStyle style = new GUIStyle ();
 	private int brd = Screen.height/100;
 	
-	public static bool aValide = false;
+	public static bool boutonValidation = false;
 	public static GameState curGameState;
 	public static GameState prevGameState;
 
-	List<GameObject> listeIngQuete;
-	List<string> listeIngSaladier;
+	//List<GameObject> listeIngQuete;
+	//List<string> listeIngSaladier;
 
     public AudioClip musiqueAmbiance;
 	#endregion attributs
@@ -60,8 +60,8 @@ public class GameManagerCrepe : MonoBehaviour {
 		//uiManager = GetComponent<UIManager>();
 
 		curGameState = GameState.queteNoemie;
-        listeIngQuete = queteCrepe.liste_quete;
-		listeIngSaladier = queteCrepe.liste_saladier;
+        //listeIngQuete = queteCrepe.liste_quete;
+		//listeIngSaladier = queteCrepe.liste_saladier;
 
         //Musique d'ambiance ici
         AudioSource sourceAudio = gameObject.AddComponent<AudioSource>();
@@ -72,7 +72,7 @@ public class GameManagerCrepe : MonoBehaviour {
 
     #region GUI
     void OnGUI() {
-		print ("INGM cur : " + GameManagerCrepe.curGameState + "    prev :  " + GameManagerCrepe.prevGameState + "  " + aValide);
+		print ("INGM cur : " + GameManagerCrepe.curGameState + "    prev :  " + GameManagerCrepe.prevGameState + "  " + boutonValidation);
 
         if (!noemie || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -87,9 +87,9 @@ public class GameManagerCrepe : MonoBehaviour {
 		// prepaparation de la pate
         else if (curGameState == GameState.preparationPate) {
 			// si on a appuye sur le bouton de validation
-			if (aValide) {
+			if (boutonValidation) {
 				// si la quete est reussie
-				if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+				if (queteCrepe.queteAccomplie()) {
 					AfficherDialogue(noemie, "Tu as parfaitement réussie la recette!");
 				}
 				// si la recette a mal été suivie
