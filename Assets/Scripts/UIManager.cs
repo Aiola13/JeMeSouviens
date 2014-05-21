@@ -12,12 +12,18 @@ public class UIManager : TouchLogic {
 	public Texture2D noemie;
 	public Texture2D skypi;
 
+    public AudioClip miaulementSkypi;
+
 	Ray ray ;
 	RaycastHit hit;
 
 
 	void Start() {
 		NePasAfficherTexture(fleche);
+
+        //AudioSource sourceAudio = gameObject.AddComponent<AudioSource>();
+        //audio.clip = miaulementSkypi;
+
 	}
 
 	public override void OnTouchBegan () {
@@ -49,6 +55,7 @@ public class UIManager : TouchLogic {
 			CameraZoomIn();
 			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 			AfficherTexture(fleche);
+
 		}
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
 			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
@@ -57,6 +64,7 @@ public class UIManager : TouchLogic {
 		
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
 			ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+            //audio.Play();
 		}
 	}
 
@@ -100,6 +108,7 @@ public class UIManager : TouchLogic {
 		t.guiTexture.enabled = true;
 		t.gameObject.SetActive(true);
 	}
+
 
 	// désactive et enleve l'affichage de la texture t
 	public void NePasAfficherTexture(GUITexture t) {

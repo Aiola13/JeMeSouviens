@@ -86,10 +86,22 @@ public class TouchLogicDrag : MonoBehaviour {
 		dragging = false;
 		if (CheckPos()) {
 			// the object was dragged to the right place
-			print (ObjectToDrag.name + " a correctement ete ajoute");
-			Destroy(ObjectToDrag.gameObject);
 
-            audio.PlayOneShot(sonDragOK);
+            if (GameManagerCrepe.queteCrepe.ajouterIngredientSaladier(ObjectToDrag.gameObject))
+            {
+                print(ObjectToDrag.name + " a correctement ete ajoute");
+
+                ObjectToDrag.gameObject.SetActive(false);
+
+                audio.PlayOneShot(sonDragOK);
+            }
+            else
+            {
+                print(ObjectToDrag.name + " ne fait pas partie de la quete");
+
+                ResetPosition();
+            }
+
 		}
 		else {
 			// the object was dragged to the wrong place, we reset its position

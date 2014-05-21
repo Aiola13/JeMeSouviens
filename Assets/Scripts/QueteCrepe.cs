@@ -101,7 +101,7 @@ public class QueteCrepe : MonoBehaviour {
 		for (int i = 0; i<ing_obligatoire.Count; i++){
 			if (i < 2 ){
 				liste_saladier.Add(ing_obligatoire[i].tag);
-                Destroy(ing_obligatoire[i]);
+                ing_obligatoire[i].SetActive(false);
 			}
 			else {
 				liste_quete.Add(ing_obligatoire[i]);
@@ -190,8 +190,6 @@ public class QueteCrepe : MonoBehaviour {
 
     }
 
-
-
 	public bool queteAccomplie() {
 		bool queteAccomplie = true;
 		
@@ -203,6 +201,57 @@ public class QueteCrepe : MonoBehaviour {
 		
 		return queteAccomplie;
 	}
+
+
+    public bool ajouterIngredientSaladier(GameObject ingredient)
+    {
+        bool ingredientValide = false;
+
+        // On vérifie que l ingrédient mis dans le saladier fait partie de la quete
+        for (int i = 0; i < liste_quete.Count; i++)
+        {
+            if (liste_quete.Contains(ingredient))
+            {
+                ingredientValide = true;
+            }
+        }
+        // Si oui on l ajoute a la liste et on le détruit ensuite
+
+        if (ingredientValide)
+        {
+            liste_saladier.Add(ingredient.tag);
+            ingredient.SetActive(false);
+        }
+        return ingredientValide;
+    }
+
+
+    public string contenuDuSaladier()
+    {
+        string contenuDuSaladier = "Actuellement dans le saladier : \n";
+
+        for (int i = 0; i < liste_saladier.Count; i++)
+        {
+            contenuDuSaladier += "- " + nomIngredient(liste_saladier[i]) + "\n";
+        }
+
+        return contenuDuSaladier;
+    }
+
+
+    public string ingredientManquants()
+    {
+        string ingManquant = "";
+
+        for (int i = 0; i < liste_quete.Count; i++)
+        {
+            if (!liste_saladier.Contains(liste_quete[i].tag))
+            {
+                ingManquant += "- " + nomIngredient(liste_quete[i].tag) + "\n";
+            }
+        }
+        return ingManquant;
+    }
 
 
 }
