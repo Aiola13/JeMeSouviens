@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class UIValidation : TouchLogic {
+<<<<<<< HEAD
 
 	public GUITexture fleche;
 
@@ -26,11 +27,34 @@ public class UIValidation : TouchLogic {
 	}
 
 	// prev then current in parameters
+=======
+	
+	public GUITexture fleche;
+	
+	void Start() {
+		NePasAfficherTexture(fleche);
+	}
+	
+	public override void OnTouchEnded () {
+		if (name == "GUI_Fleche") {
+			GameManagerCrepe.boutonValidation = true;
+		}
+	}
+
+
+
+
+	// Parameters: prev State, curr State
+>>>>>>> transition
 	void ChangeState (GameManagerCrepe.GameState prev, GameManagerCrepe.GameState current) { 
 		GameManagerCrepe.curGameState = current;
 		GameManagerCrepe.prevGameState = prev;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> transition
 	// active et affiche la texture t
 	void AfficherTexture(GUITexture t) {
 		t.guiTexture.enabled = true;

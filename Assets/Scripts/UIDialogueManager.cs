@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIManager : TouchLogic {
+public class UIDialogueManager : TouchLogic {
 
 	public GUITexture fleche;
-
-	//public Texture2D noemie;
 	public Texture2D skypi;
+
     public AudioClip miaulementSkypi;
+
+	Vector3 camPreparationPatePos = new Vector3(0, 2, -3);
+	Vector3 camCuissonPos = new Vector3(-2.7f, 2, -3);
 
 	Ray ray ;
 	RaycastHit hit;
 
-	/*
+
 	void Start() {
 		NePasAfficherTexture(fleche);
 
@@ -21,40 +23,32 @@ public class UIManager : TouchLogic {
 
 	}
 
-
-	public override void OnTouchEnded () {
-
-		// on check si la recette est correcte ou pas a l'appui du bouton de validation
-		if (name == "GUI_Fleche") {
-			// si la quete est reussie
-			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
-				ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLeBeurre);
-			}
-			// si la recette a mal été suivie
-			else {
-
-			}
-			GameManagerCrepe.aValide = true;
-		}
-	}
-*/
-
 	public override void OnTouchEndedAnywhere () {
-
 		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
-
-		// State preparer pate
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
-			GameManagerCrepe.aValide = false;
+		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManagerCrepe.boutonValidation == true) {
+			GameManagerCrepe.boutonValidation = false;
+			
+			// si on a reussit la recette on passe a l'etalage du beurer
+			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+				ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLeBeurre);
+				CameraMove(camCuissonPos);
+			}
 		}
+
+		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
+			GameManagerCrepe.boutonValidation = false;
+		}
+
 		// State quete noemie
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
-			CameraZoomIn();
 			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
+			CameraMove(camPreparationPatePos);
 			AfficherTexture(fleche);
-
 		}
+
 		// State aide de skypi
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
 			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
@@ -68,33 +62,31 @@ public class UIManager : TouchLogic {
 	}
 
 
-	
-	void CameraZoomIn () {
+
+
+
+
+	void CameraMove (Vector3 pos) {
 		// interpolation pour aller plus près du plan de travail
 		float temps = 1000.0f;
-		Vector3 posArrive = new Vector3(0, 2, -3);
-		Camera.main.transform.position = Vector3.Lerp(transform.position, posArrive, temps);
+		Camera.main.transform.position = Vector3.Lerp(transform.position, pos, temps);
 	}
 
-
-	// prev then current in parameters
+	// Parameters: prev State, curr State
 	void ChangeState (GameManagerCrepe.GameState prev, GameManagerCrepe.GameState current) { 
 		GameManagerCrepe.curGameState = current;
 		GameManagerCrepe.prevGameState = prev;
 	}
-
-
+	
 	// active et affiche la texture t
-	void AfficherTexture(GUITexture t) {
+	public void AfficherTexture(GUITexture t) {
 		t.guiTexture.enabled = true;
 		t.gameObject.SetActive(true);
 	}
 
-
 	// désactive et enleve l'affichage de la texture t
-	void NePasAfficherTexture(GUITexture t) {
+	public void NePasAfficherTexture(GUITexture t) {
 		t.guiTexture.enabled = false;
 		t.gameObject.SetActive(false);
 	}
-
 }
