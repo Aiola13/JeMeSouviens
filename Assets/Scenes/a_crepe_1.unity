@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 130012675}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalScale: {x: 2.00999999, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1001 &230742371
@@ -1089,7 +1089,7 @@ Transform:
   m_GameObject: {fileID: 811283529}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2.86999989, y: 1, z: 1}
+  m_LocalScale: {x: 2.63000011, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &819083493
@@ -1762,7 +1762,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e4f7be73b10a56409216766f0aafe8a, type: 2}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 2.00999999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e4f7be73b10a56409216766f0aafe8a, type: 2}
@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319c2aa1aa720ca419e004ec1a1b9488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sonDragOK: {fileID: 0}
+  sonDragOK: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
   distCam: 0
   dragging: 0
   ObjectToDrag: {fileID: 0}
@@ -2038,6 +2038,7 @@ MonoBehaviour:
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
+  miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
 --- !u!114 &1188117297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2322,7 +2323,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e4f7be73b10a56409216766f0aafe8a, type: 2}
       propertyPath: m_LocalScale.x
-      value: 2.86999989
+      value: 2.63000011
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9e4f7be73b10a56409216766f0aafe8a, type: 2}
       propertyPath: m_Name
@@ -2367,6 +2368,10 @@ Prefab:
     - target: {fileID: 400000, guid: 586441c364c4c984999caf1148801d64, type: 2}
       propertyPath: m_LocalRotation.w
       value: 4.22219593e-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 586441c364c4c984999caf1148801d64, type: 2}
+      propertyPath: m_Name
+      value: Skypi
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 586441c364c4c984999caf1148801d64, type: 2}
@@ -2470,7 +2475,7 @@ GameObject:
   - 95: {fileID: 1639554850}
   - 65: {fileID: 1639554849}
   m_Layer: 0
-  m_Name: Chat
+  m_Name: Skypi
   m_TagString: Skypi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
