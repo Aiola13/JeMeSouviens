@@ -14,11 +14,15 @@ public class GameManagerCrepe : MonoBehaviour {
     }
 
     public static QueteCrepe queteCrepe;
-	private UIManager uiManager;
+	//private UIManager uiManager;
 
     public Texture2D noemie;
     public Texture2D skypi;
-
+	public Texture2D Tex_dialogue;
+	GUIStyle style = new GUIStyle ();
+	private int brd = Screen.height/100;
+	
+	public static bool aValide = false;
 	public static GameState curGameState;
 	public static GameState prevGameState;
 
@@ -53,7 +57,7 @@ public class GameManagerCrepe : MonoBehaviour {
     // Use this for initialization
 	void Start () {
         queteCrepe = GetComponent<QueteCrepe>();
-		uiManager = GetComponent<UIManager>();
+		//uiManager = GetComponent<UIManager>();
 
 		curGameState = GameState.queteNoemie;
         listeIngQuete = queteCrepe.liste_quete;
@@ -68,7 +72,7 @@ public class GameManagerCrepe : MonoBehaviour {
 
     #region GUI
     void OnGUI() {
-		print ("INGM cur : " + GameManagerCrepe.curGameState + "    prev :  " + GameManagerCrepe.prevGameState);
+		print ("INGM cur : " + GameManagerCrepe.curGameState + "    prev :  " + GameManagerCrepe.prevGameState + "  " + aValide);
 
         if (!noemie || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -77,36 +81,22 @@ public class GameManagerCrepe : MonoBehaviour {
 
 		// Affichage de la quete
         if (curGameState == GameState.queteNoemie) {
-			uiManager.AfficherDialogue(noemie, queteCrepe.texteQuete());
+			AfficherDialogue(noemie, queteCrepe.texteQuete());
         }
 
-
+		// prepaparation de la pate
         else if (curGameState == GameState.preparationPate) {
-
-			//if (!queteCrepe.queteAccomplie())
-			//uiManager.AfficherDialogue(skypi, "Tu t'es trompé dans la recette.");
-
-
-
-			/*
-            GUI.BeginGroup(new Rect(Screen.width - (Screen.width/4), 0, Screen.width/4, Screen.height));
-
-			// bouton pour valider la recette et finir l'etape 1
-            if (GUI.Button(new Rect(0, 0, 150, 100), "La pâte est prête!")) {
-                if (queteAccomplie()) {
-                    Debug.Log("Quete accomplie");
-					//changeState(GameState.preparationPate, GameState.etalerLeBeurre);
-                }
-                else {
-                    Debug.Log("Quete echouee");
-					//changeState(GameState.preparationPate, GameState.aideDeSkypi);
-                }
-            }
-
-            GUI.Box(new Rect(0, Screen.height / 2, Screen.width / 4, Screen.height / 3), contenuDuSaladier());
-
-            GUI.EndGroup();
-            */
+			// si on a appuye sur le bouton de validation
+			if (aValide) {
+				// si la quete est reussie
+				if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+					AfficherDialogue(noemie, "Tu as parfaitement réussie la recette!");
+				}
+				// si la recette a mal été suivie
+				else {
+					AfficherDialogue(noemie, "Tu t'es trompé dans la recette.");
+				}
+			}
         }
 
         else if (curGameState == GameState.etalerLeBeurre) {
@@ -119,9 +109,7 @@ public class GameManagerCrepe : MonoBehaviour {
 
 		// affichage de l'aide de skipy
         else if (curGameState == GameState.aideDeSkypi) {
-
 			string aide = "";
-			
 			switch (prevGameState) {
 				case GameState.preparationPate:
 					aide = "Pour mettre des ingrédients dans le saladier, il te suffit de les faire glisser dedans! \nVoici ce qu'il manque :\n";
@@ -137,8 +125,7 @@ public class GameManagerCrepe : MonoBehaviour {
 					aide = "Je ne sais pas quoi te dire";
 					break;
 			}
-
-			uiManager.AfficherDialogue(skypi, aide);
+			AfficherDialogue(skypi, aide);
         }
     }
 	#endregion GUI
@@ -146,37 +133,20 @@ public class GameManagerCrepe : MonoBehaviour {
 
 
 
-    #region verifEtatDuSaladier
-
-
-    string contenuDuSaladier() {
-        string contenuDuSaladier = "Les ingrédients actuellement dans le saladier sont : \n";
+	// affiche une boite de dialogue avec comme texture pnj et comme texte txt,
+	public void AfficherDialogue (Texture2D pnj, string txt) { 
+		style.fontSize = Screen.height/36;
+		style.alignment = TextAnchor.MiddleLeft;
+		style.font = (Font)Resources.Load("Roboto-Regular");
 		
-        for (int i = 0; i < listeIngSaladier.Count; i++) {
-            contenuDuSaladier += "- " + queteCrepe.nomIngredient(listeIngSaladier[i]) + "\n";
-        }
-
-        return contenuDuSaladier;
-    }
-
-    string ingredientManquants() {
-        string ingManquant = "";
+		GUI.DrawTexture(new Rect(brd, Screen.height*2/3, Screen.width-brd*2, Screen.height/3 -brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.DrawTexture(new Rect(brd*2, Screen.height*2/3+brd, Screen.width/5, Screen.height/3 -brd*3), pnj, ScaleMode.ScaleToFit, true, 0);
+		GUI.Box(new Rect(Screen.width*1/4 , Screen.height*7/10+brd*2, Screen.width-20, Screen.height/5 -10), txt, style);
 		
-        for (int i = 0; i < listeIngQuete.Count; i++)
-        {
-            if (!listeIngSaladier.Contains(listeIngQuete[i].tag))
-            {
-                ingManquant += "- " + queteCrepe.nomIngredient(listeIngQuete[i].tag) + "\n";
-            }
-        }
-        return ingManquant;
-    }
-
-    void ajoutIngredientSaladier()
-    {
-
-
-    }
-    #endregion
+		//style.alignment = TextAnchor.MiddleCenter;
+		style.fontSize = Screen.height/28;
+		GUI.Box(new Rect(Screen.width*2/3 , Screen.height*2/3+brd*2, Screen.width/10, Screen.height/3 -10), "TOUCHER POUR CONTINUER !", style);
+	}
+	
 
 }
