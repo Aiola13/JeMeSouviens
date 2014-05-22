@@ -2732,6 +2732,7 @@ GameObject:
   - 33: {fileID: 1936674116}
   - 23: {fileID: 1936674115}
   - 95: {fileID: 1936674114}
+  - 114: {fileID: 1936674118}
   m_Layer: 0
   m_Name: Poele
   m_TagString: Untagged
@@ -2795,6 +2796,17 @@ Transform:
   m_LocalScale: {x: .25, y: .25, z: .25}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1936674118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1936674113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512fc4b9ea8384a40a8e9066968426b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2097273516
 Prefab:
   m_ObjectHideFlags: 0
