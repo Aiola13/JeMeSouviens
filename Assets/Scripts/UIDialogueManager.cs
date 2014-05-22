@@ -16,7 +16,7 @@ public class UIDialogueManager : TouchLogic {
 	}
 	
 	public override void OnTouchEndedAnywhere () {
-		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+		print("anywhere");
 
 		// State quete noemie
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
@@ -59,8 +59,9 @@ public class UIDialogueManager : TouchLogic {
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
 
 		}
-		
+
 		// if we touch the cat
+		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
 			DesactiverDrag();
 			switch (GameManagerCrepe.curGameState) {

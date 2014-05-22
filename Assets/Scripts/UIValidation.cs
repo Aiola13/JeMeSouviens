@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class UIValidation : TouchLogic {
-	
+
+	public GUITexture texReplay;
 	public GUITexture texValidation;
 	public GUITexture texNextState;
 	
@@ -13,7 +14,9 @@ public class UIValidation : TouchLogic {
 	public override void OnTouchBegan() {
 		if (name == "GUI_Validation") {
 			DesactiverDrag();
-			print ("desactive");
+		}
+		if (name == "GUI_Replay") {
+			Application.LoadLevel("menu");
 		}
 	}
 

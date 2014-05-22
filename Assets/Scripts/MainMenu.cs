@@ -12,9 +12,11 @@ public class MainMenu : TouchLogic {
 		if (Physics.Raycast(ray, out hit)) {
 
 			if (hit.collider.gameObject.name == "Play") {
+				hit.collider.gameObject.renderer.material.color = Color.green;
 				Application.LoadLevel("a_crepe_1");
 			}
 			else {
+				hit.collider.gameObject.renderer.material.color = Color.red;
 				Application.Quit();
 			}
 		}
