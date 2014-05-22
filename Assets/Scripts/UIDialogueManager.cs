@@ -4,9 +4,6 @@ using System.Collections;
 public class UIDialogueManager : TouchLogic {
 	
 	public GUITexture fleche;
-	public Texture2D skypi;
-	
-	public AudioClip miaulementSkypi;
 	
 	Vector3 camPreparationPatePos = new Vector3(0, 2, -3);
 	Vector3 camCuissonPos = new Vector3(-2.7f, 2, -3);
@@ -16,10 +13,7 @@ public class UIDialogueManager : TouchLogic {
 	
 	
 	void Start() {
-		NePasAfficherTexture(fleche);
-		
-		//AudioSource sourceAudio = gameObject.AddComponent<AudioSource>();
-		//audio.clip = miaulementSkypi;
+		//NePasAfficherTexture(fleche);
 		
 	}
 	
@@ -57,7 +51,7 @@ public class UIDialogueManager : TouchLogic {
 		// if we touch the cat
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
 			ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
-			//audio.Play();
+            GameManagerCrepe.miaulement.Play();
 		}
 	}
 	
