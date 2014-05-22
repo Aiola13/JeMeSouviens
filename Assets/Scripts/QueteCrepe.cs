@@ -228,7 +228,7 @@ public class QueteCrepe : MonoBehaviour {
 
     public string contenuDuSaladier()
     {
-        string contenuDuSaladier = "Actuellement dans le saladier : \n";
+        string contenuDuSaladier = "Actuellement dans le saladier : \n\n";
 
         for (int i = 0; i < liste_saladier.Count; i++)
         {
