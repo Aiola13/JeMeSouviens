@@ -3,17 +3,16 @@ using System.Collections;
 
 public class UIDialogueManager : TouchLogic {
 	
-	public GUITexture fleche;
+	public GUITexture texValidation;
 	
 	Vector3 camPreparationPatePos = new Vector3(0, 2, -3);
 	Vector3 camCuissonPos = new Vector3(-2.7f, 2, -3);
 	
 	Ray ray ;
 	RaycastHit hit;
-	
-	
-	void Start() {
 
+	void Start() {
+		AfficherTexture(texValidation);
 	}
 	
 	public override void OnTouchEndedAnywhere () {
@@ -23,12 +22,14 @@ public class UIDialogueManager : TouchLogic {
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
 			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 			CameraMove(camPreparationPatePos);
-			AfficherTexture(fleche);
+			AfficherTexture(texValidation);
+			ActiverDrag();
 		}
 		
 		// State aide de skypi
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
 			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
+			ActiverDrag();
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
@@ -41,6 +42,7 @@ public class UIDialogueManager : TouchLogic {
 				CameraMove(camCuissonPos);
 				RotateCat();
 			}
+			ActiverDrag();
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
@@ -58,10 +60,9 @@ public class UIDialogueManager : TouchLogic {
 
 		}
 		
-
-		
 		// if we touch the cat
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
+			DesactiverDrag();
 			switch (GameManagerCrepe.curGameState) {
 				case GameManagerCrepe.GameState.preparationPate:
 					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
@@ -78,7 +79,13 @@ public class UIDialogueManager : TouchLogic {
 	}
 	
 	
-	
+
+	void ActiverDrag() {
+		Camera.main.GetComponent<TouchLogicDrag>().enabled = true;
+	}
+	void DesactiverDrag() {
+		Camera.main.GetComponent<TouchLogicDrag>().enabled = false;
+	}
 	
 	void RotateCat() {
 		Transform t = GameObject.FindGameObjectWithTag("Skypi").transform;

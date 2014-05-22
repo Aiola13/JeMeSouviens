@@ -3,20 +3,37 @@ using System.Collections;
 
 public class UIValidation : TouchLogic {
 	
-	public GUITexture fleche;
+	public GUITexture texValidation;
+	public GUITexture texNextState;
 	
 	void Start() {
-		NePasAfficherTexture(fleche);
+		NePasAfficherTexture(texValidation);
 	}
-	
+
+	public override void OnTouchBegan() {
+		if (name == "GUI_Validation") {
+			DesactiverDrag();
+			print ("desactive");
+		}
+	}
+
 	public override void OnTouchEnded () {
-		if (name == "GUI_Fleche") {
+		if (name == "GUI_Validation") {
 			GameManagerCrepe.boutonValidation = true;
+		}
+
+		if (name == "GUI_NextState") {
+			GameManagerCrepe.nextState = true;
 		}
 	}
 	
 	
-	
+	void ActiverDrag() {
+		Camera.main.GetComponent<TouchLogicDrag>().enabled = true;
+	}
+	void DesactiverDrag() {
+		Camera.main.GetComponent<TouchLogicDrag>().enabled = false;
+	}
 	
 	// Parameters: prev State, curr State
 	void ChangeState (GameManagerCrepe.GameState prev, GameManagerCrepe.GameState current) { 
