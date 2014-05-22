@@ -2047,11 +2047,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1188117288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf294f0e32ee9a4aa148d5c59a27656, type: 3}
+  m_Script: {fileID: 11500000, guid: 47f00702598ea364f932f4e824cba916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fleche: {fileID: 489207423}
-  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
