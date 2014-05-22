@@ -8,7 +8,6 @@ public class TouchLogicDrag : MonoBehaviour {
 	
 	private GUIText guiInfo;
 
-    public AudioClip sonDragOK;
 	public float distCam;
 	public bool dragging = false;
 	public Transform ObjectToDrag;
@@ -93,7 +92,7 @@ public class TouchLogicDrag : MonoBehaviour {
 
                 ObjectToDrag.gameObject.SetActive(false);
 
-                audio.PlayOneShot(sonDragOK);
+                GameManagerCrepe.sonDragOK.Play();
             }
             else
             {

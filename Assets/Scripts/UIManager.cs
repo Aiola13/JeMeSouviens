@@ -12,8 +12,6 @@ public class UIManager : TouchLogic {
 	public Texture2D noemie;
 	public Texture2D skypi;
 
-    public AudioClip miaulementSkypi;
-
 	Ray ray ;
 	RaycastHit hit;
 
@@ -64,7 +62,7 @@ public class UIManager : TouchLogic {
 		
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
 			ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
-            //audio.Play();
+            GameManagerCrepe.miaulement.Play();
 		}
 	}
 
