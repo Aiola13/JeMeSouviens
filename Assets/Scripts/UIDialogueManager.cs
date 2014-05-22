@@ -13,8 +13,7 @@ public class UIDialogueManager : TouchLogic {
 	
 	
 	void Start() {
-		//NePasAfficherTexture(fleche);
-		
+
 	}
 	
 	public override void OnTouchEndedAnywhere () {
@@ -24,10 +23,11 @@ public class UIDialogueManager : TouchLogic {
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManagerCrepe.boutonValidation == true) {
 			GameManagerCrepe.boutonValidation = false;
 			
-			// si on a reussit la recette on passe a l'etalage du beurer
+			// si on a reussit la recette on passe a l'etalage du beurre
 			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
-				ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLeBeurre);
+				ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.etalerLeBeurre);
 				CameraMove(camCuissonPos);
+				RotateCat();
 			}
 		}
 		
@@ -50,7 +50,17 @@ public class UIDialogueManager : TouchLogic {
 		
 		// if we touch the cat
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-			ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+			switch (GameManagerCrepe.curGameState) {
+				case GameManagerCrepe.GameState.preparationPate:
+					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+				case GameManagerCrepe.GameState.etalerLeBeurre:
+					ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+				case GameManagerCrepe.GameState.cuissonCrepe:
+					ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+			}
             GameManagerCrepe.miaulement.Play();
 		}
 	}
@@ -58,7 +68,10 @@ public class UIDialogueManager : TouchLogic {
 	
 	
 	
-	
+	void RotateCat() {
+		Transform t = GameObject.FindGameObjectWithTag("Skypi").transform;
+		t.Rotate(t.rotation.x, -75, t.rotation.z);
+	}
 	
 	void CameraMove (Vector3 pos) {
 		// interpolation pour aller plus près du plan de travail
