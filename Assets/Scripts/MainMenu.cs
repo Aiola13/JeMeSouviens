@@ -20,7 +20,6 @@ public class MainMenu : TouchLogic {
 				Application.Quit();
 			}
 		}
-
 	}
 
 }
