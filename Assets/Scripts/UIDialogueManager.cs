@@ -13,29 +13,12 @@ public class UIDialogueManager : TouchLogic {
 	
 	
 	void Start() {
-		//NePasAfficherTexture(fleche);
-		
+
 	}
 	
 	public override void OnTouchEndedAnywhere () {
 		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-		
-		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManagerCrepe.boutonValidation == true) {
-			GameManagerCrepe.boutonValidation = false;
-			
-			// si on a reussit la recette on passe a l'etalage du beurer
-			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
-				ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLeBeurre);
-				CameraMove(camCuissonPos);
-			}
-		}
-		
-		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
-			GameManagerCrepe.boutonValidation = false;
-		}
-		
+
 		// State quete noemie
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
 			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
@@ -48,9 +31,48 @@ public class UIDialogueManager : TouchLogic {
 			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
 		}
 		
+		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManagerCrepe.boutonValidation == true) {
+			GameManagerCrepe.boutonValidation = false;
+			
+			// si on a reussit la recette on passe a l'etalage du beurre
+			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+				ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.etalerLeBeurre);
+				CameraMove(camCuissonPos);
+				RotateCat();
+			}
+		}
+		
+		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
+			GameManagerCrepe.boutonValidation = false;
+		}
+		
+		// State etalage beurre
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
+
+		}
+
+		// State cuisson
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
+
+		}
+		
+
+		
 		// if we touch the cat
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-			ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+			switch (GameManagerCrepe.curGameState) {
+				case GameManagerCrepe.GameState.preparationPate:
+					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+				case GameManagerCrepe.GameState.etalerLeBeurre:
+					ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+				case GameManagerCrepe.GameState.cuissonCrepe:
+					ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
+					break;
+			}
             GameManagerCrepe.miaulement.Play();
 		}
 	}
@@ -58,7 +80,10 @@ public class UIDialogueManager : TouchLogic {
 	
 	
 	
-	
+	void RotateCat() {
+		Transform t = GameObject.FindGameObjectWithTag("Skypi").transform;
+		t.Rotate(t.rotation.x, -75, t.rotation.z);
+	}
 	
 	void CameraMove (Vector3 pos) {
 		// interpolation pour aller plus près du plan de travail
