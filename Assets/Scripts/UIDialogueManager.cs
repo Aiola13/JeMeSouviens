@@ -18,6 +18,18 @@ public class UIDialogueManager : TouchLogic {
 	
 	public override void OnTouchEndedAnywhere () {
 		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+		// State quete noemie
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
+			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
+			CameraMove(camPreparationPatePos);
+			AfficherTexture(fleche);
+		}
+		
+		// State aide de skypi
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
+			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
+		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManagerCrepe.boutonValidation == true) {
@@ -36,17 +48,17 @@ public class UIDialogueManager : TouchLogic {
 			GameManagerCrepe.boutonValidation = false;
 		}
 		
-		// State quete noemie
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
-			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
-			CameraMove(camPreparationPatePos);
-			AfficherTexture(fleche);
+		// State etalage beurre
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
+
+		}
+
+		// State cuisson
+		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
+
 		}
 		
-		// State aide de skypi
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
-			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
-		}
+
 		
 		// if we touch the cat
 		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
