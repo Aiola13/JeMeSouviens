@@ -2321,6 +2321,7 @@ MonoBehaviour:
   musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
   miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
   dragOK: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
+  cuissonCrepe: {fileID: 8300000, guid: 698240bec53a7304e8d34361b740c613, type: 3}
 --- !u!114 &1188117297
 MonoBehaviour:
   m_ObjectHideFlags: 0

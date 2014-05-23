@@ -17,7 +17,7 @@ public class RetournerCrepe : MonoBehaviour {
        
 		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe){
             counter += Time.deltaTime;
-            print("counter" + counter);
+            GameManagerCrepe.cuisson.Play();
 			
 			if (Input.acceleration.y <= -0.25 && counter >= 5.0f  && !isCook){
 				animation.Play("RetournerCrepeAnim");
