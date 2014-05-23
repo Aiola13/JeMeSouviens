@@ -3,8 +3,8 @@ using System.Collections;
 
 public class RetournerCrepe : MonoBehaviour {
 
-	float counter = 0.0f;
-	bool isCook = false;
+	public static float counter = 0.0f;
+	public static bool isCook = false;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class RetournerCrepe : MonoBehaviour {
 	void Update () {
 
        
-		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre){
+		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe){
             counter += Time.deltaTime;
             print("counter" + counter);
 			
