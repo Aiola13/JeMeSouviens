@@ -13,12 +13,13 @@ public class RetournerCrepe : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe && Input.acceleration.y <= -0.25 && timer){	
-			//if (timer == true){
-				counter += Time.deltaTime;
-			//}
+
+       
+		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre){
+            counter += Time.deltaTime;
+            print("counter" + counter);
 			
-			if (counter >= 5.0f){
+			if (Input.acceleration.y <= -0.25 && counter >= 5.0f){
 				animation.Play("RetournerCrepeAnim");
 			}
 		}
