@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MainMenu : TouchLogic {
 
-	public override void OnTouchBeganAnywhere(){
+    public override void OnTouchEndedAnywhere() {
 
 		Ray ray ;
 		RaycastHit hit;
