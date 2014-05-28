@@ -17,13 +17,14 @@ TagManager:
   - ing_fleur_oranger
   - Skypi
   - Saladier
-  - 
+  - Panier
   - Draggable
-  - poi_eparlant
+  - poi_eperlant
   - poi_morue
   - poi_saumon
   - poi_sebaste
   - poi_turbot
+  - CanneAPeche
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -57,4 +58,8 @@ TagManager:
   User Layer 29: 
   User Layer 30: 
   User Layer 31: 
-  m_SortingLayers: []
+  m_SortingLayers:
+  - name: Default
+    userID: 0
+    uniqueID: 0
+    locked: 0
