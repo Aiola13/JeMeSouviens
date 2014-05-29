@@ -4,6 +4,7 @@ using System.Collections;
 public class GameManagerPeche : GameManager {
 
     #region attributs
+
     public enum GameState {
         queteJeanClaude,
         degivrerTrou,
@@ -11,13 +12,13 @@ public class GameManagerPeche : GameManager {
         aideDeSkypi
     }
 
+    public static GameState curGameState;
+    public static GameState prevGameState;
+
     public static QuetePeche quetePeche;
 
     public Texture2D jeanClaude;
     public Texture2D skypi;
-
-    public static GameState curGameState;
-    public static GameState prevGameState;
 
     public AudioClip musiqueAmbiance;
     public AudioClip miaulementSkypi;
@@ -42,7 +43,7 @@ public class GameManagerPeche : GameManager {
     #region OnGUI
     void OnGUI() {
 
-        print("INGM cur : " + GameManagerPeche.curGameState + "    prev :  " + GameManagerPeche.prevGameState);
+        print("INGM cur : " + curGameState + "    prev :  " + prevGameState);
 
         if (!jeanClaude || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -80,10 +81,11 @@ public class GameManagerPeche : GameManager {
             string aide = "";
             switch (prevGameState) {
                 case GameState.degivrerTrou:
-                    aide = "";
+                    aide = "Afin de dégivrer le trou, tu dois recopier le symbole qui s'affiche à l'écran.";
                     break;
                 case GameState.pecher:
-                    aide = "";
+                    aide = "Lorsqu'un poisson mord à l'hameçon, relève la tablette d'un coup sec pour le sortir de l'eau. \n";
+                    aide += quetePeche.poissonsManquants();
                     break;
                 default:
                     aide = "Je ne sais pas quoi te dire";
@@ -94,4 +96,10 @@ public class GameManagerPeche : GameManager {
         #endregion
     }
     #endregion OnGUI
+
+    public void ChangeState(GameState prev, GameState current) {
+        curGameState = current;
+        prevGameState = prev;
+    }
+
 }

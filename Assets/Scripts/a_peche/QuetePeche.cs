@@ -12,15 +12,12 @@ public class QuetePeche : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        listePanier = new List<GameObject>();
-
         remplirListeQuete();
+        afficherListeDebug();
 	}
 
 
 	private void remplirListeQuete(){
-
-        listeQuete = new List<GameObject>();
 
         // Selection des 5 poissons a pecher
         for (int i = 0; i < 5; i++) {
@@ -46,6 +43,16 @@ public class QuetePeche : MonoBehaviour {
 
 
 	}
+
+    void afficherListeDebug() {
+        for (int i = 0; i < listeQuete.Count; i++) {
+            Debug.Log(listeQuete[i].tag);
+        }
+
+        for (int i = 0; i < listePanier.Count; i++) {
+            Debug.Log(listePanier[i]);
+        }
+    }
 
 	public bool queteAccomplie() {
 		bool queteAccomplie = true;
@@ -157,13 +164,20 @@ public class QuetePeche : MonoBehaviour {
 
 	public string texteQuete(){
 
+        List<string> dejaAffiche = new List<string>();
+
 		string quete = "Bonjour est ce que tu serais partant pour une bonne partie de pêche?\n";
 		quete += "Voici la liste des poissons qu'il faut pêcher, relâche ceux qui ne sont pas dans la liste!\n";
 		
 		for (int i = 0; i < listeQuete.Count; i++)
 		{
-            quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
-
+            if (i == 0) {
+                dejaAffiche.Add(listeQuete[i].tag);
+                quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
+            } else if (!dejaAffiche.Contains(listeQuete[i].tag)) {
+                dejaAffiche.Add(listeQuete[i].tag);
+                quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
+            }
 		}
 		
 		return quete;

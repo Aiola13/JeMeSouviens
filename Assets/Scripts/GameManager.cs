@@ -3,21 +3,23 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    GUIStyle style = new GUIStyle();
-    private int brd = Screen.height / 100;
     public Texture2D Tex_dialogue;
+    protected GUIStyle style = new GUIStyle();
+    protected int brd = Screen.height / 100;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public static bool nextState = false;
+    public static bool boutonValidation = false;
 
-    protected AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume) {
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////
+ 
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume) {
         AudioSource newAudio = gameObject.AddComponent<AudioSource>();
         newAudio.clip = clip;
         newAudio.loop = loop;
@@ -26,21 +28,27 @@ public class GameManager : MonoBehaviour {
         return newAudio;
     }
 
-    protected void ActiverDrag() {
+    // active et affiche la texture t
+    public static void AfficherTexture(GUITexture t) {
+        t.guiTexture.enabled = true;
+        t.gameObject.SetActive(true);
+    }
+
+    // désactive et enleve l'affichage de la texture t
+    public static void NePasAfficherTexture(GUITexture t) {
+        t.guiTexture.enabled = false;
+        t.gameObject.SetActive(false);
+    }
+
+    public static void ActiverDrag() {
         Camera.main.GetComponent<TouchLogicDrag>().enabled = true;
     }
-    protected void DesactiverDrag() {
+    public static void DesactiverDrag() {
         Camera.main.GetComponent<TouchLogicDrag>().enabled = false;
     }
 
-    // Parameters: prev State, curr State
-    protected void ChangeState(GameManagerCrepe.GameState prev, GameManagerCrepe.GameState current) {
-        GameManagerCrepe.curGameState = current;
-        GameManagerCrepe.prevGameState = prev;
-    }
-
     // affiche une boite de dialogue avec comme texture pnj et comme texte txt,
-    protected void AfficherDialogue(Texture2D pnj, string txt) {
+    public void AfficherDialogue(Texture2D pnj, string txt) {
         style.fontSize = Screen.height / 36;
         style.alignment = TextAnchor.MiddleLeft;
         style.font = (Font)Resources.Load("Roboto-Regular");
@@ -53,5 +61,6 @@ public class GameManager : MonoBehaviour {
         style.fontSize = Screen.height / 28;
         GUI.Box(new Rect(Screen.width * 2 / 3, Screen.height * 2 / 3 + brd * 2, Screen.width / 10, Screen.height / 3 - 10), "TOUCHER POUR CONTINUER !", style);
     }
+
 
 }
