@@ -12,11 +12,15 @@ public class QuetePeche : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        listePanier = new List<GameObject>();
+
         remplirListeQuete();
 	}
 
 
 	private void remplirListeQuete(){
+
+        listeQuete = new List<GameObject>();
 
         // Selection des 5 poissons a pecher
         for (int i = 0; i < 5; i++) {
@@ -158,7 +162,7 @@ public class QuetePeche : MonoBehaviour {
 		
 		for (int i = 0; i < listeQuete.Count; i++)
 		{
-            quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\t";
+            quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
 
 		}
 		
