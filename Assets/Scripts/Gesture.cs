@@ -28,7 +28,7 @@ public class Gesture : MonoBehaviour
 	    gestureDrawing = GameObject.Find("gesture");
 	    GuiText = GameObject.Find("GUIText");
 	    GuiText.guiText.text = GuiText.guiText.text + "\n Templates loaded: " + GestureTemplates.Templates.Count;
-    }
+    }	
 
 
     IEnumerator worldToScreenCoordinates ()
@@ -105,7 +105,7 @@ public class Gesture : MonoBehaviour
 
             for (int i = 0; i < GestureRecognizer.newTemplateArr.Count; i++) {
                 temp.Add(GestureRecognizer.newTemplateArr[i]);
-				print (GestureRecognizer.newTemplateArr[i]);
+				//print (GestureRecognizer.newTemplateArr[i]);
 				txt += "new Vector2" + GestureRecognizer.newTemplateArr[i];
 				if (i < GestureRecognizer.newTemplateArr.Count - 1)
 					txt += ", ";
@@ -113,7 +113,7 @@ public class Gesture : MonoBehaviour
 
 			txt += "})";
             GestureTemplates.Templates.Add(temp);
-			System.IO.File.WriteAllText(@"C:\Users\Usager\Desktop\JeMeSouviens\recSym.txt", txt);
+			System.IO.File.AppendAllText(@"C:\Users\Usager\Desktop\JeMeSouviens\recSym.txt", txt + "\n");
             GestureTemplates.TemplateNames.Add(GestureRecognizer.stringToEdit);
             GestureRecognizer.recordDone = 0;
             GestureRecognizer.newTemplateArr.Clear();

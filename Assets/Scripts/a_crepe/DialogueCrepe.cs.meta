@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 47f00702598ea364f932f4e824cba916
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - fleche: {instanceID: 0}
+  - Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  - noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
+  - skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
