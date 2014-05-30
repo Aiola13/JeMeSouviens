@@ -10,7 +10,7 @@ public class AcceleroPoele : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLaPatte){
+		if(GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLaPate){
 
 			if (transform.rotation.eulerAngles.x >= 335 || (transform.rotation.eulerAngles.x >= 325 && Input.acceleration.x >= 0))
 	        {

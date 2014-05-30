@@ -18,18 +18,22 @@ public class Peche : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        timer += Time.deltaTime;
-        if (timer >= dureeProchainPoisson) {
-            Handheld.Vibrate ();
-            this.transform.rotation = Quaternion.Euler(40, 0, 0);
-            aMordu = true;
+        if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
+            
+            timer += Time.deltaTime;
+
+            if (timer >= dureeProchainPoisson) {
+                Handheld.Vibrate();
+                this.transform.rotation = Quaternion.Euler(40, 0, 0);
+                aMordu = true;
+            }
+
+            if (aMordu) {
+
+            }
         }
 
-        if (aMordu) {
 
-
-
-        }
 
 	}
 }
