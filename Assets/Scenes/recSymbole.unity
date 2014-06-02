@@ -164,7 +164,6 @@ GameObject:
   - 4: {fileID: 1855643806}
   - 96: {fileID: 1855643807}
   - 114: {fileID: 1855643803}
-  - 114: {fileID: 1855643804}
   m_Layer: 0
   m_Name: Gesture
   m_TagString: Untagged
@@ -181,17 +180,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecdfb4122e9a3ae41999ce7145b007b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1855643804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1855643802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764d547b230585143bafae5c1f2de47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1855643806

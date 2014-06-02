@@ -13,17 +13,21 @@ public class Gesture : MonoBehaviour
 
     ArrayList pointArr;
     static int mouseDown;
+	
 	public static int symbol = -1;
+	public static bool canDraw = false;
+	public static bool drawSymbol = false;
+	public Texture[] textures; 
 
     // runs when game starts - main function
-    void Start () {
+    void Awake () {
         m_Templates = new GestureTemplates();
 	    pointArr = new ArrayList();
     	
 	    gestureDrawing = GameObject.Find("Gesture");
 	    //GuiText = GameObject.Find("GUIText");
 	    //GuiText.guiText.text = GuiText.guiText.text + "\n Templates loaded: " + GestureTemplates.Templates.Count;
-		Debug.Log("Templates loaded: " + GestureTemplates.Templates.Count);
+		//Debug.Log("Templates loaded: " + GestureTemplates.Templates.Count);
     }	
 
 
@@ -40,51 +44,75 @@ public class Gesture : MonoBehaviour
 	    }
     }
 
-	void NewSymbol () {
+	public static void NewSymbol () {
 		symbol = Random.Range(0, GestureTemplates.TemplateNames.Count - 1);
 		Debug.Log("Draw a " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
+	
+		drawSymbol = true;
 	}
 
 
     void Update() {
-
-		if (Input.GetMouseButtonDown(0)) {
-			NewSymbol();
-		}
-
-	    if (Input.GetMouseButtonDown(1)) {
-		    mouseDown = 1;
-	    }
-    	
-	    if (mouseDown == 1) {
-		    Vector2 p = new Vector2(Input.mousePosition.x , Input.mousePosition.y);
-		    pointArr.Add(p);
-		    StartCoroutine(worldToScreenCoordinates());
-	    }
-
-
-	    if (Input.GetMouseButtonUp(1)) {
-		    if (Input.GetKey (KeyCode.LeftControl)) {
-			    // if CTRL is held down, the script will record a gesture. 
-			    mouseDown = 0;
-			    GestureRecognizer.recordTemplate(pointArr);
+		if (canDraw) {
+		    if (Input.GetMouseButtonDown(1)) {
+			    mouseDown = 1;
 		    }
-            else {
-			    mouseDown = 0;
+	    	
+		    if (mouseDown == 1) {
+			    Vector2 p = new Vector2(Input.mousePosition.x , Input.mousePosition.y);
+			    pointArr.Add(p);
+			    StartCoroutine(worldToScreenCoordinates());
+		    }
 
+
+		    if (Input.GetMouseButtonUp(1)) {
+				/*
+			    if (Input.GetKey (KeyCode.LeftControl)) {
+				    // if CTRL is held down, the script will record a gesture. 
+				    mouseDown = 0;
+				    GestureRecognizer.recordTemplate(pointArr);
+			    }
+	            else {
+	            	mouseDown = 0;
+
+				    // start recognizing! 
+				    GestureRecognizer.startRecognizer(pointArr);
+
+				    pointArr.Clear();
+			    }
+	            */
+
+			    mouseDown = 0;
 			    // start recognizing! 
 			    GestureRecognizer.startRecognizer(pointArr);
+					
+				// the player has drawn the correct symbol
+				if (GestureRecognizer.isDrawCorrect) {
+					Debug.Log("hooray");
+
+					drawSymbol = false;
+					canDraw = false;
+				}
+				// the player has NOT drawn the correct symbol
+				else {
+					Debug.Log("sadface");
+				}
 
 			    pointArr.Clear();
 		    }
-	    }
+		}
     } 
 
     void OnGUI () {
-	    if(GestureRecognizer.recordDone == 1) { 
+	    if (GestureRecognizer.recordDone == 1) { 
 		    GUI.Window (0, new Rect (350, 220, 300, 100), DoMyWindow, "Save the template?");
 	    }
-    }
+
+		if (drawSymbol) {
+			int texSize = Screen.height / 2;
+			GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[symbol % 4], ScaleMode.ScaleToFit);
+		}
+	}
 
     void DoMyWindow (int windowID) {
         GestureRecognizer.stringToEdit = GUILayout.TextField(GestureRecognizer.stringToEdit);
