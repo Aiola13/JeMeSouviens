@@ -1,3 +1,7 @@
+/* Original script found here: http://wiki.unity3d.com/index.php/Gesture_Recognizer
+ * added a random symbol generator to draw and recognize
+ */
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -172,17 +176,14 @@ public class GestureRecognizer
     // --------------------------------  		     GESTURE OPTIMIZING DONE   		----------------------------------------------------------------
     // -------------------------------- 		START OF THE MATCHING PROCESS	----------------------------------------------------------------
 
-    static void gestureMatch(ArrayList pointArray) 
-    {
+    static void gestureMatch(ArrayList pointArray) {
 	    float tempDistance = Mathf.Infinity;
 	    int count = 0;
 
-	    for (int i = 0; i < GestureTemplates.Templates.Count; ++i) 
-        {
+	    for (int i = 0; i < GestureTemplates.Templates.Count; ++i) {
 		    float distance = calcDistanceAtOptimalAngle(pointArray, (ArrayList)GestureTemplates.Templates[i], -angleRange, angleRange);
     		
-		    if (distance < tempDistance)	
-            {
+		    if (distance < tempDistance) {
 			    tempDistance = distance;
 			    count = i;
 		    }
@@ -192,14 +193,19 @@ public class GestureRecognizer
 	    float score = 1.0f - (tempDistance / HalfDiagonal);
     	
 	    // print the result
-    	
-	    if (score < 0.7f)
-        {
-		    Debug.Log("NO MATCH " + score );
-		    Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
-	    } else {
-		    Debug.Log("RESULT: " + GestureTemplates.TemplateNames[count] + " SCORE: " + score);
-		    Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+	    if (score < 0.7f) {
+			Debug.Log("NO MATCH");
+		    //Debug.Log("NO MATCH " + score );
+		    //Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+	    }
+		else {
+			//Debug.Log ("count: " + (count % 4) + "   sym: " + (Gesture.symbol % 4));
+			if ( (count % 4) == (Gesture.symbol % 4) )
+				Debug.Log("HOOOOORAY");
+			else
+				Debug.Log("TRY AGAIN");
+			//Debug.Log("RESULT: " + GestureTemplates.TemplateNames[count] + " SCORE: " + score);
+		    //Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
 	    }
 
     }

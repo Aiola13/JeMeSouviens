@@ -1,10 +1,5 @@
 /* Original script found here: http://wiki.unity3d.com/index.php/Gesture_Recognizer
- * 
- * 
- * 
- * 
- * 
- * 
+ * adapted script to run with tablet android
  */
 
 using UnityEngine;
@@ -13,26 +8,26 @@ using System.Collections;
 public class Gesture : MonoBehaviour
 {
     static GameObject gestureDrawing;
-    public static GameObject GuiText;
+    //public static GameObject GuiText;
     GestureTemplates m_Templates;
 
     ArrayList pointArr;
     static int mouseDown;
+	public static int symbol = -1;
 
     // runs when game starts - main function
-    void Start ()
-    {
+    void Start () {
         m_Templates = new GestureTemplates();
 	    pointArr = new ArrayList();
     	
-	    gestureDrawing = GameObject.Find("gesture");
-	    GuiText = GameObject.Find("GUIText");
-	    GuiText.guiText.text = GuiText.guiText.text + "\n Templates loaded: " + GestureTemplates.Templates.Count;
+	    gestureDrawing = GameObject.Find("Gesture");
+	    //GuiText = GameObject.Find("GUIText");
+	    //GuiText.guiText.text = GuiText.guiText.text + "\n Templates loaded: " + GestureTemplates.Templates.Count;
+		Debug.Log("Templates loaded: " + GestureTemplates.Templates.Count);
     }	
 
 
-    IEnumerator worldToScreenCoordinates ()
-    {
+    IEnumerator worldToScreenCoordinates () {
 	    // fix world coordinate to the viewport coordinate
 	    Vector3 screenSpace = Camera.main.WorldToScreenPoint(gestureDrawing.transform.position);
     	
@@ -45,59 +40,56 @@ public class Gesture : MonoBehaviour
 	    }
     }
 
-    void Update()
-    {
-	    if (Input.GetMouseButtonDown(1))
-        {
+	void NewSymbol () {
+		symbol = Random.Range(0, GestureTemplates.TemplateNames.Count - 1);
+		Debug.Log("Draw a " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
+	}
+
+
+    void Update() {
+
+		if (Input.GetMouseButtonDown(0)) {
+			NewSymbol();
+		}
+
+	    if (Input.GetMouseButtonDown(1)) {
 		    mouseDown = 1;
 	    }
     	
-	    if (mouseDown == 1)
-        {
+	    if (mouseDown == 1) {
 		    Vector2 p = new Vector2(Input.mousePosition.x , Input.mousePosition.y);
 		    pointArr.Add(p);
 		    StartCoroutine(worldToScreenCoordinates());
 	    }
 
 
-	    if (Input.GetMouseButtonUp(1))
-        {
-		    if (Input.GetKey (KeyCode.LeftControl))
-            {
+	    if (Input.GetMouseButtonUp(1)) {
+		    if (Input.GetKey (KeyCode.LeftControl)) {
 			    // if CTRL is held down, the script will record a gesture. 
 			    mouseDown = 0;
 			    GestureRecognizer.recordTemplate(pointArr);
-    		
 		    }
-            else
-            {
+            else {
 			    mouseDown = 0;
 
 			    // start recognizing! 
 			    GestureRecognizer.startRecognizer(pointArr);
 
 			    pointArr.Clear();
-    		
 		    }
-    		
 	    }
-    	
     } 
 
-    void OnGUI ()
-    {
-	    if(GestureRecognizer.recordDone == 1)
-        { 
+    void OnGUI () {
+	    if(GestureRecognizer.recordDone == 1) { 
 		    GUI.Window (0, new Rect (350, 220, 300, 100), DoMyWindow, "Save the template?");
 	    }
     }
 
-    void DoMyWindow (int windowID)
-    {
+    void DoMyWindow (int windowID) {
         GestureRecognizer.stringToEdit = GUILayout.TextField(GestureRecognizer.stringToEdit);
 
-        if (GUI.Button (new Rect (100,50,50,20), "Save"))
-        {
+        if (GUI.Button (new Rect (100,50,50,20), "Save")) {
             ArrayList temp = new ArrayList();
             //ArrayList a = (ArrayList)GestureTemplates.Templates[GestureTemplates.Templates.Count - 1];
 
@@ -105,26 +97,28 @@ public class Gesture : MonoBehaviour
 
             for (int i = 0; i < GestureRecognizer.newTemplateArr.Count; i++) {
                 temp.Add(GestureRecognizer.newTemplateArr[i]);
-				//print (GestureRecognizer.newTemplateArr[i]);
-				txt += "new Vector2" + GestureRecognizer.newTemplateArr[i];
+
+				Vector2 v = (Vector2)GestureRecognizer.newTemplateArr[i];
+				txt += "new Vector2(" + v.x + "f, " + v.y + "f)";
 				if (i < GestureRecognizer.newTemplateArr.Count - 1)
 					txt += ", ";
 			}
 
-			txt += "})";
+			txt += "});\n";
+			System.IO.File.AppendAllText(@"C:\Users\Usager\Desktop\JeMeSouviens\recSym.txt", txt);
+
             GestureTemplates.Templates.Add(temp);
-			System.IO.File.AppendAllText(@"C:\Users\Usager\Desktop\JeMeSouviens\recSym.txt", txt + "\n");
             GestureTemplates.TemplateNames.Add(GestureRecognizer.stringToEdit);
             GestureRecognizer.recordDone = 0;
             GestureRecognizer.newTemplateArr.Clear();
 
-            GuiText.guiText.text = "TEMPLATE: " + GestureRecognizer.stringToEdit + "\n STATUS: SAVED";
+            //GuiText.guiText.text = "TEMPLATE: " + GestureRecognizer.stringToEdit + "\n STATUS: SAVED";
+			Debug.Log("TEMPLATE: " + GestureRecognizer.stringToEdit + " SAVED");
 	    }
 
-	    if (GUI.Button (new Rect (160,50,50,20), "Cancel")) 
-        {
+	    if (GUI.Button (new Rect (160,50,50,20), "Cancel")) {
             GestureRecognizer.recordDone = 0;
-	       GuiText.guiText.text = "";
+			//GuiText.guiText.text = "";
 	    }
     }
 }
