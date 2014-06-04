@@ -15,7 +15,13 @@ public class MainMenu : TouchLogic {
 				hit.collider.gameObject.renderer.material.color = Color.green;
 				Application.LoadLevel("a_crepe");
 			}
-			else {
+
+			else if (hit.collider.gameObject.name == "Stats") {
+				hit.collider.gameObject.renderer.material.color = Color.green;
+				//Application.LoadLevel("stats");
+			}
+
+			else if (hit.collider.gameObject.name == "Quit") {
 				hit.collider.gameObject.renderer.material.color = Color.red;
 				Application.Quit();
 			}
