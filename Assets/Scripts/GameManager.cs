@@ -9,11 +9,7 @@ public class GameManager : MonoBehaviour {
 
     public static bool nextState = false;
     public static bool boutonValidation = false;
-
-
-
-
-
+    public static bool boutonAnnulation = false;
 
 
     /////////////////////////////////////////////////////////////////////

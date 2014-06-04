@@ -13,7 +13,7 @@ public class QuetePeche : MonoBehaviour {
 	void Start () {
 
         remplirListeQuete();
-        afficherListeDebug();
+        //afficherListeDebug();
 	}
 
 
@@ -143,24 +143,49 @@ public class QuetePeche : MonoBehaviour {
         return poissonsManquants;
 	}
 
-	public bool ajouterPoissonDansPanier(GameObject poisson){
+	public bool verifVictoire(out string poissonsCorrects, out string poissonsIncorrects){
         
-        bool poissonValide = false;
+        bool victoire = true;
+        poissonsCorrects = "";
+        poissonsIncorrects = "";
 
-        // On vérifie que l ingrédient mis dans le saladier fait partie de la quete
-        for (int i = 0; i < listeQuete.Count; i++) {
-            if (listeQuete.Contains(poisson)) {
-                poissonValide = true;
+        for (int i = 0; i < listePanier.Count; i++) {
+
+            if (!listePanier.Contains(listeQuete[i])) {
+                victoire = false;
+                poissonsIncorrects += nomPoisson(listeQuete[i].tag) + "\n";
+            } else {
+                poissonsCorrects += nomPoisson(listeQuete[i].tag) + "\n";
             }
+            listeQuete.Remove(listeQuete[i]);
         }
-        // Si oui on l ajoute a la liste et on le détruit ensuite
 
-        if (poissonValide) {
-            listePanier.Add(poisson);
-            listeQuete.Remove(poisson);
-        }
-        return poissonValide;
+        return victoire;
 	}
+
+    string nomPoisson(string tag) {
+
+        switch (tag) {
+
+            case "poi_eperlant":
+                tag = "eperlant";
+                break;
+            case "poi_turbot":
+                tag = "turbot";
+                break;
+            case "poi_morue":
+                tag = "morue";
+                break;
+            case "poi_saumon":
+                tag = "saumon";
+                break;
+            case "poi_sebaste":
+                tag = "sebaste";
+                break;
+        }
+
+        return tag;
+    }
 
 	public string texteQuete(){
 

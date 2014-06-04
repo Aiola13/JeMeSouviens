@@ -16,6 +16,7 @@ public class GameManagerPeche : GameManager {
     public static GameState prevGameState;
 
     public static QuetePeche quetePeche;
+    public static Peche peche;
 
     public Texture2D jeanClaude;
     public Texture2D skypi;
@@ -26,12 +27,18 @@ public class GameManagerPeche : GameManager {
     public static AudioSource ambiance;
     public static AudioSource miaulement;
 
+    public GUITexture validation;
+    public GUITexture annulation;
+
     #endregion
 
     // Use this for initialization
 	void Start () {
 
+
+
         quetePeche = GetComponent<QuetePeche>();
+        peche = GetComponent<Peche>();
 
         curGameState = GameState.queteJeanClaude;
 
@@ -43,7 +50,7 @@ public class GameManagerPeche : GameManager {
     #region OnGUI
     void OnGUI() {
 
-        print("INGM cur : " + curGameState + "    prev :  " + prevGameState);
+        print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation + "   poisson peche =" + peche.poissonPeche);
 
         if (!jeanClaude || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -71,6 +78,36 @@ public class GameManagerPeche : GameManager {
         #region peche
 
         else if (curGameState == GameState.pecher) {
+            
+            if (peche.poissonPeche) {
+
+                AfficherDialogue(jeanClaude, peche.infoPoisson);
+                AfficherTexture(validation);
+                AfficherTexture(annulation);
+
+                if (boutonValidation) {
+                    quetePeche.listePanier.Add(peche.poisson);
+                    AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
+                    boutonValidation = false;
+                    peche.poissonPeche = false;
+
+                    if (quetePeche.listePanier.Count >= 5) {
+                        string poissonsCorrects;
+                        string poissonsIncorrects;
+                        if (quetePeche.verifVictoire(out poissonsCorrects, out poissonsIncorrects)) {
+                            AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
+                        } else {
+                            AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça");
+                        }
+                    }
+
+                }
+                else if (boutonAnnulation) {
+                    AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
+                    boutonAnnulation = false;
+                    peche.poissonPeche = false;
+                }
+            }
         }
 
         #endregion peche

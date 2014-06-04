@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIButtons : TouchLogic {
+public class UIButtonsCrepe : TouchLogic {
 
 	public GUITexture texReplay;
 	public GUITexture texValidation;
@@ -29,12 +29,5 @@ public class UIButtons : TouchLogic {
             GameManager.nextState = true;
 		}
 	}
-	
-    /*
-	// désactive et enleve l'affichage de la texture t
-	void NePasAfficherTexture(GUITexture t) {
-		t.guiTexture.enabled = false;
-		t.gameObject.SetActive(false);
-	}
-     * */
+
 }

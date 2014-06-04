@@ -5,7 +5,7 @@ public class DialoguePeche : TouchLogic {
 
     public GUITexture texValidation;
 
-    protected Ray ray;
+    protected Ray ray = new Ray(Vector3.zero, Vector3.zero);
     protected RaycastHit hit;
 
     public override void OnTouchEndedAnywhere() {
@@ -15,7 +15,7 @@ public class DialoguePeche : TouchLogic {
 
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.queteJeanClaude) {
             ChangeState(GameManagerPeche.GameState.queteJeanClaude, GameManagerPeche.GameState.pecher);
-            AfficherTexture(texValidation);
+            //AfficherTexture(texValidation);
         }
 
         // State Aide de Skypi

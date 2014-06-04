@@ -2479,7 +2479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texReplay: {fileID: 1210596302}
   texValidation: {fileID: 68764559}
-  texNextState: {fileID: 1210596302}
+  texNextState: {fileID: 489207423}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
