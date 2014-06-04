@@ -107,12 +107,6 @@ public class Gesture : MonoBehaviour
     } 
 
     void OnGUI () {
-		/*
-		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[0], ScaleMode.ScaleToFit);
-		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[1], ScaleMode.ScaleToFit);
-		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[2], ScaleMode.ScaleToFit);
-		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[3], ScaleMode.ScaleToFit);
-		*/
 	    if (GestureRecognizer.recordDone == 1) { 
 		    GUI.Window (0, new Rect (350, 220, 300, 100), DoMyWindow, "Save the template?");
 	    }
