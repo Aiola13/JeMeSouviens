@@ -1,5 +1,5 @@
 /* Original script found here: http://wiki.unity3d.com/index.php/Gesture_Recognizer
- * added a random symbol generator to draw and recognize
+ * modified gestureMatch()
  */
 
 using UnityEngine;
@@ -198,7 +198,7 @@ public class GestureRecognizer
 	    if (score < 0.7f) {
 			isDrawCorrect = false;
 		    //Debug.Log("NO MATCH " + score );
-		    //Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+		    Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
 	    }
 		else {
 			//Debug.Log ("count: " + (count % 4) + "   sym: " + (Gesture.symbol % 4));
@@ -208,7 +208,7 @@ public class GestureRecognizer
 				isDrawCorrect = false;
 
 			//Debug.Log("RESULT: " + GestureTemplates.TemplateNames[count] + " SCORE: " + score);
-		    //Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+		    Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
 	    }
 
     }

@@ -16,15 +16,8 @@ public class Gesturetest : MonoBehaviour {
 
 
 		if (Input.GetButtonUp("Jump")) {
-			// disable script
-			if (Gesture.canDraw) {
-				Gesture.canDraw = false;
-			}
-			// enable script
-			else {
-				Gesture.NewSymbol();
-				Gesture.canDraw = true;
-			}
+			Gesture.NewSymbol();
+			Gesture.canDraw = true;
 		}
 	}
 }
