@@ -3,7 +3,6 @@ using System.Collections;
 
 public class DialoguePeche : TouchLogic {
 
-
     private Ray ray;
     private RaycastHit hit;
 
@@ -25,8 +24,8 @@ public class DialoguePeche : TouchLogic {
         // State Peche
 
         else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
-
-
+            //if (GameManagerPeche.peche.poissonPeche)
+               // GameManagerPeche.peche.poissonPeche = false;
         }
 
         // State degivrage

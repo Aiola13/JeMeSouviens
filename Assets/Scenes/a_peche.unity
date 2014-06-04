@@ -1114,7 +1114,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c02ab4a8f1108c44b1ca37d659b09c7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c02ab4a8f1108c44b1ca37d659b09c7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1144,6 +1144,14 @@ Prefab:
       propertyPath: m_EndWidth
       value: 1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 5c02ab4a8f1108c44b1ca37d659b09c7, type: 2}
+      propertyPath: bipBon
+      value: 
+      objectReference: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
+    - target: {fileID: 11400000, guid: 5c02ab4a8f1108c44b1ca37d659b09c7, type: 2}
+      propertyPath: bipMauvais
+      value: 
+      objectReference: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c02ab4a8f1108c44b1ca37d659b09c7, type: 2}
   m_RootGameObject: {fileID: 1052323706}
@@ -1794,7 +1802,7 @@ Transform:
   m_PrefabInternal: {fileID: 762803447}
   m_GameObject: {fileID: 1052323706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 37}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2193,6 +2201,8 @@ MonoBehaviour:
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 7408971fd055757499f2577352f7689c, type: 3}
   miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
+  bipMauvais: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
+  bipBon: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
   validation: {fileID: 505864818}
   annulation: {fileID: 983139035}
 --- !u!4 &1514716227
