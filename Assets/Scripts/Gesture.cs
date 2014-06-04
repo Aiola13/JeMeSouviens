@@ -107,6 +107,12 @@ public class Gesture : MonoBehaviour
     } 
 
     void OnGUI () {
+		/*
+		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[0], ScaleMode.ScaleToFit);
+		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[1], ScaleMode.ScaleToFit);
+		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[2], ScaleMode.ScaleToFit);
+		GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[3], ScaleMode.ScaleToFit);
+		*/
 	    if (GestureRecognizer.recordDone == 1) { 
 		    GUI.Window (0, new Rect (350, 220, 300, 100), DoMyWindow, "Save the template?");
 	    }
@@ -123,19 +129,25 @@ public class Gesture : MonoBehaviour
             ArrayList temp = new ArrayList();
             //ArrayList a = (ArrayList)GestureTemplates.Templates[GestureTemplates.Templates.Count - 1];
 
+			/* for writing in file
 			string txt = "ArrayList " + GestureRecognizer.stringToEdit + " = new ArrayList(new Vector2[] { ";
+			*/
 
             for (int i = 0; i < GestureRecognizer.newTemplateArr.Count; i++) {
                 temp.Add(GestureRecognizer.newTemplateArr[i]);
 
+				/* for writing in file
 				Vector2 v = (Vector2)GestureRecognizer.newTemplateArr[i];
 				txt += "new Vector2(" + v.x + "f, " + v.y + "f)";
 				if (i < GestureRecognizer.newTemplateArr.Count - 1)
 					txt += ", ";
+				*/
 			}
 
+			/* for writing in file
 			txt += "});\n";
 			System.IO.File.AppendAllText(@"C:\Users\Usager\Desktop\JeMeSouviens\recSym.txt", txt);
+			*/
 
             GestureTemplates.Templates.Add(temp);
             GestureTemplates.TemplateNames.Add(GestureRecognizer.stringToEdit);
