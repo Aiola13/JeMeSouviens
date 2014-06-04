@@ -17,7 +17,7 @@ public class GestureRecognizer
     public static string stringToEdit = "Enter a Template name";
     public static ArrayList newTemplateArr;
     
-	public static bool isDrawCorrect = false; 
+	public static bool isDrawCorrect; 
 
     public static void startRecognizer (ArrayList pointArray)
     {
@@ -194,11 +194,12 @@ public class GestureRecognizer
 	    float HalfDiagonal = 0.5f * Mathf.Sqrt(Mathf.Pow(sizeOfScaleRect, 2) + Mathf.Pow(sizeOfScaleRect, 2));
 	    float score = 1.0f - (tempDistance / HalfDiagonal);
     	
+		isDrawCorrect = false;
 	    // print the result
 	    if (score < 0.7f) {
 			isDrawCorrect = false;
 		    //Debug.Log("NO MATCH " + score );
-		    Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+		    //Gesture.GuiText.guiText.text = "RESULT: NO MATCH " +  "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
 	    }
 		else {
 			//Debug.Log ("count: " + (count % 4) + "   sym: " + (Gesture.symbol % 4));
@@ -208,7 +209,7 @@ public class GestureRecognizer
 				isDrawCorrect = false;
 
 			//Debug.Log("RESULT: " + GestureTemplates.TemplateNames[count] + " SCORE: " + score);
-		    Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
+		    //Gesture.GuiText.guiText.text = "RESULT: " + GestureTemplates.TemplateNames[count] + "\n" + "SCORE: " + Mathf.Round(100 * score) +"%";
 	    }
 
     }

@@ -9,7 +9,7 @@ using System.Collections;
 public class Gesture : MonoBehaviour
 {
     static GameObject gestureDrawing;
-    public static GameObject GuiText;
+    //public static GameObject GuiText;
     GestureTemplates m_Templates;
 
     ArrayList pointArr;
@@ -27,8 +27,8 @@ public class Gesture : MonoBehaviour
 	    pointArr = new ArrayList();
     	
 	    gestureDrawing = GameObject.Find("Gesture");
-	    GuiText = GameObject.Find("GUI Text");
-	    GuiText.guiText.text = "Templates loaded: " + GestureTemplates.Templates.Count;
+	    //GuiText = GameObject.Find("GUI Text");
+	    //GuiText.guiText.text = "Templates loaded: " + GestureTemplates.Templates.Count;
 		//Debug.Log("Templates loaded: " + GestureTemplates.Templates.Count);
     }	
 
@@ -48,7 +48,7 @@ public class Gesture : MonoBehaviour
 	public static void NewSymbol () {
 		symbol = Random.Range(0, GestureTemplates.TemplateNames.Count - 1);
 		//Debug.Log("Dessine un " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
-		GuiText.guiText.text = "Dessine un " + GestureTemplates.TemplateNames[symbol % 4];
+		//GuiText.guiText.text = "Dessine un " + GestureTemplates.TemplateNames[symbol % 4];
 		drawSymbol = true;
 	}
 
@@ -91,14 +91,18 @@ public class Gesture : MonoBehaviour
 					
 				// the player has drawn the correct symbol
 				if (GestureRecognizer.isDrawCorrect) {
-					GuiText.guiText.text = GestureTemplates.TemplateNames[symbol % 4] + " reconnu.";
-
+					//GuiText.guiText.text = GestureTemplates.TemplateNames[symbol % 4] + " reconnu.";
+					Debug.Log(GestureTemplates.TemplateNames[symbol % 4] + " reconnu.");
 					drawSymbol = false;
 					canDraw = false;
+					GameManagerPeche.goodBip.Play ();
+					ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.pecher);
 				}
 				// the player has NOT drawn the correct symbol
 				else {
-					GuiText.guiText.text = "Recommencez svp!";
+					//GuiText.guiText.text = "Recommencez svp!";
+					Debug.Log("Recommencez svp!");
+					GameManagerPeche.errorBip.Play ();
 				}
 
 			    pointArr.Clear();
@@ -157,4 +161,11 @@ public class Gesture : MonoBehaviour
 			//GuiText.guiText.text = "";
 	    }
     }
+
+
+	// Parameters: prev State, curr State
+	void ChangeState(GameManagerPeche.GameState prev, GameManagerPeche.GameState current) {
+		GameManagerPeche.curGameState = current;
+		GameManagerPeche.prevGameState = prev;
+	}
 }
