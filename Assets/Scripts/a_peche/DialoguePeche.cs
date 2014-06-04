@@ -5,7 +5,7 @@ public class DialoguePeche : TouchLogic {
 
     public GUITexture texValidation;
 
-    protected Ray ray = new Ray(Vector3.zero, Vector3.zero);
+    protected Ray ray;
     protected RaycastHit hit;
 
     public override void OnTouchEndedAnywhere() {
@@ -27,8 +27,8 @@ public class DialoguePeche : TouchLogic {
         // State Peche
 
         else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
-
-
+            //if (GameManagerPeche.peche.poissonPeche)
+               // GameManagerPeche.peche.poissonPeche = false;
         }
 
         // State degivrage

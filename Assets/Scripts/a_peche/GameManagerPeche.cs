@@ -86,10 +86,11 @@ public class GameManagerPeche : GameManager {
                 AfficherTexture(annulation);
 
                 if (boutonValidation) {
+                    Debug.Log("dfs");
                     quetePeche.listePanier.Add(peche.poisson);
                     AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
-                    boutonValidation = false;
-                    peche.poissonPeche = false;
+                    //boutonValidation = false;
+                    //peche.poissonPeche = false;
 
                     if (quetePeche.listePanier.Count >= 5) {
                         string poissonsCorrects;
