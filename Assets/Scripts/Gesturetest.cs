@@ -16,11 +16,11 @@ public class Gesturetest : MonoBehaviour {
 
 
 		if (Input.GetButtonUp("Jump")) {
-			// disable script
+			// disable drawing
 			if (Gesture.canDraw) {
 				Gesture.canDraw = false;
 			}
-			// enable script
+			// enable drawing
 			else {
 				Gesture.NewSymbol();
 				Gesture.canDraw = true;

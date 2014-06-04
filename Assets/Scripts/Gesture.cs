@@ -1,5 +1,6 @@
 /* Original script found here: http://wiki.unity3d.com/index.php/Gesture_Recognizer
  * adapted script to run with tablet android
+ * added a random symbol generator to draw and recognize
  */
 
 using UnityEngine;
@@ -8,7 +9,7 @@ using System.Collections;
 public class Gesture : MonoBehaviour
 {
     static GameObject gestureDrawing;
-    //public static GameObject GuiText;
+    public static GameObject GuiText;
     GestureTemplates m_Templates;
 
     ArrayList pointArr;
@@ -18,6 +19,7 @@ public class Gesture : MonoBehaviour
 	public static bool canDraw = false;
 	public static bool drawSymbol = false;
 	public Texture[] textures; 
+	private int texSize = Screen.height / 2;
 
     // runs when game starts - main function
     void Awake () {
@@ -25,8 +27,8 @@ public class Gesture : MonoBehaviour
 	    pointArr = new ArrayList();
     	
 	    gestureDrawing = GameObject.Find("Gesture");
-	    //GuiText = GameObject.Find("GUIText");
-	    //GuiText.guiText.text = GuiText.guiText.text + "\n Templates loaded: " + GestureTemplates.Templates.Count;
+	    GuiText = GameObject.Find("GUI Text");
+	    GuiText.guiText.text = "Templates loaded: " + GestureTemplates.Templates.Count;
 		//Debug.Log("Templates loaded: " + GestureTemplates.Templates.Count);
     }	
 
@@ -35,8 +37,7 @@ public class Gesture : MonoBehaviour
 	    // fix world coordinate to the viewport coordinate
 	    Vector3 screenSpace = Camera.main.WorldToScreenPoint(gestureDrawing.transform.position);
     	
-	    while (Input.GetMouseButton(1))
-	    {
+	    while (Input.GetMouseButton(0)) {
 		    Vector3 curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
 		    Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace); 
 		    gestureDrawing.transform.position = curPosition;
@@ -46,15 +47,15 @@ public class Gesture : MonoBehaviour
 
 	public static void NewSymbol () {
 		symbol = Random.Range(0, GestureTemplates.TemplateNames.Count - 1);
-		Debug.Log("Draw a " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
-	
+		//Debug.Log("Dessine un " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
+		GuiText.guiText.text = "Dessine un " + GestureTemplates.TemplateNames[symbol % 4];
 		drawSymbol = true;
 	}
 
 
     void Update() {
 		if (canDraw) {
-		    if (Input.GetMouseButtonDown(1)) {
+		    if (Input.GetMouseButtonDown(0)) {
 			    mouseDown = 1;
 		    }
 	    	
@@ -65,10 +66,11 @@ public class Gesture : MonoBehaviour
 		    }
 
 
-		    if (Input.GetMouseButtonUp(1)) {
+		    if (Input.GetMouseButtonUp(0)) {
 				/*
 			    if (Input.GetKey (KeyCode.LeftControl)) {
 				    // if CTRL is held down, the script will record a gesture. 
+				    // careful conflict when left click is assign to draw gesture
 				    mouseDown = 0;
 				    GestureRecognizer.recordTemplate(pointArr);
 			    }
@@ -80,7 +82,8 @@ public class Gesture : MonoBehaviour
 
 				    pointArr.Clear();
 			    }
-	            */
+				*/
+
 
 			    mouseDown = 0;
 			    // start recognizing! 
@@ -88,14 +91,14 @@ public class Gesture : MonoBehaviour
 					
 				// the player has drawn the correct symbol
 				if (GestureRecognizer.isDrawCorrect) {
-					Debug.Log("hooray");
+					GuiText.guiText.text = GestureTemplates.TemplateNames[symbol % 4] + " reconnu.";
 
 					drawSymbol = false;
 					canDraw = false;
 				}
 				// the player has NOT drawn the correct symbol
 				else {
-					Debug.Log("sadface");
+					GuiText.guiText.text = "Recommencez svp!";
 				}
 
 			    pointArr.Clear();
@@ -109,7 +112,6 @@ public class Gesture : MonoBehaviour
 	    }
 
 		if (drawSymbol) {
-			int texSize = Screen.height / 2;
 			GUI.DrawTexture(new Rect((Screen.width/2) - (texSize/2), (Screen.height/2) - (texSize/2), texSize, texSize), textures[symbol % 4], ScaleMode.ScaleToFit);
 		}
 	}
@@ -141,7 +143,7 @@ public class Gesture : MonoBehaviour
             GestureRecognizer.newTemplateArr.Clear();
 
             //GuiText.guiText.text = "TEMPLATE: " + GestureRecognizer.stringToEdit + "\n STATUS: SAVED";
-			Debug.Log("TEMPLATE: " + GestureRecognizer.stringToEdit + " SAVED");
+			//Debug.Log("TEMPLATE: " + GestureRecognizer.stringToEdit + " SAVED");
 	    }
 
 	    if (GUI.Button (new Rect (160,50,50,20), "Cancel")) {
