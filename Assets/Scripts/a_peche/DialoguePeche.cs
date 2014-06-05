@@ -4,6 +4,7 @@ using System.Collections;
 public class DialoguePeche : TouchLogic {
 
     public GUITexture texValidation;
+    public GUITexture texAnnulation;
 
     protected Ray ray;
     protected RaycastHit hit;
@@ -27,8 +28,14 @@ public class DialoguePeche : TouchLogic {
         // State Peche
 
         else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
-            //if (GameManagerPeche.peche.poissonPeche)
-               // GameManagerPeche.peche.poissonPeche = false;
+            if (GameManagerPeche.peche.poissonPeche && GameManagerPeche.boutonValidation) {
+                GameManagerPeche.peche.poissonPeche = false;
+                GameManagerPeche.boutonValidation = false;
+            } else if (GameManagerPeche.peche.poissonPeche && GameManagerPeche.boutonAnnulation) {
+                GameManagerPeche.peche.poissonPeche = false;
+                GameManagerPeche.boutonAnnulation = false;
+            }
+
         }
 
         // State degivrage

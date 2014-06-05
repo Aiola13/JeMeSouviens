@@ -370,8 +370,8 @@ GameObject:
   - 92: {fileID: 158588574}
   - 81: {fileID: 158588573}
   m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
+  m_Name: Main Camera
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2053,6 +2053,7 @@ MonoBehaviour:
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 7408971fd055757499f2577352f7689c, type: 3}
   miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
+  canneaPeche: {fileID: 8300000, guid: 44c7e87ed01f269419bb3a8ff9d49307, type: 3}
   validation: {fileID: 505864818}
   annulation: {fileID: 983139035}
 --- !u!4 &1514716227
@@ -2078,6 +2079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texValidation: {fileID: 505864818}
+  texAnnulation: {fileID: 983139035}
 --- !u!114 &1514716229
 MonoBehaviour:
   m_ObjectHideFlags: 0

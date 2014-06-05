@@ -23,9 +23,11 @@ public class GameManagerPeche : GameManager {
 
     public AudioClip musiqueAmbiance;
     public AudioClip miaulementSkypi;
+    public AudioClip canneaPeche;
 
     public static AudioSource ambiance;
     public static AudioSource miaulement;
+    public static AudioSource canneApeche;
 
     public GUITexture validation;
     public GUITexture annulation;
@@ -44,6 +46,7 @@ public class GameManagerPeche : GameManager {
 
         ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
         miaulement = AddAudio(miaulementSkypi, false, false, 0.8f);
+        canneApeche = AddAudio(canneaPeche, true, false, 0.8f);
         ambiance.Play();
 	}
 
@@ -80,40 +83,49 @@ public class GameManagerPeche : GameManager {
         else if (curGameState == GameState.pecher) {
             
             if (peche.poissonPeche) {
-
+                canneApeche.Stop();
                 AfficherDialogue(jeanClaude, peche.infoPoisson);
                 AfficherTexture(validation);
                 AfficherTexture(annulation);
 
                 if (boutonValidation) {
-                    Debug.Log("dfs");
-                    quetePeche.listePanier.Add(peche.poisson);
-                    AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
-                    //boutonValidation = false;
-                    //peche.poissonPeche = false;
 
-                    if (quetePeche.listePanier.Count >= 5) {
-                        string poissonsCorrects;
-                        string poissonsIncorrects;
-                        if (quetePeche.verifVictoire(out poissonsCorrects, out poissonsIncorrects)) {
-                            AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
-                        } else {
-                            AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça");
-                        }
+                    NePasAfficherTexture(validation);
+                    NePasAfficherTexture(annulation);
+
+                    if (quetePeche.listePanier.Count < 5) {
+
+                        AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
+
+
+                    } else {
+
+                         string poissonsCorrects;
+                         string poissonsIncorrects;
+                         if (quetePeche.verifVictoire(out poissonsCorrects, out poissonsIncorrects)) {
+                             AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
+                         } else {
+                             AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça. \nPoissons corrects : \n" + poissonsCorrects + "Poissons incorrects : " + poissonsIncorrects);
+                         }
+                        
                     }
 
                 }
                 else if (boutonAnnulation) {
+
+                    NePasAfficherTexture(validation);
+                    NePasAfficherTexture(annulation);
+
                     AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
-                    boutonAnnulation = false;
-                    peche.poissonPeche = false;
+                    //boutonAnnulation = false;
+                    //peche.poissonPeche = false;
                 }
             }
         }
 
         #endregion peche
 
-        #region aide de skipy
+        #region aide de skypi
 
         else if (curGameState == GameState.aideDeSkypi) {
             string aide = "";

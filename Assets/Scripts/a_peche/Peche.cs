@@ -57,6 +57,8 @@ public class Peche : MonoBehaviour {
 
                 timerAMordu += Time.deltaTime;
 
+                GameManagerPeche.canneApeche.Play();
+
                 if (Input.acceleration.y <= -0.95) {
                     Debug.Log("a peche un poisson");
                     poissonPeche = true;
