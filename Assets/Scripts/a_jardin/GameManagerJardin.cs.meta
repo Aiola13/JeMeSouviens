@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: e9a409d42fdf18e4ea4e6686d706876a
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  - jessica: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
