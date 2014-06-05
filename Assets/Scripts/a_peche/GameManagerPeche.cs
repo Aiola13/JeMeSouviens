@@ -25,12 +25,20 @@ public class GameManagerPeche : GameManager {
     public AudioClip miaulementSkypi;
     public AudioClip canneaPeche;
 
+
     public static AudioSource ambiance;
     public static AudioSource miaulement;
     public static AudioSource canneApeche;
 
+	public AudioClip bipMauvais;
+	public AudioClip bipBon;
+	public static AudioSource errorBip;
+	public static AudioSource goodBip;
+
     public GUITexture validation;
     public GUITexture annulation;
+
+	private bool makeNewSymbol = false;
 
     #endregion
 
@@ -46,7 +54,10 @@ public class GameManagerPeche : GameManager {
 
         ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
         miaulement = AddAudio(miaulementSkypi, false, false, 0.8f);
-        canneApeche = AddAudio(canneaPeche, true, false, 0.8f);
+        canneApeche = AddAudio(canneaPeche, true, false, 0.8f);	
+		errorBip = AddAudio(bipMauvais, false, false, 1.0f);
+		goodBip = AddAudio(bipBon, false, false, 1.0f);
+
         ambiance.Play();
 	}
 
@@ -72,7 +83,11 @@ public class GameManagerPeche : GameManager {
         #region degivrage du trou
 
         else if (curGameState == GameState.degivrerTrou) {
-
+			if (makeNewSymbol) {
+				Gesture.NewSymbol();
+				Gesture.canDraw = true;
+				makeNewSymbol = false;
+			}
         }
 
         #endregion
@@ -81,7 +96,7 @@ public class GameManagerPeche : GameManager {
         #region peche
 
         else if (curGameState == GameState.pecher) {
-            
+
             if (peche.poissonPeche) {
                 canneApeche.Stop();
                 AfficherDialogue(jeanClaude, peche.infoPoisson);
@@ -110,6 +125,11 @@ public class GameManagerPeche : GameManager {
                         
                     }
 
+
+					// on change d'etat et on veut faire la reconnaissance de symbole
+					ChangeState(GameState.pecher, GameState.degivrerTrou);
+					makeNewSymbol = true;
+
                 }
                 else if (boutonAnnulation) {
 
@@ -121,6 +141,7 @@ public class GameManagerPeche : GameManager {
                     //peche.poissonPeche = false;
                 }
             }
+
         }
 
         #endregion peche

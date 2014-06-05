@@ -6,8 +6,8 @@ public class DialoguePeche : TouchLogic {
     public GUITexture texValidation;
     public GUITexture texAnnulation;
 
-    protected Ray ray;
-    protected RaycastHit hit;
+    private Ray ray;
+    private RaycastHit hit;
 
     public override void OnTouchEndedAnywhere() {
         
@@ -16,7 +16,6 @@ public class DialoguePeche : TouchLogic {
 
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.queteJeanClaude) {
             ChangeState(GameManagerPeche.GameState.queteJeanClaude, GameManagerPeche.GameState.pecher);
-            //AfficherTexture(texValidation);
         }
 
         // State Aide de Skypi
@@ -48,7 +47,6 @@ public class DialoguePeche : TouchLogic {
         // Si on touche Skypi
         ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
         if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-
             switch (GameManagerPeche.curGameState) {
                 case GameManagerPeche.GameState.degivrerTrou:
                     ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.aideDeSkypi);
@@ -59,6 +57,7 @@ public class DialoguePeche : TouchLogic {
             }
             GameManagerPeche.miaulement.Play();
         }
+
     }
 
     // Parameters: prev State, curr State
