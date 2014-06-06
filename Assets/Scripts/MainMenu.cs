@@ -21,11 +21,11 @@ public class MainMenu : TouchLogic {
 			}
 			else if (hit.collider.gameObject.name == "Peche") {
 				hit.collider.gameObject.renderer.material.color = Color.green;
-				Application.LoadLevel("a_crepe");
+				Application.LoadLevel("a_peche");
 			}
 			else if (hit.collider.gameObject.name == "Crepe") {
 				hit.collider.gameObject.renderer.material.color = Color.green;
-				Application.LoadLevel("a_peche");
+				Application.LoadLevel("a_crepe");
 			}
 		}
 	}
