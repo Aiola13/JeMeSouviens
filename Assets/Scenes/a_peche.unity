@@ -369,6 +369,11 @@ GameObject:
   - 124: {fileID: 158588575}
   - 92: {fileID: 158588574}
   - 81: {fileID: 158588573}
+  - 114: {fileID: 158588582}
+  - 114: {fileID: 158588581}
+  - 114: {fileID: 158588580}
+  - 114: {fileID: 158588579}
+  - 114: {fileID: 158588578}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -433,10 +438,81 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 158588572}
   m_LocalRotation: {x: .258819044, y: 0, z: 0, w: .965925813}
-  m_LocalPosition: {x: 110.78553, y: 146.88855, z: 37.8924179}
+  m_LocalPosition: {x: 111, y: 147, z: 38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &158588578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07d28dde97af984e92aa8ade23bcff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poissonPeche: 0
+  infoPoisson: 
+  solGele: 0
+  poisson: {fileID: 0}
+--- !u!114 &158588579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d3faf1fa56b46428c10535008ed746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &158588580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa22ed1ac464ca41a424b2870279d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeQuete: []
+  listePanier: []
+--- !u!114 &158588581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54af72d7a9632c84e93efdc7df21db2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  jeanClaude: {fileID: 2800000, guid: 6cf74338e767b024baa3216f95763b82, type: 3}
+  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
+  musiqueAmbiance: {fileID: 8300000, guid: 7408971fd055757499f2577352f7689c, type: 3}
+  miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
+  canneaPeche: {fileID: 8300000, guid: 44c7e87ed01f269419bb3a8ff9d49307, type: 3}
+  bipMauvais: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
+  bipBon: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
+  validation: {fileID: 505864818}
+  annulation: {fileID: 339991329}
+--- !u!114 &158588582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c733b6012581746897911b583225d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &170721190
 Prefab:
   m_ObjectHideFlags: 0
@@ -597,6 +673,66 @@ Prefab:
   m_RootGameObject: {fileID: 788452619}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &339991327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 339991330}
+  - 131: {fileID: 339991329}
+  - 114: {fileID: 339991328}
+  m_Layer: 0
+  m_Name: GUI_Annulation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &339991328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339991327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822e8e8c0d494664f8c3061f45aaa12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texValidation: {fileID: 505864818}
+  texAnnulation: {fileID: 339991329}
+--- !u!131 &339991329
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339991327}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: 931474a992f7c5245b2b41def4d9a7a2, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: -64
+    y: -29
+    width: 128
+    height: 58
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
+--- !u!4 &339991330
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339991327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .100000001, y: .449999988, z: 1}
+  m_LocalScale: {x: -.0399999991, y: .0399999991, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1007470066}
 --- !u!1 &392171636
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texValidation: {fileID: 505864818}
-  texAnnulation: {fileID: 983139035}
+  texAnnulation: {fileID: 339991329}
 --- !u!1 &589040401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,66 +1591,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1011491882}
   m_GameObject: {fileID: 965378558}
   m_Mesh: {fileID: 4300000, guid: e5b6525e0bfb8f0488ad4f5c887b63a4, type: 3}
---- !u!1 &983139033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 983139034}
-  - 131: {fileID: 983139035}
-  - 114: {fileID: 983139036}
-  m_Layer: 0
-  m_Name: GUI_Annulation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &983139034
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 983139033}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .100000001, y: .449999988, z: 1}
-  m_LocalScale: {x: -.100000001, y: .150000006, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1007470066}
---- !u!131 &983139035
-GUITexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 983139033}
-  m_Enabled: 1
-  m_Texture: {fileID: 2800000, guid: c9a5af9c99219ea42b716d22c841f7b3, type: 3}
-  m_Color: {r: .845588207, g: .136786312, b: .136786312, a: .501960814}
-  m_PixelInset:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  m_LeftBorder: 0
-  m_RightBorder: 0
-  m_TopBorder: 0
-  m_BottomBorder: 0
---- !u!114 &983139036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 983139033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 822e8e8c0d494664f8c3061f45aaa12b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texValidation: {fileID: 505864818}
-  texAnnulation: {fileID: 983139035}
 --- !u!1 &1007470065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,8 +1616,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 339991330}
   - {fileID: 505864817}
-  - {fileID: 983139034}
   m_Father: {fileID: 0}
 --- !u!1001 &1011491882
 Prefab:
@@ -2153,97 +2229,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 213875488}
   m_GameObject: {fileID: 1464717219}
   m_Mesh: {fileID: 4300002, guid: 6fd31bf0644a9574cbd02eb618d2d47d, type: 3}
---- !u!1 &1514716224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1514716227}
-  - 114: {fileID: 1514716226}
-  - 114: {fileID: 1514716225}
-  - 114: {fileID: 1514716228}
-  - 114: {fileID: 1514716229}
-  m_Layer: 0
-  m_Name: _GameManager
-  m_TagString: GameManager
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1514716225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514716224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa22ed1ac464ca41a424b2870279d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listeQuete: []
-  listePanier: []
---- !u!114 &1514716226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514716224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54af72d7a9632c84e93efdc7df21db2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
-  jeanClaude: {fileID: 2800000, guid: 6cf74338e767b024baa3216f95763b82, type: 3}
-  skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
-  musiqueAmbiance: {fileID: 8300000, guid: 7408971fd055757499f2577352f7689c, type: 3}
-  miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
-  canneaPeche: {fileID: 8300000, guid: 44c7e87ed01f269419bb3a8ff9d49307, type: 3}
-  bipMauvais: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
-  bipBon: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
-  validation: {fileID: 505864818}
-  annulation: {fileID: 983139035}
---- !u!4 &1514716227
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514716224}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: 147, z: 38}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!114 &1514716228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514716224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50d3faf1fa56b46428c10535008ed746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texValidation: {fileID: 505864818}
-  texAnnulation: {fileID: 983139035}
---- !u!114 &1514716229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1514716224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07d28dde97af984e92aa8ade23bcff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poissonPeche: 0
-  infoPoisson: 
-  poisson: {fileID: 0}
 --- !u!1 &1539755988
 GameObject:
   m_ObjectHideFlags: 0

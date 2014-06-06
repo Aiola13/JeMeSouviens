@@ -40,12 +40,14 @@ public class GameManagerPeche : GameManager {
 
 	private bool makeNewSymbol = false;
 
+    GameObject canne;
+
     #endregion
 
     // Use this for initialization
 	void Start () {
 
-
+        canne = GameObject.FindGameObjectWithTag("CanneAPeche");
 
         quetePeche = GetComponent<QuetePeche>();
         peche = GetComponent<Peche>();
@@ -54,7 +56,7 @@ public class GameManagerPeche : GameManager {
 
         ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
         miaulement = AddAudio(miaulementSkypi, false, false, 0.8f);
-        canneApeche = AddAudio(canneaPeche, true, false, 0.8f);	
+        canneApeche = AddAudio(canneaPeche, false, false, 0.8f);	
 		errorBip = AddAudio(bipMauvais, false, false, 1.0f);
 		goodBip = AddAudio(bipBon, false, false, 1.0f);
 
@@ -83,6 +85,9 @@ public class GameManagerPeche : GameManager {
         #region degivrage du trou
 
         else if (curGameState == GameState.degivrerTrou) {
+
+            modeDegivrage();
+
 			if (makeNewSymbol) {
 				Gesture.NewSymbol();
 				Gesture.canDraw = true;
@@ -97,6 +102,9 @@ public class GameManagerPeche : GameManager {
 
         else if (curGameState == GameState.pecher) {
 
+            //print("Axe X " + Input.acceleration.x + "      Axe Y " + Input.acceleration.y + "         Axe Z " + Input.acceleration.z);
+            modePeche();
+
             if (peche.poissonPeche) {
                 canneApeche.Stop();
                 AfficherDialogue(jeanClaude, peche.infoPoisson);
@@ -107,28 +115,20 @@ public class GameManagerPeche : GameManager {
 
                     NePasAfficherTexture(validation);
                     NePasAfficherTexture(annulation);
-
                     if (quetePeche.listePanier.Count < 5) {
 
                         AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
 
-
                     } else {
-
                          string poissonsCorrects;
                          string poissonsIncorrects;
                          if (quetePeche.verifVictoire(out poissonsCorrects, out poissonsIncorrects)) {
                              AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
                          } else {
-                             AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça. \nPoissons corrects : \n" + poissonsCorrects + "Poissons incorrects : " + poissonsIncorrects);
+                             AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça. \nPoissons corrects : \n" + poissonsCorrects + "Poissons incorrects : \n" + poissonsIncorrects);
                          }
                         
                     }
-
-
-					// on change d'etat et on veut faire la reconnaissance de symbole
-					ChangeState(GameState.pecher, GameState.degivrerTrou);
-					makeNewSymbol = true;
 
                 }
                 else if (boutonAnnulation) {
@@ -137,9 +137,11 @@ public class GameManagerPeche : GameManager {
                     NePasAfficherTexture(annulation);
 
                     AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
-                    //boutonAnnulation = false;
-                    //peche.poissonPeche = false;
+
                 }
+            } else if (peche.solGele) {
+                ChangeState(GameState.pecher, GameState.degivrerTrou);
+                makeNewSymbol = true;
             }
 
         }
@@ -168,9 +170,21 @@ public class GameManagerPeche : GameManager {
     }
     #endregion OnGUI
 
-    public void ChangeState(GameState prev, GameState current) {
+    public static void ChangeState(GameState prev, GameState current) {
         curGameState = current;
         prevGameState = prev;
+    }
+
+    public void modeDegivrage() {
+        canne.SetActive(false);
+        transform.position = new Vector3(115, 145, 107);
+        transform.eulerAngles = new Vector3(80, 0, 0);
+    }
+
+    public void modePeche() {
+        canne.SetActive(true);
+        transform.position = new Vector3(111, 147, 38);
+        transform.eulerAngles = new Vector3(30, 0, 0);
     }
 
 }

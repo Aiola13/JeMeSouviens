@@ -23,17 +23,20 @@ public class UIButtonsPeche : TouchLogic {
     }
 
     public override void OnTouchEnded() {
+        if (name == "GUI_Annulation") {
+            print("hooray");
+            GameManager.boutonAnnulation = true;
+            Destroy(GameManagerPeche.peche.poisson);
+        }
+
         if (name == "GUI_Validation") {
             GameManager.boutonValidation = true;
             GameManagerPeche.quetePeche.listePanier.Add(GameManagerPeche.peche.poisson.tag);
             GameManagerPeche.peche.poisson.transform.position = positionsPoissons[compteurPoissons];
             compteurPoissons++;
         }
+        print("here");
 
-        if (name == "GUI_Annulation") {
-            GameManager.boutonAnnulation = true;
-            Destroy(GameManagerPeche.peche.poisson);
-        }
     }
 
 }

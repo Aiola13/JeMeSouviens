@@ -3,9 +3,6 @@ using System.Collections;
 
 public class DialoguePeche : TouchLogic {
 
-    public GUITexture texValidation;
-    public GUITexture texAnnulation;
-
     private Ray ray;
     private RaycastHit hit;
 
@@ -37,12 +34,8 @@ public class DialoguePeche : TouchLogic {
 
         }
 
-        // State degivrage
+        
 
-        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.degivrerTrou) {
-
-
-        }
 
         // Si on touche Skypi
         ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
@@ -65,17 +58,5 @@ public class DialoguePeche : TouchLogic {
         GameManagerPeche.curGameState = current;
         GameManagerPeche.prevGameState = prev;
     }
-
-   // active et affiche la texture t
-   public void AfficherTexture(GUITexture t) {
-       t.guiTexture.enabled = true;
-       t.gameObject.SetActive(true);
-   }
-
-   // désactive et enleve l'affichage de la texture t
-   public void NePasAfficherTexture(GUITexture t) {
-       t.guiTexture.enabled = false;
-       t.gameObject.SetActive(false);
-   }
 
 }

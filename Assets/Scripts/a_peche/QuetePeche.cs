@@ -180,19 +180,28 @@ public class QuetePeche : MonoBehaviour {
         return poissonsManquants;
 	}
 
+    
 	public bool verifVictoire(out string poissonsCorrects, out string poissonsIncorrects){
         
         bool victoire = true;
+        List<string> queteCopie = new List<string>(); ;
+        List<string> panierCopie = listePanier;
         List<string> pC = new List<string>();
         List<string> pI = new List<string>();
 
-        for (int i = 0; i < listePanier.Count; i++) {
+        for (int i = 0; i < 5; i++) {
+            queteCopie.Add(listeQuete[i].tag);
+        }
 
-            if (!listePanier.Contains(listeQuete[i].tag)) {
+        for (int i = 0; i < 5; i++) {
+
+            if (!queteCopie.Contains(panierCopie[i])) {
                 victoire = false;
-                pI.Add(listePanier[i]);
+                pI.Add(panierCopie[i]);
             } else {
-                pC.Add(listePanier[i]);
+                int index = queteCopie.IndexOf(panierCopie[i]);
+                pC.Add(panierCopie[i]);
+                queteCopie.RemoveAt(index);
             }
         }
 
@@ -201,7 +210,24 @@ public class QuetePeche : MonoBehaviour {
 
         return victoire;
 	}
+    
+    /*
+    public int verifVictoire() {
 
+        List<string> listeIntermediaire;
+
+        int nombreErreurs = 0;
+
+        for (int i = 0; i < listeQuete.Count; i++) {
+
+            if (!listePanier.Contains(listeQuete[i].tag)) {
+                nombreErreurs++;
+            }
+        }
+
+        return nombreErreurs;
+    }
+    */
     string nomPoisson(string tag) {
 
         switch (tag) {

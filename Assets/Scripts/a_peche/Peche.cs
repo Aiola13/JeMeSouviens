@@ -5,12 +5,13 @@ using System.Collections.Generic;
 public class Peche : MonoBehaviour {
 
     float timerAMordu;
+    float timerGele;
     float timer;
     int dureeProchainPoisson;
-    bool aMordu;
 
     public bool poissonPeche;
     public string infoPoisson;
+    public bool solGele = false;
 
     GameObject poi_sebaste;
     GameObject poi_morue;
@@ -20,13 +21,16 @@ public class Peche : MonoBehaviour {
 
     public GameObject poisson;
 
+    float AccYPrev = 0.0f;
+    float AccZPrev = 0.0f;
+
 	// Use this for initialization
 	void Start () {
         
         timer = 0.0f;
         timerAMordu = 0.0f;
+        timerGele = 0.0f;
         dureeProchainPoisson = Random.Range(3, 7);
-        aMordu = false;
         poissonPeche = false;
         infoPoisson = "";
 
@@ -45,36 +49,35 @@ public class Peche : MonoBehaviour {
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher && poissonPeche == false) {
             
             timer += Time.deltaTime;
+            timerGele += Time.deltaTime;
 
             if (timer >= dureeProchainPoisson) {
                 Handheld.Vibrate();
                 //this.transform.rotation = Quaternion.Euler(0, 0, 40);
                 Debug.Log("Un poisson a mordu!!");
-                aMordu = true;
-            }
-
-            if (aMordu) {
-
+                
                 timerAMordu += Time.deltaTime;
 
                 GameManagerPeche.canneApeche.Play();
 
-                if (Input.acceleration.y <= -0.95) {
+                if (GestureTirerCanneAPeche()) {
                     Debug.Log("a peche un poisson");
                     poissonPeche = true;
                     GarderPoisson();
-                    aMordu = false;
+                    AccYPrev = 0.0f;
+                    AccZPrev = 0.0f;
                     timer = 0.0f;
                     timerAMordu = 0.0f;
-                }
-
-                if (timerAMordu >= 2.0f) {
+                } else if (timerAMordu >= 2.0f) {
                     Debug.Log("Le poisson c'est echape");
-                    aMordu = false;
                     timer = 0.0f;
                     timerAMordu = 0.0f;
                 }
-                
+            } else if (timerGele >= 30.0f) {
+
+                solGele = true;
+                timerGele = 0.0f;
+                timer = 0.0f;
             }
         }
 
@@ -130,6 +133,28 @@ public class Peche : MonoBehaviour {
         infoPoisson += "Veux-tu le garder?";
 
 
+    }
+
+    // Fonction du bled
+    bool GestureTirerCanneAPeche(){
+        /*
+        print("AXE Y :   " + (Mathf.Abs(Input.acceleration.y) - Mathf.Abs(AccYPrev)));
+        print("AXE Z :   " + (Mathf.Abs(Input.acceleration.z) - Mathf.Abs(AccZPrev)));
+
+        if (Mathf.Abs(Input.acceleration.y) - Mathf.Abs(AccYPrev) > 0.1 && Mathf.Abs(Input.acceleration.z) - Mathf.Abs(AccZPrev) > 0.1) {
+            AccYPrev = Input.acceleration.y;
+            AccZPrev = Input.acceleration.z;
+            return false;
+        }
+        */
+        if (Input.acceleration.y + AccYPrev <= -1.2 && Input.acceleration.z + AccZPrev >= -0.6) {
+            return true;
+        }
+        else{
+            AccYPrev = Input.acceleration.y;
+            AccZPrev = Input.acceleration.z;
+            return false;
+        }
     }
 
 }

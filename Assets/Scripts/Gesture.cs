@@ -17,6 +17,7 @@ public class Gesture : MonoBehaviour
 	
 	public static int symbol = -1;
 	public static bool canDraw = false;
+    public static bool drawOK = false;
 	public static bool drawSymbol = false;
 	public Texture[] textures; 
 	private int texSize = Screen.height / 2;
@@ -45,7 +46,7 @@ public class Gesture : MonoBehaviour
 	    }
     }
 
-	public static void NewSymbol () {
+    public static void NewSymbol() {
 		symbol = Random.Range(0, GestureTemplates.TemplateNames.Count - 1);
 		//Debug.Log("Dessine un " + GestureTemplates.TemplateNames[symbol % 4]); // we use modulo 4, because we have two sets of 4 different symbols
 		//GuiText.guiText.text = "Dessine un " + GestureTemplates.TemplateNames[symbol % 4];
@@ -93,15 +94,17 @@ public class Gesture : MonoBehaviour
 				if (GestureRecognizer.isDrawCorrect) {
 					//GuiText.guiText.text = GestureTemplates.TemplateNames[symbol % 4] + " reconnu.";
 					Debug.Log(GestureTemplates.TemplateNames[symbol % 4] + " reconnu.");
+                    drawOK = true;
 					drawSymbol = false;
 					canDraw = false;
 					GameManagerPeche.goodBip.Play ();
+                    GameManagerPeche.peche.solGele = false;
 					ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.pecher);
 				}
 				// the player has NOT drawn the correct symbol
 				else {
 					//GuiText.guiText.text = "Recommencez svp!";
-					Debug.Log("Recommencez svp!");
+					Debug.Log("Recommencez svp!");                    
 					GameManagerPeche.errorBip.Play ();
 				}
 
