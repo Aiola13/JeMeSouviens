@@ -4,8 +4,6 @@ using System.Collections;
 public class Parcelle : MonoBehaviour {
 
 	public enum ParcelleState {
-		attente,
-		selectionne,
 		creuser,
 		graine,
 		arrosage,
@@ -20,7 +18,7 @@ public class Parcelle : MonoBehaviour {
 	public bool isSelected = false;
 
 	void Awake() {
-		_curState = ParcelleState.attente;
+		_curState = ParcelleState.creuser;
 
 		originalColor = renderer.material.color;
 	}

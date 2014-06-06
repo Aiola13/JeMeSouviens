@@ -41,7 +41,10 @@ public class TouchJardin : TouchLogic {
 					
 				}
 
+				selectedParcelle = null;
+				NePasAfficherUILegumes();
 				NePasAfficherValidation();
+
 			}
 		}
 	}
@@ -85,6 +88,12 @@ public class TouchJardin : TouchLogic {
 			ChangeState(GameManagerJardin.GameState.dialogueTransition1, GameManagerJardin.GameState.transition);
 		}
 
+		// TEMPORARIRE
+		// tansition 
+		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.transition) {
+			ChangeState(GameManagerJardin.GameState.transition, GameManagerJardin.GameState.dialogueTransition2);
+		}
+		
 		// dialogue 2 de la tansition 2
 		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.dialogueTransition2) {
 			ChangeState(GameManagerJardin.GameState.dialogueTransition2, GameManagerJardin.GameState.queteJessicaP2);
@@ -127,13 +136,7 @@ public class TouchJardin : TouchLogic {
 
 				scriptParcelle.isSelected = true;
 
-				if (scriptParcelle._curState == Parcelle.ParcelleState.attente) {
-					scriptParcelle.ChangeState(Parcelle.ParcelleState.attente, Parcelle.ParcelleState.selectionne);
-				}
-				else if (scriptParcelle._curState == Parcelle.ParcelleState.selectionne) {
-					scriptParcelle.ChangeState(Parcelle.ParcelleState.selectionne, Parcelle.ParcelleState.creuser);
-				}
-				else if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
+				if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
 					AfficherUILegumes();
 					scriptParcelle.ChangeState(Parcelle.ParcelleState.creuser, Parcelle.ParcelleState.graine);
 				}

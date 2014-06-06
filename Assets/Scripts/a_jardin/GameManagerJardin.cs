@@ -160,7 +160,7 @@ public class GameManagerJardin :  GameManager{
 		
 		#region planter 1
 		// affiche l'aide pour la phase de plantage numéro 1
-		else if (curGameState == GameState.planterP1) {
+		else if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
 			if (touchJardin.selectedParcelle == null) {
 				AfficherAide("Selectionne une parcelle.");
 			}
@@ -190,7 +190,7 @@ public class GameManagerJardin :  GameManager{
 		#region transition
 		// affichage de l'aide pour la phase de transition
 		else if (curGameState == GameState.transition) {
-			//AfficherDialogue(jessica, "transition");
+			AfficherDialogue(jessica, "transition");
 		}
 		#endregion
 
