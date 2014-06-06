@@ -19,6 +19,8 @@ public class Peche : MonoBehaviour {
     GameObject poi_eperlant;
     GameObject poi_turbot;
 
+    GameObject canneAPeche;
+
     public GameObject poisson;
 
     float AccYPrev = 0.0f;
@@ -39,6 +41,7 @@ public class Peche : MonoBehaviour {
         poi_saumon = GameObject.FindGameObjectWithTag("poi_saumon");
         poi_morue = GameObject.FindGameObjectWithTag("poi_morue");
         poi_sebaste = GameObject.FindGameObjectWithTag("poi_sebaste");
+        canneAPeche = GameObject.FindGameObjectWithTag("CanneAPeche");
 
         poisson = new GameObject();
 	}
@@ -53,7 +56,7 @@ public class Peche : MonoBehaviour {
 
             if (timer >= dureeProchainPoisson) {
                 Handheld.Vibrate();
-                //this.transform.rotation = Quaternion.Euler(0, 0, 40);
+                //canneAPeche.animation.Play();
                 Debug.Log("Un poisson a mordu!!");
                 
                 timerAMordu += Time.deltaTime;
