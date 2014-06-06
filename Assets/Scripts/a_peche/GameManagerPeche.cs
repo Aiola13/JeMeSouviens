@@ -177,7 +177,7 @@ public class GameManagerPeche : GameManager {
 
     public void modeDegivrage() {
         canne.SetActive(false);
-        transform.position = new Vector3(115, 145, 107);
+        transform.position = new Vector3(117, 145, 107);
         transform.eulerAngles = new Vector3(80, 0, 0);
     }
 

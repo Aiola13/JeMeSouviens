@@ -12,6 +12,7 @@ public class Peche : MonoBehaviour {
     public bool poissonPeche;
     public string infoPoisson;
     public bool solGele = false;
+    bool sonCanneApeche = false;
 
     GameObject poi_sebaste;
     GameObject poi_morue;
@@ -55,32 +56,39 @@ public class Peche : MonoBehaviour {
             timerGele += Time.deltaTime;
 
             if (timer >= dureeProchainPoisson) {
-                Handheld.Vibrate();
+                if (!sonCanneApeche) {
+                    SonCannePeche();
+                    sonCanneApeche = true;
+                }
+                //Handheld.Vibrate();
                 //canneAPeche.animation.Play();
                 Debug.Log("Un poisson a mordu!!");
                 
                 timerAMordu += Time.deltaTime;
 
-                GameManagerPeche.canneApeche.Play();
-
                 if (GestureTirerCanneAPeche()) {
                     Debug.Log("a peche un poisson");
                     poissonPeche = true;
+                    sonCanneApeche = false;
                     GarderPoisson();
                     AccYPrev = 0.0f;
                     AccZPrev = 0.0f;
                     timer = 0.0f;
                     timerAMordu = 0.0f;
-                } else if (timerAMordu >= 2.0f) {
+                } 
+                else if (timerAMordu >= 2.0f) {
                     Debug.Log("Le poisson c'est echape");
                     timer = 0.0f;
                     timerAMordu = 0.0f;
+                    sonCanneApeche = false;
                 }
-            } else if (timerGele >= 30.0f) {
+            } 
+            else if (timerGele >= 30.0f) {
 
                 solGele = true;
                 timerGele = 0.0f;
                 timer = 0.0f;
+                sonCanneApeche = false;
             }
         }
 
@@ -88,7 +96,7 @@ public class Peche : MonoBehaviour {
 
     void GarderPoisson() {
 
-        Vector3 positionPoisson = new Vector3(96, 120, 126);
+        Vector3 positionPoisson = new Vector3(116, 129, 83);
         Quaternion rotationPoisson = Quaternion.identity;
         rotationPoisson.eulerAngles = new Vector3(0, 90, 20);
         int randomPoisson = Random.Range(1, 6);
@@ -136,6 +144,10 @@ public class Peche : MonoBehaviour {
         infoPoisson += "Veux-tu le garder?";
 
 
+    }
+
+    void SonCannePeche() {
+        GameManagerPeche.canneApeche.Play();
     }
 
     // Fonction du bled
