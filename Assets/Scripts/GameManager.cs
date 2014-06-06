@@ -58,5 +58,13 @@ public class GameManager : MonoBehaviour {
         GUI.Box(new Rect(Screen.width * 2 / 3, Screen.height * 2 / 3 + brd * 2, Screen.width / 10, Screen.height / 3 - 10), "TOUCHER POUR CONTINUER !", style);
     }
 
-
+	// affiche une aide en bas de l'écran sur l'action courrante a faire
+	public void AfficherAide(string txt) {
+		style.fontSize = Screen.height / 24;
+		style.alignment = TextAnchor.MiddleLeft;
+		style.font = (Font)Resources.Load("Roboto-Regular");
+		
+		GUI.DrawTexture(new Rect(brd * 30, Screen.height * 90 / 100, Screen.width - brd * 60, Screen.height * 10 / 100 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.Box(new Rect(brd * 40, Screen.height * 90 / 100, Screen.width - brd * 70, Screen.height * 10 / 100 - brd), txt, style);
+	}
 }

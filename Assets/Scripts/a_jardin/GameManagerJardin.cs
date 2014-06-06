@@ -17,25 +17,28 @@ public class GameManagerJardin :  GameManager{
 		score
 	}
 
-	public Texture2D jessica;
-
 	public static GameState curGameState;
 	public static GameState prevGameState;
 
+	public Texture2D jessica;
 
-	public bool plantageFini = false;
+	private TouchJardin touchJardin;
+
+
 	#endregion attributs
 
 
 	void Start() {
 		curGameState = GameState.queteJessicaP1;
+
+		touchJardin = GetComponent<TouchJardin>();
 	}
 
 
 	#region Update
 	void Update() {
 
-		print(curGameState);
+		print("cur : " + curGameState + "    prev :  " + prevGameState);
 
 
 		#region quete 1
@@ -51,7 +54,10 @@ public class GameManagerJardin :  GameManager{
 		#region planterP1
 		// phase de plantage numéro 1
 		else if (curGameState == GameState.planterP1) {
-			
+
+			touchJardin.SelectionnerLegume();
+			touchJardin.ValiderLegumes();
+
 			if (Input.GetButtonUp("Jump"))
 				ChangeState(GameState.planterP1, GameState.dialogueTransition1);
 		}
@@ -101,7 +107,10 @@ public class GameManagerJardin :  GameManager{
 		#region planter2
 		// phase de plantage numéro 2
 		else if (curGameState == GameState.planterP2) {
-			
+
+			touchJardin.SelectionnerLegume();
+			touchJardin.ValiderLegumes();
+
 			if (Input.GetButtonUp("Jump"))
 				ChangeState(GameState.planterP2, GameState.finJardin);
 		}
@@ -134,8 +143,6 @@ public class GameManagerJardin :  GameManager{
 
 	#region OnGUI
 	void OnGUI() {
-		//print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "   boutonValidation: " + GameManager.boutonValidation);
-
 
 		if (!jessica) {
 			Debug.LogError("Ajouter les textures!");
@@ -154,8 +161,20 @@ public class GameManagerJardin :  GameManager{
 		#region planter 1
 		// affiche l'aide pour la phase de plantage numéro 1
 		else if (curGameState == GameState.planterP1) {
-			AfficherDialogue(jessica, "planterP1");
-
+			if (touchJardin.selectedParcelle == null) {
+				AfficherAide("Selectionne une parcelle.");
+			}
+			else {
+				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.creuser) {
+					AfficherAide("Creuse.");
+				}
+				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
+					AfficherAide("Plante une graine.");
+				}
+				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
+					AfficherAide("Arrose");
+				}
+			}
 		}
 		#endregion
 
@@ -171,7 +190,7 @@ public class GameManagerJardin :  GameManager{
 		#region transition
 		// affichage de l'aide pour la phase de transition
 		else if (curGameState == GameState.transition) {
-			AfficherDialogue(jessica, "transition");
+			//AfficherDialogue(jessica, "transition");
 		}
 		#endregion
 
@@ -195,7 +214,7 @@ public class GameManagerJardin :  GameManager{
 		#region planter 2
 		// affiche l'aide pour la phase de plantage numéro 2
 		else if (curGameState == GameState.planterP2) {
-			AfficherDialogue(jessica, "planterP2");
+			//AfficherDialogue(jessica, "planterP2");
 			
 		}
 		#endregion
@@ -226,16 +245,4 @@ public class GameManagerJardin :  GameManager{
 		prevGameState = prev;
 	}
 
-	/*
-	// affiche une aide en bas de l'écran sur l'action courrante a faire
-	void AfficherAide() {
-		style.fontSize = Screen.height / 36;
-		style.alignment = TextAnchor.MiddleCenter;
-		style.font = (Font)Resources.Load("Roboto-Regular");
-		
-		Rect box = new Rect(Screen.width * 3/4, Screen.height - Screen.height/3, Screen.width/4-brd, Screen.height / 3 - brd);
-		GUI.DrawTexture(box, Tex_dialogue, ScaleMode.ScaleAndCrop, true, 0);
-		GUI.Box(box, queteCrepe.contenuDuSaladier(), style);
-	}
-	*/
 }
