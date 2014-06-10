@@ -57,7 +57,7 @@ public class Peche : MonoBehaviour {
 
             if (timer >= dureeProchainPoisson) {
                 if (!sonCanneApeche) {
-                    SonCannePeche();
+                    GameManagerPeche.canneApeche.Play();
                     sonCanneApeche = true;
                 }
                 //Handheld.Vibrate();
@@ -99,56 +99,26 @@ public class Peche : MonoBehaviour {
         Vector3 positionPoisson = new Vector3(116, 129, 83);
         Quaternion rotationPoisson = Quaternion.identity;
         rotationPoisson.eulerAngles = new Vector3(0, 90, 20);
-        int randomPoisson = Random.Range(1, 6);
+        int randomPoisson = Random.Range(1, 3);
+        string poissonString = "";
+        // On a une chance sur 2 de pecher un poisson contenu dans la liste pour éviter que la partie s'éternise
+        if (randomPoisson == 1) {
 
-        switch (randomPoisson) {
-            case 1:
-                poisson = (GameObject)Instantiate(poi_eperlant, positionPoisson, rotationPoisson);
-                break;
-            case 2:
-                poisson = (GameObject)Instantiate(poi_turbot, positionPoisson, rotationPoisson);
-                break;
-            case 3:
-                poisson = (GameObject)Instantiate(poi_saumon, positionPoisson, rotationPoisson);
-                break;
-            case 4:
-                poisson = (GameObject)Instantiate(poi_morue, positionPoisson, rotationPoisson);
-                break;
-            case 5:
-                poisson = (GameObject)Instantiate(poi_sebaste, positionPoisson, rotationPoisson);
-                break;
+            randomPoisson = Random.Range(1, GameManagerPeche.quetePeche.listeQuete.Count + 1);
+            poissonString = GameManagerPeche.quetePeche.listeQuete[randomPoisson];
+
+        } else {
+            poissonString = tirerUnPoissonRandom();
         }
 
-        string nomPoisson = poisson.tag;
+        poisson = (GameObject)Instantiate(GameObject.FindGameObjectWithTag(poissonString), positionPoisson, rotationPoisson);
 
-        switch (nomPoisson) {
-
-                case "poi_eperlant":
-                    nomPoisson = "eperlant";
-                    break;
-                case "poi_turbot":
-                    nomPoisson = "turbot";
-                    break;
-                case "poi_morue":
-                    nomPoisson = "morue";
-                    break;
-                case "poi_saumon":
-                    nomPoisson = "saumon";
-                    break;
-                case "poi_sebaste":
-                    nomPoisson =  "sebaste";
-                    break;
-            }
-
-        infoPoisson = "Le poisson que tu vient de pêcher est un " + nomPoisson + ".\n";
+        infoPoisson = "Le poisson que tu vient de pêcher est " + tagNomConvertor(poissonString) + ".\n";
         infoPoisson += "Veux-tu le garder?";
 
 
     }
 
-    void SonCannePeche() {
-        GameManagerPeche.canneApeche.Play();
-    }
 
     // Fonction du bled
     bool GestureTirerCanneAPeche(){
@@ -171,5 +141,50 @@ public class Peche : MonoBehaviour {
             return false;
         }
     }
+
+    string tagNomConvertor(string tag) {
+        switch (tag) {
+
+            case "poi_eperlant":
+                tag = "un eperlant";
+                break;
+            case "poi_turbot":
+                tag = "un turbot";
+                break;
+            case "poi_morue":
+                tag = "une morue";
+                break;
+            case "poi_saumon":
+                tag = "un saumon";
+                break;
+            case "poi_sebaste":
+                tag = "un sebaste";
+                break;
+        }
+        return tag;
+    }
+
+    string tirerUnPoissonRandom() {
+            string poisson = "";
+            int random = Random.Range(1, 6);
+            switch(random){
+                case 1:
+                    poisson = "poi_eperlant";
+                    break;
+                case 2:
+                    poisson = "poi_turbot";
+                    break;
+                case 3:
+                    poisson = "poi_morue";
+                    break;
+                case 4:
+                    poisson = "poi_saumon";
+                    break;
+                case 5:
+                    poisson = "poi_sebaste";
+                    break;
+            }
+        return poisson;
+   }
 
 }

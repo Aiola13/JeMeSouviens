@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class QuetePeche : MonoBehaviour {
 
 
-	public List<GameObject> listeQuete;
+	public List<string> listeQuete;
 
-	public List<string> listePanier;
+    public List<string> listeCorrecte;
+
+    public List<string> listeIncorrecte;
 
 	// Use this for initialization
 	void Start () {
@@ -24,19 +26,19 @@ public class QuetePeche : MonoBehaviour {
             int j = Random.Range(1, 6);
             switch(j){
                 case 1:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_eperlant"));
+                    listeQuete.Add("poi_eperlant");
                     break;
                 case 2:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_turbot"));
+                    listeQuete.Add("poi_turbot");
                     break;
                 case 3:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_morue"));
+                    listeQuete.Add("poi_morue");
                     break;
                 case 4:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_saumon"));
+                    listeQuete.Add("poi_saumon");
                     break;
                 case 5:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_sebaste"));
+                    listeQuete.Add("poi_sebaste");
                     break;
             }
         }
@@ -46,66 +48,10 @@ public class QuetePeche : MonoBehaviour {
 
     void afficherListeDebug() {
         for (int i = 0; i < listeQuete.Count; i++) {
-            Debug.Log(listeQuete[i].tag);
-        }
-
-        for (int i = 0; i < listePanier.Count; i++) {
-            Debug.Log(listePanier[i]);
+            Debug.Log(listeQuete[i]);
         }
     }
 
-	public string toString(string tag, List<GameObject> liste){
-		
-        string nomPoisson = "";
-
-        int nbPoissons = 0;
-        for (int i = 0; i < liste.Count; i++) {
-            if (liste[i].tag == tag)
-                nbPoissons++;
-        }
-
-        if (nbPoissons > 1) {
-            switch (tag) {
-
-                case "poi_eperlant":
-                    nomPoisson = nbPoissons + " eperlants";
-                    break;
-                case "poi_turbot":
-                    nomPoisson = nbPoissons + " turbots";
-                    break;
-                case "poi_morue":
-                    nomPoisson = nbPoissons + " morues";
-                    break;
-                case "poi_saumon":
-                    nomPoisson = nbPoissons + " saumons";
-                    break;
-                case "poi_sebaste":
-                    nomPoisson = nbPoissons + " sebastes";
-                    break;
-            }
-        } else {
-            switch (tag) {
-
-                case "poi_eperlant":
-                    nomPoisson = nbPoissons + " eperlant";
-                    break;
-                case "poi_turbot":
-                    nomPoisson = nbPoissons + " turbot";
-                    break;
-                case "poi_morue":
-                    nomPoisson = nbPoissons + " morue";
-                    break;
-                case "poi_saumon":
-                    nomPoisson = nbPoissons + " saumon";
-                    break;
-                case "poi_sebaste":
-                    nomPoisson = nbPoissons + " sebaste";
-                    break;
-            }
-        }
-
-		return nomPoisson;
-	}
 
     public string toString(string tag, List<string> liste) {
 
@@ -160,17 +106,6 @@ public class QuetePeche : MonoBehaviour {
         return nomPoisson;
     }
 
-	public string contenuDuPanier(){
-		string contenuDuPanier = "Actuellement dans le panier : \n\n";
-		
-		for (int i = 0; i < listePanier.Count; i++)
-		{
-            contenuDuPanier += "- " + toString(listePanier[i], listePanier) + "\n";
-		}
-
-        return contenuDuPanier;
-	}
-
 	public string poissonsManquants(){
 
         string poissonsManquants = "Voici les poissons qu'il reste à pêcher : \n\n";
@@ -181,53 +116,15 @@ public class QuetePeche : MonoBehaviour {
 	}
 
     
-	public bool verifVictoire(out string poissonsCorrects, out string poissonsIncorrects){
-        
-        bool victoire = true;
-        List<string> queteCopie = new List<string>(); ;
-        List<string> panierCopie = listePanier;
-        List<string> pC = new List<string>();
-        List<string> pI = new List<string>();
+	public bool verifVictoire(){
 
-        for (int i = 0; i < 5; i++) {
-            queteCopie.Add(listeQuete[i].tag);
+        if (listeQuete.Count == 0) {
+            return true;
         }
 
-        for (int i = 0; i < 5; i++) {
-
-            if (!queteCopie.Contains(panierCopie[i])) {
-                victoire = false;
-                pI.Add(panierCopie[i]);
-            } else {
-                int index = queteCopie.IndexOf(panierCopie[i]);
-                pC.Add(panierCopie[i]);
-                queteCopie.RemoveAt(index);
-            }
-        }
-
-        poissonsCorrects = ToStringListePoissons(pC);
-        poissonsIncorrects = ToStringListePoissons(pI);
-
-        return victoire;
+        return false;
 	}
     
-    /*
-    public int verifVictoire() {
-
-        List<string> listeIntermediaire;
-
-        int nombreErreurs = 0;
-
-        for (int i = 0; i < listeQuete.Count; i++) {
-
-            if (!listePanier.Contains(listeQuete[i].tag)) {
-                nombreErreurs++;
-            }
-        }
-
-        return nombreErreurs;
-    }
-    */
     string nomPoisson(string tag) {
 
         switch (tag) {
@@ -261,25 +158,6 @@ public class QuetePeche : MonoBehaviour {
 		
 		return quete;
 	}
-
-    public string ToStringListePoissons(List<GameObject> liste){
-
-        List<string> dejaAffiche = new List<string>();
-
-        string listePoissons = "";
-
-        for (int i = 0; i < liste.Count; i++) {
-            if (i == 0) {
-                dejaAffiche.Add(liste[i].tag);
-                listePoissons += "- " + toString(liste[i].tag, liste) + "\n";
-            } else if (!dejaAffiche.Contains(liste[i].tag)) {
-                dejaAffiche.Add(liste[i].tag);
-                listePoissons += "- " + toString(liste[i].tag, liste) + "\n";
-            }
-        }
-
-        return listePoissons;
-    }
 
     public string ToStringListePoissons(List<string> liste) {
 

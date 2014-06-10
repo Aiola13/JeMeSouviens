@@ -12,6 +12,8 @@ public class GameManagerPeche : GameManager {
         aideDeSkypi
     }
 
+    public static int compteurPoisson = 0;
+
     public static GameState curGameState;
     public static GameState prevGameState;
 
@@ -88,6 +90,8 @@ public class GameManagerPeche : GameManager {
 
             modeDegivrage();
 
+            AfficherDialogue(jeanClaude, "La glace a recouvert le trou! Dégivre le en dessinant le symbole!");
+
 			if (makeNewSymbol) {
 				Gesture.NewSymbol();
 				Gesture.canDraw = true;
@@ -115,17 +119,22 @@ public class GameManagerPeche : GameManager {
 
                     NePasAfficherTexture(validation);
                     NePasAfficherTexture(annulation);
-                    if (quetePeche.listePanier.Count < 5) {
+                    if (compteurPoisson < 5) {
 
                         AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
 
                     } else {
-                         string poissonsCorrects;
-                         string poissonsIncorrects;
-                         if (quetePeche.verifVictoire(out poissonsCorrects, out poissonsIncorrects)) {
+                         if (quetePeche.verifVictoire()) {
                              AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
                          } else {
-                             AfficherDialogue(jeanClaude, "Ce n'est pas exactement ça. \nPoissons corrects : \n" + poissonsCorrects + "Poissons incorrects : \n" + poissonsIncorrects);
+                             string poissonsCorrects = "Poissons corrects : \n";
+                             string poissonsIncorrects = "Poissons incorrects : \n";
+                             string feedBackJC = "Ce n'est pas exactement ça. \n";
+                             poissonsCorrects += quetePeche.ToStringListePoissons(quetePeche.listeCorrecte);
+                             poissonsIncorrects += quetePeche.ToStringListePoissons(quetePeche.listeIncorrecte);
+                             feedBackJC += poissonsCorrects;
+                             feedBackJC += poissonsIncorrects; 
+                             AfficherDialogue(jeanClaude, feedBackJC);
                          }
                         
                     }
@@ -154,7 +163,7 @@ public class GameManagerPeche : GameManager {
             string aide = "";
             switch (prevGameState) {
                 case GameState.degivrerTrou:
-                    aide = "Afin de dégivrer le trou, tu dois recopier le symbole qui s'affiche à l'écran.";
+                    aide = "Afin de dégivrer le trou, tu dois recopier le symbole qui s'affiche à l'écran mais fais attention à ne pas relever le doigt avant d'avoir terminé.";
                     break;
                 case GameState.pecher:
                     aide = "Lorsqu'un poisson mord à l'hameçon, relève la tablette d'un coup sec pour le sortir de l'eau. \n";
