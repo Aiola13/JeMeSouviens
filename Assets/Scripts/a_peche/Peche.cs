@@ -12,12 +12,15 @@ public class Peche : MonoBehaviour {
     public bool poissonPeche;
     public string infoPoisson;
     public bool solGele = false;
+    bool sonCanneApeche = false;
 
     GameObject poi_sebaste;
     GameObject poi_morue;
     GameObject poi_saumon;
     GameObject poi_eperlant;
     GameObject poi_turbot;
+
+    GameObject canneAPeche;
 
     public GameObject poisson;
 
@@ -39,6 +42,7 @@ public class Peche : MonoBehaviour {
         poi_saumon = GameObject.FindGameObjectWithTag("poi_saumon");
         poi_morue = GameObject.FindGameObjectWithTag("poi_morue");
         poi_sebaste = GameObject.FindGameObjectWithTag("poi_sebaste");
+        canneAPeche = GameObject.FindGameObjectWithTag("CanneAPeche");
 
         poisson = new GameObject();
 	}
@@ -52,32 +56,39 @@ public class Peche : MonoBehaviour {
             timerGele += Time.deltaTime;
 
             if (timer >= dureeProchainPoisson) {
-                Handheld.Vibrate();
-                //this.transform.rotation = Quaternion.Euler(0, 0, 40);
+                if (!sonCanneApeche) {
+                    GameManagerPeche.canneApeche.Play();
+                    sonCanneApeche = true;
+                }
+                //Handheld.Vibrate();
+                //canneAPeche.animation.Play();
                 Debug.Log("Un poisson a mordu!!");
                 
                 timerAMordu += Time.deltaTime;
 
-                GameManagerPeche.canneApeche.Play();
-
                 if (GestureTirerCanneAPeche()) {
                     Debug.Log("a peche un poisson");
                     poissonPeche = true;
+                    sonCanneApeche = false;
                     GarderPoisson();
                     AccYPrev = 0.0f;
                     AccZPrev = 0.0f;
                     timer = 0.0f;
                     timerAMordu = 0.0f;
-                } else if (timerAMordu >= 2.0f) {
+                } 
+                else if (timerAMordu >= 2.0f) {
                     Debug.Log("Le poisson c'est echape");
                     timer = 0.0f;
                     timerAMordu = 0.0f;
+                    sonCanneApeche = false;
                 }
-            } else if (timerGele >= 30.0f) {
+            } 
+            else if (timerGele >= 30.0f) {
 
                 solGele = true;
                 timerGele = 0.0f;
                 timer = 0.0f;
+                sonCanneApeche = false;
             }
         }
 
@@ -85,55 +96,29 @@ public class Peche : MonoBehaviour {
 
     void GarderPoisson() {
 
-        Vector3 positionPoisson = new Vector3(96, 120, 126);
+        Vector3 positionPoisson = new Vector3(116, 129, 83);
         Quaternion rotationPoisson = Quaternion.identity;
         rotationPoisson.eulerAngles = new Vector3(0, 90, 20);
-        int randomPoisson = Random.Range(1, 6);
+        int randomPoisson = Random.Range(1, 3);
+        string poissonString = "";
+        // On a une chance sur 2 de pecher un poisson contenu dans la liste pour éviter que la partie s'éternise
+        if (randomPoisson == 1) {
 
-        switch (randomPoisson) {
-            case 1:
-                poisson = (GameObject)Instantiate(poi_eperlant, positionPoisson, rotationPoisson);
-                break;
-            case 2:
-                poisson = (GameObject)Instantiate(poi_turbot, positionPoisson, rotationPoisson);
-                break;
-            case 3:
-                poisson = (GameObject)Instantiate(poi_saumon, positionPoisson, rotationPoisson);
-                break;
-            case 4:
-                poisson = (GameObject)Instantiate(poi_morue, positionPoisson, rotationPoisson);
-                break;
-            case 5:
-                poisson = (GameObject)Instantiate(poi_sebaste, positionPoisson, rotationPoisson);
-                break;
+            randomPoisson = Random.Range(1, GameManagerPeche.quetePeche.listeQuete.Count + 1);
+            poissonString = GameManagerPeche.quetePeche.listeQuete[randomPoisson];
+
+        } else {
+            poissonString = tirerUnPoissonRandom();
         }
 
-        string nomPoisson = poisson.tag;
+        poisson = (GameObject)Instantiate(GameObject.FindGameObjectWithTag(poissonString), positionPoisson, rotationPoisson);
 
-        switch (nomPoisson) {
-
-                case "poi_eperlant":
-                    nomPoisson = "eperlant";
-                    break;
-                case "poi_turbot":
-                    nomPoisson = "turbot";
-                    break;
-                case "poi_morue":
-                    nomPoisson = "morue";
-                    break;
-                case "poi_saumon":
-                    nomPoisson = "saumon";
-                    break;
-                case "poi_sebaste":
-                    nomPoisson =  "sebaste";
-                    break;
-            }
-
-        infoPoisson = "Le poisson que tu vient de pêcher est un " + nomPoisson + ".\n";
+        infoPoisson = "Le poisson que tu vient de pêcher est " + tagNomConvertor(poissonString) + ".\n";
         infoPoisson += "Veux-tu le garder?";
 
 
     }
+
 
     // Fonction du bled
     bool GestureTirerCanneAPeche(){
@@ -156,5 +141,50 @@ public class Peche : MonoBehaviour {
             return false;
         }
     }
+
+    string tagNomConvertor(string tag) {
+        switch (tag) {
+
+            case "poi_eperlant":
+                tag = "un eperlant";
+                break;
+            case "poi_turbot":
+                tag = "un turbot";
+                break;
+            case "poi_morue":
+                tag = "une morue";
+                break;
+            case "poi_saumon":
+                tag = "un saumon";
+                break;
+            case "poi_sebaste":
+                tag = "un sebaste";
+                break;
+        }
+        return tag;
+    }
+
+    string tirerUnPoissonRandom() {
+            string poisson = "";
+            int random = Random.Range(1, 6);
+            switch(random){
+                case 1:
+                    poisson = "poi_eperlant";
+                    break;
+                case 2:
+                    poisson = "poi_turbot";
+                    break;
+                case 3:
+                    poisson = "poi_morue";
+                    break;
+                case 4:
+                    poisson = "poi_saumon";
+                    break;
+                case 5:
+                    poisson = "poi_sebaste";
+                    break;
+            }
+        return poisson;
+   }
 
 }

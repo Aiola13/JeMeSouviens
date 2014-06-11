@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: a234036b32ecab548a26ae8965be4747
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Cylinder01
+    100002: Cylinder03
+    100004: Cylinder04
+    100006: Cylinder05
+    100008: //RootNode
+    100010: Molenmain
+    100012: molenring
+    100014: Torus01
+    100016: Torus02
+    100018: Torus03
+    100020: Torus04
+    100022: Torus05
+    100024: Torus06
+    400000: Cylinder01
+    400002: Cylinder03
+    400004: Cylinder04
+    400006: Cylinder05
+    400008: //RootNode
+    400010: Molenmain
+    400012: molenring
+    400014: Torus01
+    400016: Torus02
+    400018: Torus03
+    400020: Torus04
+    400022: Torus05
+    400024: Torus06
+    2300000: Cylinder01
+    2300002: Cylinder03
+    2300004: Cylinder04
+    2300006: Cylinder05
+    2300008: Molenmain
+    2300010: molenring
+    2300012: Torus01
+    2300014: Torus02
+    2300016: Torus03
+    2300018: Torus04
+    2300020: Torus05
+    2300022: Torus06
+    3300000: Cylinder01
+    3300002: Cylinder03
+    3300004: Cylinder04
+    3300006: Cylinder05
+    3300008: Molenmain
+    3300010: molenring
+    3300012: Torus01
+    3300014: Torus02
+    3300016: Torus03
+    3300018: Torus04
+    3300020: Torus05
+    3300022: Torus06
+    4300000: Cylinder04
+    4300002: Cylinder01
+    4300004: Cylinder05
+    4300006: molenring
+    4300008: Molenmain
+    4300010: Cylinder03
+    4300012: Torus06
+    4300014: Torus05
+    4300016: Torus02
+    4300018: Torus04
+    4300020: Torus03
+    4300022: Torus01
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
