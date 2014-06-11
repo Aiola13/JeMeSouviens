@@ -204,6 +204,7 @@ GameObject:
   - 114: {fileID: 158588580}
   - 114: {fileID: 158588579}
   - 114: {fileID: 158588578}
+  - 114: {fileID: 158588582}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -326,13 +327,27 @@ MonoBehaviour:
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   jeanClaude: {fileID: 2800000, guid: 6cf74338e767b024baa3216f95763b82, type: 3}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
-  musiqueAmbiance: {fileID: 8300000, guid: 7408971fd055757499f2577352f7689c, type: 3}
+  musiqueAmbiance: {fileID: 8300000, guid: 5af94a03e2bb4f64db2e93408001c51c, type: 3}
   miaulementSkypi: {fileID: 8300000, guid: 503c0dc24e1df3f45a74d14cbff017fd, type: 3}
   canneaPeche: {fileID: 8300000, guid: 44c7e87ed01f269419bb3a8ff9d49307, type: 3}
   bipMauvais: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
   bipBon: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
   validation: {fileID: 505864818}
   annulation: {fileID: 339991329}
+--- !u!114 &158588582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 158588572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1345ab12238514fa4a0ce02a999378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ecran: {fileID: 954601130}
+  moviePeche: {fileID: 15200000, guid: a58fd2bc68d4bf24f913d05c40450699, type: 3}
+  movieDegivrer: {fileID: 15200000, guid: 4c6c007e7e5252040b1c2b40ac763e7e, type: 3}
 --- !u!1001 &170721190
 Prefab:
   m_ObjectHideFlags: 0
@@ -1863,6 +1878,76 @@ Transform:
   m_Children:
   - {fileID: 1150755878}
   - {fileID: 965378559}
+  m_Father: {fileID: 0}
+--- !u!1 &954601130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 954601135}
+  - 33: {fileID: 954601134}
+  - 64: {fileID: 954601133}
+  - 23: {fileID: 954601132}
+  m_Layer: 0
+  m_Name: screenFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &954601132
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954601130}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 5350c99c251f87e49aedd62cb4e318a5, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!64 &954601133
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954601130}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &954601134
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954601130}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &954601135
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954601130}
+  m_LocalRotation: {x: -.0357310027, y: .818372428, z: -.573030531, w: -.0250191856}
+  m_LocalPosition: {x: 144.360001, y: 135.100006, z: 96.8000031}
+  m_LocalScale: {x: 2.5, y: 1, z: 1.5}
+  m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &965378558
 GameObject:
@@ -3451,6 +3536,10 @@ Prefab:
     - target: {fileID: 100000, guid: ae871a306f4737d40aa098a737e13e05, type: 2}
       propertyPath: m_TagString
       value: CanneAPeche
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: ae871a306f4737d40aa098a737e13e05, type: 2}
+      propertyPath: m_AnimatePhysics
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae871a306f4737d40aa098a737e13e05, type: 2}

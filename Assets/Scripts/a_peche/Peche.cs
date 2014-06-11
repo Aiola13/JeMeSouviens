@@ -14,12 +14,6 @@ public class Peche : MonoBehaviour {
     public bool solGele = false;
     bool sonCanneApeche = false;
 
-    GameObject poi_sebaste;
-    GameObject poi_morue;
-    GameObject poi_saumon;
-    GameObject poi_eperlant;
-    GameObject poi_turbot;
-
     GameObject canneAPeche;
 
     public GameObject poisson;
@@ -36,13 +30,6 @@ public class Peche : MonoBehaviour {
         dureeProchainPoisson = Random.Range(3, 7);
         poissonPeche = false;
         infoPoisson = "";
-
-        poi_eperlant = GameObject.FindGameObjectWithTag("poi_eperlant");
-        poi_turbot = GameObject.FindGameObjectWithTag("poi_turbot");
-        poi_saumon = GameObject.FindGameObjectWithTag("poi_saumon");
-        poi_morue = GameObject.FindGameObjectWithTag("poi_morue");
-        poi_sebaste = GameObject.FindGameObjectWithTag("poi_sebaste");
-        canneAPeche = GameObject.FindGameObjectWithTag("CanneAPeche");
 
         poisson = new GameObject();
 	}
@@ -62,25 +49,28 @@ public class Peche : MonoBehaviour {
                 }
                 //Handheld.Vibrate();
                 //canneAPeche.animation.Play();
-                Debug.Log("Un poisson a mordu!!");
+                GameManagerPeche.videos.playVidPeche();
                 
                 timerAMordu += Time.deltaTime;
 
                 if (GestureTirerCanneAPeche()) {
-                    Debug.Log("a peche un poisson");
                     poissonPeche = true;
                     sonCanneApeche = false;
+                    GameManagerPeche.videos.ecranInvisible();
                     GarderPoisson();
                     AccYPrev = 0.0f;
                     AccZPrev = 0.0f;
                     timer = 0.0f;
                     timerAMordu = 0.0f;
                 } 
-                else if (timerAMordu >= 2.0f) {
-                    Debug.Log("Le poisson c'est echape");
+                else if (timerAMordu >= 3.0f) {
                     timer = 0.0f;
                     timerAMordu = 0.0f;
+                    if (GameManagerPeche.canneApeche.isPlaying) {
+                        GameManagerPeche.canneApeche.Stop();
+                    }
                     sonCanneApeche = false;
+                    GameManagerPeche.videos.ecranInvisible();
                 }
             } 
             else if (timerGele >= 30.0f) {
@@ -89,6 +79,7 @@ public class Peche : MonoBehaviour {
                 timerGele = 0.0f;
                 timer = 0.0f;
                 sonCanneApeche = false;
+                GameManagerPeche.videos.ecranInvisible();
             }
         }
 
@@ -104,7 +95,7 @@ public class Peche : MonoBehaviour {
         // On a une chance sur 2 de pecher un poisson contenu dans la liste pour éviter que la partie s'éternise
         if (randomPoisson == 1) {
 
-            randomPoisson = Random.Range(1, GameManagerPeche.quetePeche.listeQuete.Count + 1);
+            randomPoisson = Random.Range(0, GameManagerPeche.quetePeche.listeQuete.Count);
             poissonString = GameManagerPeche.quetePeche.listeQuete[randomPoisson];
 
         } else {

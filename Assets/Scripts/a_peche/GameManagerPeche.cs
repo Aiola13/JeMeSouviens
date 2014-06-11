@@ -19,6 +19,7 @@ public class GameManagerPeche : GameManager {
 
     public static QuetePeche quetePeche;
     public static Peche peche;
+    public static VideoFeedback videos;
 
     public Texture2D jeanClaude;
     public Texture2D skypi;
@@ -53,6 +54,7 @@ public class GameManagerPeche : GameManager {
 
         quetePeche = GetComponent<QuetePeche>();
         peche = GetComponent<Peche>();
+        videos = GetComponent<VideoFeedback>();
 
         curGameState = GameState.queteJeanClaude;
 
@@ -90,7 +92,9 @@ public class GameManagerPeche : GameManager {
 
             modeDegivrage();
 
-            AfficherDialogue(jeanClaude, "La glace a recouvert le trou! Dégivre le en dessinant le symbole!");
+            AfficherAide("Dégivre le trou en dessinant le symbole!");
+
+            videos.playVidDegivrer();
 
 			if (makeNewSymbol) {
 				Gesture.NewSymbol();
@@ -108,6 +112,7 @@ public class GameManagerPeche : GameManager {
 
             //print("Axe X " + Input.acceleration.x + "      Axe Y " + Input.acceleration.y + "         Axe Z " + Input.acceleration.z);
             modePeche();
+            videos.ecranInvisible();
 
             if (peche.poissonPeche) {
                 canneApeche.Stop();
