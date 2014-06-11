@@ -11,6 +11,8 @@ public class Parcelle : MonoBehaviour {
 	}
 
 	private Color originalColor;
+	private Color curColor;
+
 
 	public ParcelleState _curState;
 	public ParcelleState _prevState;
@@ -21,16 +23,43 @@ public class Parcelle : MonoBehaviour {
 		_curState = ParcelleState.creuser;
 
 		originalColor = renderer.material.color;
+		curColor = originalColor;
 	}
 
 
-	void Update() {
-		if (isSelected)
-			renderer.material.color = Color.red;
-		else
-			renderer.material.color = originalColor;
+	public void AEteSelectionne() {
+		(gameObject.GetComponent("Halo") as Behaviour).enabled = true;
+		isSelected = true;
 	}
 
+	public void AEteDeSelectionne() {
+		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
+		isSelected = false;
+	}
+
+
+	public void AEteCreuser() {
+		renderer.material.color = Color.gray;
+		curColor = renderer.material.color;
+		ChangeState(ParcelleState.creuser, ParcelleState.graine);
+	}
+
+	public void AEtePlante() {
+		renderer.material.color = Color.cyan;
+		curColor = renderer.material.color;
+		ChangeState(ParcelleState.graine, ParcelleState.arrosage);
+	}
+
+	public void AEteArroser() {
+		renderer.material.color = Color.green;
+		curColor = renderer.material.color;
+		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
+	}
+
+	public void EstMature() {
+		renderer.material.color = Color.green;
+		curColor = renderer.material.color;
+	}
 
 	// Parameters: prev State, curr State
 	public void ChangeState(ParcelleState prev, ParcelleState current) { 

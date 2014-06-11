@@ -23,57 +23,6 @@ public class TouchJardin : TouchLogic {
 		NePasAfficherValidation();
 	}
 
-	public void ValiderLegumes() {
-		if (Input.touchCount == 1) {
-			if ((validation.HitTest(Input.GetTouch(0).position) && (Input.GetTouch(0).phase == TouchPhase.Ended))) {
-
-				//verifier ici si le legume obligatoire a ete plante
-				// plantage 1
-				if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) {
-					ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
-
-				}
-
-				//verifier ici si la liste de legumes plante a la p1 a ete replante correctement
-				// plantage 2
-				if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2) {
-					ChangeState(GameManagerJardin.GameState.planterP2, GameManagerJardin.GameState.finJardin);
-					
-				}
-
-				selectedParcelle = null;
-				NePasAfficherUILegumes();
-				NePasAfficherValidation();
-
-			}
-		}
-	}
-
-	public void SelectionnerLegume() {
-		if (Input.touchCount == 1) {
-			if (Input.GetTouch(0).phase == TouchPhase.Ended) {
-				if ((carotte.HitTest(Input.GetTouch(0).position))) {
-					print ("carotte");
-				}
-				else if (tomate.HitTest(Input.GetTouch(0).position)) {
-					print ("tomate");
-				}
-				else if (choux.HitTest(Input.GetTouch(0).position)) {
-					print ("choux");
-				}
-				else if (aubergine.HitTest(Input.GetTouch(0).position)) {
-					print ("aubergine");
-				}
-				else if (patate.HitTest(Input.GetTouch(0).position)) {
-					print ("patate");
-				}
-				else if (oignon.HitTest(Input.GetTouch(0).position)) {
-					print ("oignon");
-				}
-			}
-		}
-	}
-	
 	public override void OnTouchEndedAnywhere () {
 
 		#region DIALOGUES
@@ -105,11 +54,6 @@ public class TouchJardin : TouchLogic {
 			AfficherValidation();
 		}
 
-		// on a fini l'activité
-		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.finJardin) {
-			ChangeState(GameManagerJardin.GameState.finJardin, GameManagerJardin.GameState.score);
-		}
-
 		// score
 		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.score) {
 			// FAIRE UN RETOUR MENU ICI
@@ -117,35 +61,71 @@ public class TouchJardin : TouchLogic {
 		}
 		#endregion
 
-		#region PLANTAGE
+
+		#region plantation
 		// si on touche une parcelle
 		else if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		         (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
 
+			// on vérifie si on a appuyé sur le bouton de validation
+			ValiderLegumes();
+
+
 			ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
-				/*
-				if () {
 
-				}
-*/
 				GameObject parcelle = hit.collider.gameObject;
 				Parcelle scriptParcelle = parcelle.GetComponent<Parcelle>();
 
-				selectedParcelle = parcelle;
-
-				scriptParcelle.isSelected = true;
-
-				if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
-					AfficherUILegumes();
-					scriptParcelle.ChangeState(Parcelle.ParcelleState.creuser, Parcelle.ParcelleState.graine);
-				}
-				else if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+				// si on a selectionne avant une parcelle differente de celle touché actuellement, on met son etat en deselectionné
+				if (selectedParcelle != null && selectedParcelle.tag != parcelle.tag) {
+					selectedParcelle.GetComponent<Parcelle>().AEteDeSelectionne();
 					NePasAfficherUILegumes();
-					scriptParcelle.ChangeState(Parcelle.ParcelleState.graine, Parcelle.ParcelleState.arrosage);
 				}
-				else if (scriptParcelle._curState == Parcelle.ParcelleState.arrosage) {
-					scriptParcelle.ChangeState(Parcelle.ParcelleState.arrosage, Parcelle.ParcelleState.mature);
+
+				// la nouvelle parcelle selectionné est celle qu'on a touché
+				selectedParcelle = parcelle;
+				selectedParcelle.tag = parcelle.tag;
+
+				/*
+				// si on reselectionne une parcelle qui attend une graine
+				if (!scriptParcelle.isSelected && scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+					AfficherUILegumes();
+				}
+*/
+				// la parcelle change d'etat seulement si une interaction se fait dessus quand elle est selectionné
+				if (scriptParcelle.isSelected) {
+					if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
+						// faire ici un swipe pour creuser
+
+						AfficherUILegumes();
+						scriptParcelle.AEteCreuser();
+					}
+					else if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+						// on plante la graine
+
+						NePasAfficherUILegumes();
+						scriptParcelle.AEtePlante();
+					}
+					else if (scriptParcelle._curState == Parcelle.ParcelleState.arrosage) {
+						// accélérometre pour arroser
+
+						scriptParcelle.AEteArroser();
+					}
+					else if (scriptParcelle._curState == Parcelle.ParcelleState.mature) {
+						// la plante est mature
+						
+						scriptParcelle.EstMature();
+					}
+				}
+				// si la parcelle n'etait pas deja selectionne
+				else {
+					// si on reselectionne une parcelle qui attend une graine
+					if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+						AfficherUILegumes();
+					}
+
+					scriptParcelle.AEteSelectionne();
 				}
 
 				print (hit.collider.tag + "   " + scriptParcelle._curState + "   " + scriptParcelle._legume);
@@ -154,7 +134,59 @@ public class TouchJardin : TouchLogic {
 		#endregion
 	}
 	
-	
+	public void SelectionnerLegume() {
+		if (Input.touchCount == 1) {
+			if (Input.GetTouch(0).phase == TouchPhase.Ended) {
+				if ((carotte.HitTest(Input.GetTouch(0).position))) {
+					print ("carotte");
+				}
+				else if (tomate.HitTest(Input.GetTouch(0).position)) {
+					print ("tomate");
+				}
+				else if (choux.HitTest(Input.GetTouch(0).position)) {
+					print ("choux");
+				}
+				else if (aubergine.HitTest(Input.GetTouch(0).position)) {
+					print ("aubergine");
+				}
+				else if (patate.HitTest(Input.GetTouch(0).position)) {
+					print ("patate");
+				}
+				else if (oignon.HitTest(Input.GetTouch(0).position)) {
+					print ("oignon");
+				}
+				
+				
+			}
+		}
+	}
+
+
+	void ValiderLegumes() {
+		if (Input.touchCount == 1) {
+			if (validation.HitTest(Input.GetTouch(0).position)) {
+				
+				//verifier ici si le legume obligatoire a ete plante
+				// plantation 1
+				if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) {
+					ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
+				}
+				
+				//verifier ici si la liste de legumes plante a la p1 a ete replante correctement
+				// plantation 2
+				else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2) {
+					ChangeState(GameManagerJardin.GameState.planterP2, GameManagerJardin.GameState.score);
+				}
+				
+				selectedParcelle = null;
+				NePasAfficherUILegumes();
+				NePasAfficherValidation();
+			}
+		}
+		
+	}
+
+
 	// Parameters: prev State, curr State
 	void ChangeState(GameManagerJardin.GameState prev, GameManagerJardin.GameState current) { 
 		GameManagerJardin.curGameState = current;
@@ -164,7 +196,7 @@ public class TouchJardin : TouchLogic {
 
 	#region methodes pour l'UI
 	// active et affiche l'UI des legumes
-	void AfficherUILegumes() {
+	public void AfficherUILegumes() {
 		GameManager.AfficherTexture(carotte);
 		GameManager.AfficherTexture(tomate);
 		GameManager.AfficherTexture(choux);
@@ -174,7 +206,7 @@ public class TouchJardin : TouchLogic {
 	}
 	
 	// désactive et enleve l'UI des legumes
-	void NePasAfficherUILegumes() {
+	public void NePasAfficherUILegumes() {
 		GameManager.NePasAfficherTexture(carotte);
 		GameManager.NePasAfficherTexture(tomate);
 		GameManager.NePasAfficherTexture(choux);
@@ -186,13 +218,13 @@ public class TouchJardin : TouchLogic {
 	// active et affiche le bouton de validation
 	void AfficherValidation() {
 		GameManager.AfficherTexture(validation);
-		//GameObject.Find("validerLegumesText").SetActive(true);
+		GameObject.Find("validerLegumesText").guiText.enabled = true;
 	}
 	
 	// désactive et enleve le bouton de validation
 	void NePasAfficherValidation() {
 		GameManager.NePasAfficherTexture(validation);
-		//GameObject.Find("validerLegumesText").SetActive(false);
+		GameObject.Find("validerLegumesText").guiText.enabled = false;
 	}
 	#endregion
 
