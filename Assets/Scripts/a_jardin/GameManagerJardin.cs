@@ -19,18 +19,29 @@ public class GameManagerJardin :  GameManager{
 	public static GameState curGameState;
 	public static GameState prevGameState;
 
+	public enum AlerteState {
+		attente,
+		planterLegumeObligatoire,
+		afficherLegumesPlantes,
+		parcelleMaxAtteint
+	}
+
+	public static AlerteState _alertState;
+
 	public Texture2D jessica;
 
-	private TouchJardin touchJardin;
-
+	public TouchJardin touchJardin;
+	public QueteJardin queteJardin;
 
 	#endregion attributs
 
 
 	void Start() {
 		curGameState = GameState.queteJessicaP1;
+		_alertState = AlerteState.attente;
 
 		touchJardin = GetComponent<TouchJardin>();
+		queteJardin = GetComponent<QueteJardin>();
 	}
 
 
@@ -57,7 +68,9 @@ public class GameManagerJardin :  GameManager{
 		// phase de plantation numéro 1 ou 2
 		else if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
 
+			// si une parcelle est selectionné
 			if (touchJardin.selectedParcelle) {
+				// si la parcelle selectionné est dans l'etat de plantation d'une graine
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
 					touchJardin.SelectionnerLegume();
 				}
@@ -107,7 +120,7 @@ public class GameManagerJardin :  GameManager{
 		#region quetes
 		// Affichage de la quete 1
 		if (curGameState == GameState.queteJessicaP1) {
-			AfficherDialogue(jessica, "queteJessicaP1");
+			AfficherDialogue(jessica, queteJardin.QueteP1());
 		}
 
 		// Affichage de la quete 2
@@ -127,19 +140,15 @@ public class GameManagerJardin :  GameManager{
 
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.creuser) {
 					AfficherAide("Creuse la parcelle.");
-					//touchJardin.NePasAfficherUILegumes();
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
 					AfficherAide("Plante une graine.");
-					//touchJardin.AfficherUILegumes();
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
 					AfficherAide("Arrose la parcelle.");
-					//touchJardin.NePasAfficherUILegumes();
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.mature) {
 					AfficherAide("Selectionne une autre parcelle ou valide.");
-					//touchJardin.NePasAfficherUILegumes();
 				}
 			}
 		}
@@ -170,11 +179,29 @@ public class GameManagerJardin :  GameManager{
 			AfficherDialogue(jessica, "score");
 		}
 		#endregion
+
+
+		#region alert handling
+		if (_alertState == AlerteState.planterLegumeObligatoire) {
+			StartCoroutine(AlertReset("N'oublie pas de planter le legume obligatoire: " + queteJardin.getLegumeName(queteJardin.legumeObligatoire) + ".", 3.0f));
+		}
+		else if (_alertState == AlerteState.afficherLegumesPlantes) {
+			StartCoroutine(AlertReset(queteJardin.getLegumesPlantes(), 3.0f));
+		}
+		else if (_alertState == AlerteState.parcelleMaxAtteint) {
+			StartCoroutine(AlertReset("Le nombre de legumes autorise a planter a été atteint.", 3.0f));
+		}
+		#endregion
 	}
 	#endregion
-	
-	
-	
+
+	// attend tps secondes avant de reset l'etat alerte
+	IEnumerator AlertReset(string txt, float tps) {
+		AfficherAlerte(txt);
+		yield return new WaitForSeconds(tps);
+		_alertState = AlerteState.attente;
+	}
+
 	// Parameters: prev State, curr State
 	void ChangeState(GameState prev, GameState current) {
 		curGameState = current;

@@ -41,6 +41,12 @@ TagManager:
   - Parcelle_14
   - Parcelle_15
   - Parcelle_16
+  - leg_carotte
+  - leg_tomate
+  - leg_choux
+  - leg_aubergine
+  - leg_patate
+  - leg_oignon
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

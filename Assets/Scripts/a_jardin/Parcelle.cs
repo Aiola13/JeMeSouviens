@@ -9,21 +9,21 @@ public class Parcelle : MonoBehaviour {
 		arrosage,
 		mature
 	}
-
-	private Color originalColor;
-	private Color curColor;
-
+	
+	public Material dirt;
+	public Material plowDirt;
+	public Material grass;
 
 	public ParcelleState _curState;
 	public ParcelleState _prevState;
 	public GUITexture _legume;
 	public bool isSelected = false;
 
+
+
 	void Awake() {
 		_curState = ParcelleState.creuser;
-
-		originalColor = renderer.material.color;
-		curColor = originalColor;
+		renderer.material = dirt;
 	}
 
 
@@ -39,26 +39,23 @@ public class Parcelle : MonoBehaviour {
 
 
 	public void AEteCreuser() {
-		renderer.material.color = Color.gray;
-		curColor = renderer.material.color;
+		renderer.material = plowDirt;
 		ChangeState(ParcelleState.creuser, ParcelleState.graine);
 	}
 
 	public void AEtePlante() {
-		renderer.material.color = Color.cyan;
-		curColor = renderer.material.color;
+		renderer.material.color = Color.gray;
 		ChangeState(ParcelleState.graine, ParcelleState.arrosage);
 	}
 
 	public void AEteArroser() {
-		renderer.material.color = Color.green;
-		curColor = renderer.material.color;
+		renderer.material = grass;
 		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
 	}
 
 	public void EstMature() {
-		renderer.material.color = Color.green;
-		curColor = renderer.material.color;
+		renderer.material.color = Color.white;
+		renderer.material.mainTexture = _legume.texture;
 	}
 
 	// Parameters: prev State, curr State

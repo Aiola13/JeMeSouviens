@@ -67,4 +67,17 @@ public class GameManager : MonoBehaviour {
 		GUI.DrawTexture(new Rect(brd * 30, Screen.height * 90 / 100, Screen.width - brd * 60, Screen.height * 10 / 100 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
 		GUI.Box(new Rect(brd * 40, Screen.height * 90 / 100, Screen.width - brd * 70, Screen.height * 10 / 100 - brd), txt, style);
 	}
+
+	// affiche une alerte au centre de l'écran pendant tps secondes
+	public void AfficherAlerte(string txt) {
+		style.fontSize = Screen.height / 25;
+		style.alignment = TextAnchor.MiddleCenter;
+		style.font = (Font)Resources.Load("Roboto-Regular");
+
+		string[] phrases = txt.Split('\n');
+		int h = phrases.Length * 10;
+
+		GUI.DrawTexture(new Rect(brd * 30, Screen.height * 50 / 100 - h, Screen.width - brd * 60, Screen.height * h / 100 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.Box(new Rect(brd * 30, Screen.height * 50 / 100 - h, Screen.width - brd * 60, Screen.height * h / 100 - brd), txt, style);
+	}
 }
