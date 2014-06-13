@@ -159,10 +159,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &58510457
 Halo:
   m_ObjectHideFlags: 0
@@ -259,10 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &199090059
 Halo:
   m_ObjectHideFlags: 0
@@ -359,10 +367,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &213678585
 Halo:
   m_ObjectHideFlags: 0
@@ -623,10 +635,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &306368004
 Halo:
   m_ObjectHideFlags: 0
@@ -723,10 +739,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &340439281
 Halo:
   m_ObjectHideFlags: 0
@@ -1031,10 +1051,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &423168615
 Halo:
   m_ObjectHideFlags: 0
@@ -1057,7 +1081,7 @@ GameObject:
   - 131: {fileID: 499536529}
   m_Layer: 0
   m_Name: oignon
-  m_TagString: Untagged
+  m_TagString: leg_oignon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1069,7 +1093,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 499536527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .75, y: .933000028, z: 0}
+  m_LocalPosition: {x: .600000024, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -1105,7 +1129,7 @@ GameObject:
   - 23: {fileID: 526437380}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: FloorJardin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1302,10 +1326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &619632311
 Halo:
   m_ObjectHideFlags: 0
@@ -1402,10 +1430,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &677750155
 Halo:
   m_ObjectHideFlags: 0
@@ -1558,10 +1590,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &839436983
 Halo:
   m_ObjectHideFlags: 0
@@ -1668,7 +1704,7 @@ GameObject:
   - 131: {fileID: 1006756997}
   m_Layer: 0
   m_Name: patate
-  m_TagString: Untagged
+  m_TagString: leg_patate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1680,7 +1716,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1006756995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .639999986, y: .933000028, z: 0}
+  m_LocalPosition: {x: .49000001, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -1725,7 +1761,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1092510420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .180000007, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1346795138}
@@ -1820,10 +1856,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1226726565
 Halo:
   m_ObjectHideFlags: 0
@@ -1976,10 +2016,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1302329111
 Halo:
   m_ObjectHideFlags: 0
@@ -2032,7 +2076,7 @@ GameObject:
   - 131: {fileID: 1346795139}
   m_Layer: 0
   m_Name: aubergine
-  m_TagString: Untagged
+  m_TagString: leg_aubergine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2044,7 +2088,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1346795137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .529999971, y: .933000028, z: 0}
+  m_LocalPosition: {x: .379999995, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -2244,10 +2288,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1435066086
 Halo:
   m_ObjectHideFlags: 0
@@ -2269,6 +2317,7 @@ GameObject:
   - 4: {fileID: 1438670615}
   - 114: {fileID: 1438670614}
   - 114: {fileID: 1438670616}
+  - 114: {fileID: 1438670617}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -2289,6 +2338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
   jessica: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
+  touchJardin: {fileID: 0}
+  queteJardin: {fileID: 0}
 --- !u!4 &1438670615
 Transform:
   m_ObjectHideFlags: 0
@@ -2318,7 +2369,30 @@ MonoBehaviour:
   patate: {fileID: 1006756997}
   oignon: {fileID: 499536529}
   validation: {fileID: 415121937}
+  info: {fileID: 1487365764}
   selectedParcelle: {fileID: 0}
+  dist: 10
+  nbDig: 0
+--- !u!114 &1438670617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1438670613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef23b3d6801b0d4cb923cfbbcb5ad1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeLegumes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  legumesPlantes: []
+  legumeObligatoire: {fileID: 0}
 --- !u!1 &1468624972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,10 +2478,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1468624978
 Halo:
   m_ObjectHideFlags: 0
@@ -2419,6 +2497,52 @@ Halo:
     serializedVersion: 2
     rgba: 4278747025
   m_Size: 1.29999995
+--- !u!1 &1487365763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1487365765}
+  - 131: {fileID: 1487365764}
+  m_Layer: 0
+  m_Name: img_info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!131 &1487365764
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1487365763}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: f871cd0a8e9ea1f48886bc5a0d70aaf8, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
+--- !u!4 &1487365765
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1487365763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0700000003, y: .49000001, z: 0}
+  m_LocalScale: {x: .100000001, y: .150000006, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2126218327}
 --- !u!1 &1488270452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,10 +2628,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1488270458
 Halo:
   m_ObjectHideFlags: 0
@@ -2530,7 +2658,7 @@ GameObject:
   - 131: {fileID: 1491113773}
   m_Layer: 0
   m_Name: carotte
-  m_TagString: Untagged
+  m_TagString: leg_carotte
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2542,7 +2670,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1491113771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .200000003, y: .933000028, z: 0}
+  m_LocalPosition: {x: .0500000007, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -2774,7 +2902,7 @@ GameObject:
   - 131: {fileID: 1609989051}
   m_Layer: 0
   m_Name: tomate
-  m_TagString: Untagged
+  m_TagString: leg_tomate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2786,7 +2914,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1609989049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .310000002, y: .933000028, z: 0}
+  m_LocalPosition: {x: .159999996, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -2876,7 +3004,7 @@ GameObject:
   - 131: {fileID: 1712178275}
   m_Layer: 0
   m_Name: choux
-  m_TagString: Untagged
+  m_TagString: leg_choux
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2907,7 +3035,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1712178274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .419999987, y: .933000028, z: 0}
+  m_LocalPosition: {x: .270000011, y: .933000028, z: 0}
   m_LocalScale: {x: .100000001, y: .129999995, z: 1}
   m_Children: []
   m_Father: {fileID: 1092510421}
@@ -3108,10 +3236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1799999135
 Halo:
   m_ObjectHideFlags: 0
@@ -3285,7 +3417,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2005276028}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 4, y: 10, z: -3.5}
+  m_LocalPosition: {x: 1, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3344,6 +3476,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1487365765}
   - {fileID: 973128690}
   m_Father: {fileID: 0}
 --- !u!1 &2143471611
@@ -3431,10 +3564,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247e4ca0e54c1848b879ddc9f90a23c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirt: {fileID: 2100000, guid: cc8a04ac3d284cc4485a6231eb0b3ad1, type: 2}
+  plowDirt: {fileID: 2100000, guid: 70523255268d77e4d92b6f219d140bca, type: 2}
+  grass: {fileID: 2100000, guid: 45430ee4a2b9ade47bdc5461ebaf9bd0, type: 2}
   _curState: 0
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &2143471617
 Halo:
   m_ObjectHideFlags: 0
