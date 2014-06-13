@@ -8,10 +8,6 @@ public class RetournerCrepe : MonoBehaviour {
 	public static bool isEtaler = false;
 	public static bool mont = false ;  // monter descendre tablette pour sauter crepe 
 
-	public static bool Nord = false;  // point de control
-	public static bool Est = false;
-	public static bool Sud = false;
-	public static bool Ouest = false;
 
 	// Use this for initialization
 	void Start () {
@@ -48,9 +44,7 @@ public class RetournerCrepe : MonoBehaviour {
 						}
 				}
 
-				if( Nord && Est && Sud && Ouest ){
-					isEtaler = true ;
-				}
+				
 
 			}
 		}
