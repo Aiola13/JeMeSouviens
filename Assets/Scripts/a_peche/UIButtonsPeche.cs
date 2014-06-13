@@ -49,7 +49,7 @@ public class UIButtonsPeche : TouchLogic {
             GameManagerPeche.compteurPoisson++;
         } 
         
-        else if (name == "GUI_Menu") {
+        else if (name == "menuButton") {
             Application.LoadLevel("menu");
         }
 
