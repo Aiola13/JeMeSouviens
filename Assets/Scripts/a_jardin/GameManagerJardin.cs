@@ -48,7 +48,7 @@ public class GameManagerJardin :  GameManager{
 	#region Update
 	void Update() {
 
-		print("cur : " + curGameState + "    prev :  " + prevGameState);
+		//print("cur : " + curGameState + "    prev :  " + prevGameState);
 
 
 		#region quetes
@@ -195,7 +195,7 @@ public class GameManagerJardin :  GameManager{
 	}
 	#endregion
 
-	// attend tps secondes avant de reset l'etat alerte
+	// Affiche une alerte pendant tps secondes puis reset l'etat alerte
 	IEnumerator AlertReset(string txt, float tps) {
 		AfficherAlerte(txt);
 		yield return new WaitForSeconds(tps);

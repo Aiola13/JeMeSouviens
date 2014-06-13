@@ -20,20 +20,16 @@ public class QueteJardin : MonoBehaviour {
 		legumeObligatoire = SelectionnerLegumeObligatoire();
 	}
 	
-
+	/*
 	void Update() {
-		/*
-		if (Input.GetButtonDown("Fire1")) {
-			GameObject leg = SelectionnerLegumeObligatoire();
-			AjouterLegume(leg);
-		}
-*/
+
 		string txt = "obl: [" + legumeObligatoire.name + "]  ||  " + legumesPlantes.Count + " Sup: ";
 		for (int i = 0; i < legumesPlantes.Count; i++) {
 			txt = txt + legumesPlantes[i].name + "   ";
 		}
 		print(txt);
 	}
+	*/
 
 	// initialise la liste de legumes
 	private void InitListeLegumes() {
@@ -49,7 +45,15 @@ public class QueteJardin : MonoBehaviour {
 		int rnd = Random.Range(0, nbLegumes);
 		return listeLegumes[rnd];
 	}
-	
+
+	// verifie dans la liste de legume plante si le legume obligatoire est présent
+	public bool VerifierLegume() {
+		if (legumesPlantes.Contains(legumeObligatoire))
+			return true;
+		else
+			return false;
+	}
+
 	// verifie dans la liste de legume plante si legume est présent
 	private bool VerifierLegume(GameObject legume) {
 		if (legumesPlantes.Contains(legume))

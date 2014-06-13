@@ -19,6 +19,7 @@ public class Parcelle : MonoBehaviour {
 	public GUITexture _legume;
 	public bool isSelected = false;
 
+	public int _nbTimesDigged = 0;
 
 
 	void Awake() {
@@ -40,7 +41,14 @@ public class Parcelle : MonoBehaviour {
 
 	public void AEteCreuser() {
 		renderer.material = plowDirt;
-		ChangeState(ParcelleState.creuser, ParcelleState.graine);
+		if (_nbTimesDigged == 1)
+			renderer.material.color = new Color(1.0F, 1.0F, 1.0F, 0.5F);
+		else if (_nbTimesDigged == 2)
+			renderer.material.color = new Color(0.6F, 0.6F, 0.6F, 0.6F);
+		else if (IsFullyDigged()) {
+			renderer.material.color = new Color(0.3F, 0.3F, 0.3F, 0.8F);
+			ChangeState(ParcelleState.creuser, ParcelleState.graine);
+		}
 	}
 
 	public void AEtePlante() {
@@ -56,6 +64,20 @@ public class Parcelle : MonoBehaviour {
 	public void EstMature() {
 		renderer.material.color = Color.white;
 		renderer.material.mainTexture = _legume.texture;
+	}
+	
+	public void IncrementDigged() {
+		// we need 3 little swipes to fully plow a plot
+		if (_nbTimesDigged < 3)
+			_nbTimesDigged++;
+	}
+
+	// returns true if we have fully digged the plot, else return false
+	public bool IsFullyDigged() {
+		if (_nbTimesDigged == 3)
+			return true;
+		else
+			return false;
 	}
 
 	// Parameters: prev State, curr State

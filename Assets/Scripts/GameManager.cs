@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
 		GUI.Box(new Rect(brd * 40, Screen.height * 90 / 100, Screen.width - brd * 70, Screen.height * 10 / 100 - brd), txt, style);
 	}
 
-	// affiche une alerte au centre de l'écran pendant tps secondes
+	// affiche une alerte au centre de l'écran
 	public void AfficherAlerte(string txt) {
 		style.fontSize = Screen.height / 25;
 		style.alignment = TextAnchor.MiddleCenter;

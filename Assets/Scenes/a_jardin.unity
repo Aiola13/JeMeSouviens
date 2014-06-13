@@ -166,6 +166,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &58510457
 Halo:
   m_ObjectHideFlags: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &199090059
 Halo:
   m_ObjectHideFlags: 0
@@ -372,6 +374,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &213678585
 Halo:
   m_ObjectHideFlags: 0
@@ -639,6 +642,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &306368004
 Halo:
   m_ObjectHideFlags: 0
@@ -742,6 +746,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &340439281
 Halo:
   m_ObjectHideFlags: 0
@@ -1053,6 +1058,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &423168615
 Halo:
   m_ObjectHideFlags: 0
@@ -1123,7 +1129,7 @@ GameObject:
   - 23: {fileID: 526437380}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: FloorJardin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1327,6 +1333,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &619632311
 Halo:
   m_ObjectHideFlags: 0
@@ -1430,6 +1437,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &677750155
 Halo:
   m_ObjectHideFlags: 0
@@ -1589,6 +1597,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &839436983
 Halo:
   m_ObjectHideFlags: 0
@@ -1854,6 +1863,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1226726565
 Halo:
   m_ObjectHideFlags: 0
@@ -2013,6 +2023,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1302329111
 Halo:
   m_ObjectHideFlags: 0
@@ -2284,6 +2295,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1435066086
 Halo:
   m_ObjectHideFlags: 0
@@ -2359,6 +2371,8 @@ MonoBehaviour:
   validation: {fileID: 415121937}
   info: {fileID: 1487365764}
   selectedParcelle: {fileID: 0}
+  dist: 10
+  nbDig: 0
 --- !u!114 &1438670617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,6 +2485,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1468624978
 Halo:
   m_ObjectHideFlags: 0
@@ -2620,6 +2635,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1488270458
 Halo:
   m_ObjectHideFlags: 0
@@ -3227,6 +3243,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &1799999135
 Halo:
   m_ObjectHideFlags: 0
@@ -3400,7 +3417,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2005276028}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 4, y: 11, z: -3.5}
+  m_LocalPosition: {x: 1, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3554,6 +3571,7 @@ MonoBehaviour:
   _prevState: 0
   _legume: {fileID: 0}
   isSelected: 0
+  _nbTimesDigged: 0
 --- !u!122 &2143471617
 Halo:
   m_ObjectHideFlags: 0
