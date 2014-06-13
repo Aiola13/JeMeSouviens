@@ -5,6 +5,8 @@ public class UIButtonsPeche : TouchLogic {
 
     public GUITexture texValidation;
     public GUITexture texAnnulation;
+    public GUITexture texMenu;
+
 
     Vector3[] positionsPoissons;
 
@@ -21,6 +23,7 @@ public class UIButtonsPeche : TouchLogic {
     }
 
     public override void OnTouchEnded() {
+        
         if (name == "GUI_Annulation") {
             GameManager.boutonAnnulation = true;
             Destroy(GameManagerPeche.peche.poisson);
@@ -31,7 +34,7 @@ public class UIButtonsPeche : TouchLogic {
             }
         }
 
-        if (name == "GUI_Validation") {
+        else if (name == "GUI_Validation") {
             GameManager.boutonValidation = true;
             if (GameManagerPeche.quetePeche.listeQuete.Contains(GameManagerPeche.peche.poisson.tag)) {
                 GameManagerPeche.goodBip.Play();
@@ -44,6 +47,10 @@ public class UIButtonsPeche : TouchLogic {
             GameManagerPeche.peche.poisson.transform.position = positionsPoissons[GameManagerPeche.compteurPoisson];
             GameManagerPeche.peche.poisson.transform.eulerAngles = new Vector3(90, 90, 0);
             GameManagerPeche.compteurPoisson++;
+        } 
+        
+        else if (name == "GUI_Menu") {
+            Application.LoadLevel("menu");
         }
 
     }
