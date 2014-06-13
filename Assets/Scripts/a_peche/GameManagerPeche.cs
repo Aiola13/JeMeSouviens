@@ -127,10 +127,17 @@ public class GameManagerPeche : GameManager {
                 AfficherTexture(validation);
                 AfficherTexture(annulation);
 
+                GameObject.Find("annuler_text").guiText.enabled = true;
+                GameObject.Find("valider_text").guiText.enabled = true;
+
                 if (boutonValidation) {
 
                     NePasAfficherTexture(validation);
                     NePasAfficherTexture(annulation);
+
+                    GameObject.Find("annuler_text").guiText.enabled = false;
+                    GameObject.Find("valider_text").guiText.enabled = false;
+
                     if (compteurPoisson < 5) {
 
                         AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
@@ -145,6 +152,9 @@ public class GameManagerPeche : GameManager {
 
                     NePasAfficherTexture(validation);
                     NePasAfficherTexture(annulation);
+
+                    GameObject.Find("annuler_text").guiText.enabled = false;
+                    GameObject.Find("valider_text").guiText.enabled = false;
 
                     AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
 

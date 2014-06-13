@@ -13,6 +13,8 @@ public class UIButtonsPeche : TouchLogic {
     void Start() {
         GameManager.NePasAfficherTexture(texValidation);
         GameManager.NePasAfficherTexture(texAnnulation);
+        GameObject.Find("annuler_text").guiText.enabled = false;
+        GameObject.Find("valider_text").guiText.enabled = false;
         positionsPoissons = new Vector3[5];
         positionsPoissons[0] = new Vector3(57, 85, 104);
         positionsPoissons[1] = new Vector3(64, 85, 104);
