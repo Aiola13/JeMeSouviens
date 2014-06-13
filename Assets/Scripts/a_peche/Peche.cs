@@ -42,7 +42,7 @@ public class Peche : MonoBehaviour {
             timer += Time.deltaTime;
             timerGele += Time.deltaTime;
 
-            if (timer >= dureeProchainPoisson) {
+            if (aMordu()) {
                 if (!sonCanneApeche) {
                     GameManagerPeche.canneApeche.Play();
                     sonCanneApeche = true;
@@ -73,7 +73,7 @@ public class Peche : MonoBehaviour {
                     GameManagerPeche.videos.ecranInvisible();
                 }
             } 
-            else if (timerGele >= 30.0f) {
+            else if (timerGele >= 20.0f) {
 
                 solGele = true;
                 timerGele = 0.0f;
@@ -84,6 +84,10 @@ public class Peche : MonoBehaviour {
         }
 
 	}
+
+    public bool aMordu() {
+        return timer >= dureeProchainPoisson;
+    }
 
     void GarderPoisson() {
 
@@ -109,7 +113,6 @@ public class Peche : MonoBehaviour {
 
 
     }
-
 
     // Fonction du bled
     bool GestureTirerCanneAPeche(){

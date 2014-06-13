@@ -9,7 +9,8 @@ public class GameManagerPeche : GameManager {
         queteJeanClaude,
         degivrerTrou,
         pecher,
-        aideDeSkypi
+        aideDeSkypi,
+        finDePartie
     }
 
     public static int compteurPoisson = 0;
@@ -70,7 +71,7 @@ public class GameManagerPeche : GameManager {
     #region OnGUI
     void OnGUI() {
 
-        print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation + "   poisson peche =" + peche.poissonPeche);
+        print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation);
 
         if (!jeanClaude || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -110,13 +111,19 @@ public class GameManagerPeche : GameManager {
 
         else if (curGameState == GameState.pecher) {
 
-            //print("Axe X " + Input.acceleration.x + "      Axe Y " + Input.acceleration.y + "         Axe Z " + Input.acceleration.z);
             modePeche();
+            if (peche.aMordu()) {
+                AfficherAide("Releve la tablette maintenant!");
+            }
+            else {
+                AfficherAide("Patience un poisson va bientôt mordre à l'hameçon.");
+            }
+            
             videos.ecranInvisible();
 
             if (peche.poissonPeche) {
                 canneApeche.Stop();
-                AfficherDialogue(jeanClaude, peche.infoPoisson);
+                AfficherDialogue(jeanClaude, peche.infoPoisson, "");
                 AfficherTexture(validation);
                 AfficherTexture(annulation);
 
@@ -129,19 +136,8 @@ public class GameManagerPeche : GameManager {
                         AfficherDialogue(jeanClaude, "Le poisson a été ajouté dans ton panier.");
 
                     } else {
-                         if (quetePeche.verifVictoire()) {
-                             AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
-                         } else {
-                             string poissonsCorrects = "Poissons corrects : \n";
-                             string poissonsIncorrects = "Poissons incorrects : \n";
-                             string feedBackJC = "Ce n'est pas exactement ça. \n";
-                             poissonsCorrects += quetePeche.ToStringListePoissons(quetePeche.listeCorrecte);
-                             poissonsIncorrects += quetePeche.ToStringListePoissons(quetePeche.listeIncorrecte);
-                             feedBackJC += poissonsCorrects;
-                             feedBackJC += poissonsIncorrects; 
-                             AfficherDialogue(jeanClaude, feedBackJC);
-                         }
-                        
+
+                        ChangeState(GameState.pecher, GameState.finDePartie);
                     }
 
                 }
@@ -181,6 +177,27 @@ public class GameManagerPeche : GameManager {
             AfficherDialogue(skypi, aide);
         }
         #endregion
+
+        #region fin de partie
+
+        else if (curGameState == GameState.finDePartie) {
+
+            if (quetePeche.verifVictoire()) {
+                AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
+            } else {
+                string poissonsCorrects = "Poissons corrects : \n";
+                string poissonsIncorrects = "Poissons incorrects : \n";
+                string feedBackJC = "Ce n'est pas exactement ça. \n";
+                poissonsCorrects += quetePeche.ToStringListePoissons(quetePeche.listeCorrecte);
+                poissonsIncorrects += quetePeche.ToStringListePoissons(quetePeche.listeIncorrecte);
+                feedBackJC += poissonsCorrects;
+                feedBackJC += poissonsIncorrects;
+                AfficherDialogue(jeanClaude, feedBackJC);
+
+            }
+        }
+        #endregion
+
     }
     #endregion OnGUI
 

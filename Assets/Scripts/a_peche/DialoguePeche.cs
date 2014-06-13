@@ -32,6 +32,10 @@ public class DialoguePeche : TouchLogic {
                 GameManagerPeche.boutonAnnulation = false;
             }
 
+        } 
+        
+        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.finDePartie) {
+            Application.LoadLevel("a_menu");
         }
 
         
