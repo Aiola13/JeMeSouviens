@@ -5,6 +5,13 @@ public class RetournerCrepe : MonoBehaviour {
 
 	public static float counter = 0.0f;
 	public static bool isCook = false;
+	public static bool isEtaler = false;
+	public static bool mont = false ;  // monter descendre tablette pour sauter crepe 
+
+	public static bool Nord = false;  // point de control
+	public static bool Est = false;
+	public static bool Sud = false;
+	public static bool Ouest = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,12 +35,23 @@ public class RetournerCrepe : MonoBehaviour {
 					gameObject.renderer.material.color = Color.green;
 
 					if (Input.acceleration.y <= -0.95 ){
+						mont = true ;
+					}
+					if(Input.acceleration.y >= -0.50 && mont ){
+							
 							animation.Play("RetournerCrepeAnim");
 							counter = 0.0f; 	
 						isCook = true;
+
+						mont = false ;
 							
 						}
 				}
+
+				if( Nord && Est && Sud && Ouest ){
+					isEtaler = true ;
+				}
+
 			}
 		}
 	}
