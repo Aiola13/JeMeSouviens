@@ -15,6 +15,7 @@ public class TouchJardin : TouchLogic {
 	// GUI other
 	public GUITexture validation;
 	public GUITexture info;
+	public GUITexture menu;
 
 	// Parcelles
 	private int parcelles = 8;					// number of the parcelle layer
@@ -115,6 +116,9 @@ public class TouchJardin : TouchLogic {
 		// si on touche une parcelle
 		else if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		         (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
+
+			// on vérifie si on a appuyé sur le bouton de menu
+			RetournerMenu();
 
 			// on vérifie si on a appuyé sur le bouton de validation
 			ValiderLegumes();
@@ -234,6 +238,14 @@ public class TouchJardin : TouchLogic {
 		}
 	}
 
+	void RetournerMenu() {
+		if (Input.touchCount == 1) {
+			if (menu.HitTest(Input.GetTouch(0).position)) {
+				Application.LoadLevel("menu");
+			}
+		}
+	}
+
 	void ValiderLegumes() {
 		if (Input.touchCount == 1) {
 			if (validation.HitTest(Input.GetTouch(0).position)) {
@@ -284,6 +296,7 @@ public class TouchJardin : TouchLogic {
 	}
 
 
+
 	#region methodes pour l'UI
 	// active et affiche l'UI des legumes
 	public void AfficherUILegumes() {
@@ -308,7 +321,7 @@ public class TouchJardin : TouchLogic {
 	// active et affiche les boutons de validation et d'info
 	void AfficherBoutons() {
 		GameManager.AfficherTexture(validation);
-		GameObject.Find("validerLegumesText").guiText.enabled = true;
+		GameObject.Find("validerText").guiText.enabled = true;
 
 		GameManager.AfficherTexture(info);
 	}
@@ -316,7 +329,7 @@ public class TouchJardin : TouchLogic {
 	// désactive et enleve le bouton de validation
 	void NePasAfficherBoutons() {
 		GameManager.NePasAfficherTexture(validation);
-		GameObject.Find("validerLegumesText").guiText.enabled = false;
+		GameObject.Find("validerText").guiText.enabled = false;
 
 		GameManager.NePasAfficherTexture(info);
 	}
