@@ -3,7 +3,7 @@ using System.Collections;
 
 public class UIButtonsCrepe : TouchLogic {
 
-	public GUITexture texReplay;
+	public GUITexture texMenu;
 	public GUITexture texValidation;
 	public GUITexture texNextState;
 	
@@ -12,16 +12,16 @@ public class UIButtonsCrepe : TouchLogic {
 	}
 
 	public override void OnTouchBegan() {
-		if (name == "GUI_Validation") {
+		if (name == "validerButton") {
             GameManager.DesactiverDrag();
 		}
-		if (name == "GUI_Replay") {
+		if (name == "menuButton") {
 			Application.LoadLevel("menu");
 		}
 	}
 
 	public override void OnTouchEnded () {
-		if (name == "GUI_Validation") {
+		if (name == "validerButton") {
 			GameManager.boutonValidation = true;
 		}
 
