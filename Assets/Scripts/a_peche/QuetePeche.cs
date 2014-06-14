@@ -5,15 +5,17 @@ using System.Collections.Generic;
 public class QuetePeche : MonoBehaviour {
 
 
-	public List<GameObject> listeQuete;
+	public List<string> listeQuete;
 
-	public List<GameObject> listePanier;
+    public List<string> listeCorrecte;
+
+    public List<string> listeIncorrecte;
 
 	// Use this for initialization
 	void Start () {
 
         remplirListeQuete();
-        afficherListeDebug();
+        //afficherListeDebug();
 	}
 
 
@@ -24,19 +26,19 @@ public class QuetePeche : MonoBehaviour {
             int j = Random.Range(1, 6);
             switch(j){
                 case 1:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_eperlant"));
+                    listeQuete.Add("poi_eperlant");
                     break;
                 case 2:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_turbot"));
+                    listeQuete.Add("poi_turbot");
                     break;
                 case 3:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_morue"));
+                    listeQuete.Add("poi_morue");
                     break;
                 case 4:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_saumon"));
+                    listeQuete.Add("poi_saumon");
                     break;
                 case 5:
-                    listeQuete.Add(GameObject.FindGameObjectWithTag("poi_sebaste"));
+                    listeQuete.Add("poi_sebaste");
                     break;
             }
         }
@@ -46,33 +48,18 @@ public class QuetePeche : MonoBehaviour {
 
     void afficherListeDebug() {
         for (int i = 0; i < listeQuete.Count; i++) {
-            Debug.Log(listeQuete[i].tag);
-        }
-
-        for (int i = 0; i < listePanier.Count; i++) {
-            Debug.Log(listePanier[i]);
+            Debug.Log(listeQuete[i]);
         }
     }
 
-	public bool queteAccomplie() {
-		bool queteAccomplie = true;
-		
-		for (int i = 0; i < listeQuete.Count; i++) {
-			if (!listePanier.Contains(listeQuete[i])) {
-				queteAccomplie = false;
-			}
-		}
-		
-		return queteAccomplie;
-	}
 
-	public string toString(string tag, List<GameObject> liste){
-		
+    public string toString(string tag, List<string> liste) {
+
         string nomPoisson = "";
 
         int nbPoissons = 0;
         for (int i = 0; i < liste.Count; i++) {
-            if (liste[i].tag == tag)
+            if (liste[i] == tag)
                 nbPoissons++;
         }
 
@@ -116,72 +103,79 @@ public class QuetePeche : MonoBehaviour {
             }
         }
 
-
-
-		return nomPoisson;
-	}
-
-	public string contenuDuPanier(){
-		string contenuDuPanier = "Actuellement dans le panier : \n\n";
-		
-		for (int i = 0; i < listePanier.Count; i++)
-		{
-            contenuDuPanier += "- " + toString(listePanier[i].tag, listePanier) + "\n";
-		}
-
-        return contenuDuPanier;
-	}
+        return nomPoisson;
+    }
 
 	public string poissonsManquants(){
 
         string poissonsManquants = "Voici les poissons qu'il reste à pêcher : \n\n";
 
-        for (int i = 0; i < listeQuete.Count; i++) {
-            poissonsManquants += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
-        }
+        poissonsManquants += ToStringListePoissons(listeQuete);
 
         return poissonsManquants;
 	}
 
-	public bool ajouterPoissonDansPanier(GameObject poisson){
-        
-        bool poissonValide = false;
+    
+	public bool verifVictoire(){
 
-        // On vérifie que l ingrédient mis dans le saladier fait partie de la quete
-        for (int i = 0; i < listeQuete.Count; i++) {
-            if (listeQuete.Contains(poisson)) {
-                poissonValide = true;
-            }
+        if (listeQuete.Count == 0) {
+            return true;
         }
-        // Si oui on l ajoute a la liste et on le détruit ensuite
 
-        if (poissonValide) {
-            listePanier.Add(poisson);
-            listeQuete.Remove(poisson);
-        }
-        return poissonValide;
+        return false;
 	}
+    
+    string nomPoisson(string tag) {
+
+        switch (tag) {
+
+            case "poi_eperlant":
+                tag = "eperlant";
+                break;
+            case "poi_turbot":
+                tag = "turbot";
+                break;
+            case "poi_morue":
+                tag = "morue";
+                break;
+            case "poi_saumon":
+                tag = "saumon";
+                break;
+            case "poi_sebaste":
+                tag = "sebaste";
+                break;
+        }
+
+        return tag;
+    }
 
 	public string texteQuete(){
 
-        List<string> dejaAffiche = new List<string>();
-
 		string quete = "Bonjour est ce que tu serais partant pour une bonne partie de pêche?\n";
 		quete += "Voici la liste des poissons qu'il faut pêcher, relâche ceux qui ne sont pas dans la liste!\n";
-		
-		for (int i = 0; i < listeQuete.Count; i++)
-		{
-            if (i == 0) {
-                dejaAffiche.Add(listeQuete[i].tag);
-                quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
-            } else if (!dejaAffiche.Contains(listeQuete[i].tag)) {
-                dejaAffiche.Add(listeQuete[i].tag);
-                quete += "- " + toString(listeQuete[i].tag, listeQuete) + "\n";
-            }
-		}
+
+        quete += ToStringListePoissons(listeQuete);
 		
 		return quete;
 	}
 
+    public string ToStringListePoissons(List<string> liste) {
+
+        List<string> dejaAffiche = new List<string>();
+
+        string listePoissons = "";
+
+        for (int i = 0; i < liste.Count; i++) {
+            if (i == 0) {
+                dejaAffiche.Add(liste[i]);
+                listePoissons += "- " + toString(liste[i], liste) + "\n";
+            } else if (!dejaAffiche.Contains(liste[i])) {
+                dejaAffiche.Add(liste[i]);
+                listePoissons += "- " + toString(liste[i], liste) + "\n";
+            }
+        }
+
+        return listePoissons;
+    }
 
 }

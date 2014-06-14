@@ -14,6 +14,7 @@ public class DialogueCrepe : TouchLogic {
 
 	void Start() {
         GameManager.AfficherTexture(texValidation);
+		GameObject.Find("validerText").guiText.enabled = false;
 	}
 	
 	public override void OnTouchEndedAnywhere () {
@@ -23,6 +24,7 @@ public class DialogueCrepe : TouchLogic {
 			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 			CameraMove(camPreparationPatePos);
             GameManager.AfficherTexture(texValidation);
+			GameObject.Find("validerText").guiText.enabled = true;
             GameManager.ActiverDrag();
             canRestartChrono = true;
 		}

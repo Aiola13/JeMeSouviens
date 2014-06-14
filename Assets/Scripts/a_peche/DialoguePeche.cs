@@ -3,10 +3,8 @@ using System.Collections;
 
 public class DialoguePeche : TouchLogic {
 
-    public GUITexture texValidation;
-
-    protected Ray ray;
-    protected RaycastHit hit;
+    private Ray ray;
+    private RaycastHit hit;
 
     public override void OnTouchEndedAnywhere() {
         
@@ -15,7 +13,6 @@ public class DialoguePeche : TouchLogic {
 
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.queteJeanClaude) {
             ChangeState(GameManagerPeche.GameState.queteJeanClaude, GameManagerPeche.GameState.pecher);
-            AfficherTexture(texValidation);
         }
 
         // State Aide de Skypi
@@ -27,21 +24,26 @@ public class DialoguePeche : TouchLogic {
         // State Peche
 
         else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
+            if (GameManagerPeche.peche.poissonPeche && GameManagerPeche.boutonValidation) {
+                GameManagerPeche.peche.poissonPeche = false;
+                GameManagerPeche.boutonValidation = false;
+            } else if (GameManagerPeche.peche.poissonPeche && GameManagerPeche.boutonAnnulation) {
+                GameManagerPeche.peche.poissonPeche = false;
+                GameManagerPeche.boutonAnnulation = false;
+            }
 
-
+        } 
+        
+        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.finDePartie) {
+            Application.LoadLevel("a_menu");
         }
 
-        // State degivrage
+        
 
-        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.degivrerTrou) {
-
-
-        }
 
         // Si on touche Skypi
         ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
         if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-
             switch (GameManagerPeche.curGameState) {
                 case GameManagerPeche.GameState.degivrerTrou:
                     ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.aideDeSkypi);
@@ -52,6 +54,7 @@ public class DialoguePeche : TouchLogic {
             }
             GameManagerPeche.miaulement.Play();
         }
+
     }
 
     // Parameters: prev State, curr State
@@ -59,17 +62,5 @@ public class DialoguePeche : TouchLogic {
         GameManagerPeche.curGameState = current;
         GameManagerPeche.prevGameState = prev;
     }
-
-   // active et affiche la texture t
-   public void AfficherTexture(GUITexture t) {
-       t.guiTexture.enabled = true;
-       t.gameObject.SetActive(true);
-   }
-
-   // désactive et enleve l'affichage de la texture t
-   public void NePasAfficherTexture(GUITexture t) {
-       t.guiTexture.enabled = false;
-       t.gameObject.SetActive(false);
-   }
 
 }

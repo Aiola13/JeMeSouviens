@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/menu.unity
   - enabled: 1
+    path: Assets/Scenes/a_menu.unity
+  - enabled: 1
     path: Assets/Scenes/a_crepe.unity
+  - enabled: 1
+    path: Assets/Scenes/a_peche.unity
+  - enabled: 1
+    path: Assets/Scenes/a_jardin.unity
