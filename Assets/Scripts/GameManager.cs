@@ -9,11 +9,28 @@ public class GameManager : MonoBehaviour {
 
     public static bool nextState = false;
     public static bool boutonValidation = false;
+
+    private static string nomActivite = "";
+    private static string cheminFichierStats = "";
+    private static string libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
+    protected static string[] tableauStats;
+
+    protected static System.Diagnostics.Stopwatch chrono;
+
+    protected static int idPartie;
+    protected static float tempsPartie = 0.0f;
+    public static int nbErreurs;
+    protected static int nbAppelsAide = 0;
+
     public static bool boutonAnnulation = false;
 
 
     /////////////////////////////////////////////////////////////////////
  
+    void Update()
+    {
+        Debug.Log("Je suis dane le GameManager");
+    }
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume) {
         AudioSource newAudio = gameObject.AddComponent<AudioSource>();
@@ -45,6 +62,8 @@ public class GameManager : MonoBehaviour {
 
     // affiche une boite de dialogue avec comme texture pnj et comme texte txt,
     public void AfficherDialogue(Texture2D pnj, string txt) {
+
+        //GameManagerCrepe.chrono.Stop();
         style.fontSize = Screen.height / 36;
         style.alignment = TextAnchor.MiddleLeft;
         style.font = (Font)Resources.Load("Roboto-Regular");
@@ -56,6 +75,85 @@ public class GameManager : MonoBehaviour {
         //style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = Screen.height / 28;
         GUI.Box(new Rect(Screen.width * 2 / 3, Screen.height * 2 / 3 + brd * 2, Screen.width / 10, Screen.height / 3 - 10), "TOUCHER POUR CONTINUER !", style);
+        DialogueCrepe.canRestartChrono = false;
+    }
+
+    protected static void CreerFichierStats()
+    {
+        switch (Application.loadedLevelName)
+        {
+            case "a_crepe":
+                Debug.Log("Crepe");
+                nomActivite = "Crepe";
+                libelleStats += ",nbIngOptUtil,nbCrepesFaites\n";
+                break;
+
+            case "a_peche":
+                Debug.Log("Pêche");
+                nomActivite = "Peche";
+                libelleStats += ",nbVerifInventaire,nbCapturesRatees,nbPoissonsAttrapes\n";
+                break;
+        }
+
+        //Check si fichier de stats existe déjà
+        cheminFichierStats = Application.persistentDataPath + "/Stats" + nomActivite + ".txt";
+        Debug.Log("Existance fichier stats : " + System.IO.File.Exists(cheminFichierStats) + "  Chemin : " + cheminFichierStats);
+        Debug.Log("LibelleStats :" + libelleStats);
+
+        //On check si le fichier de stats n'existe pas, dans ce cas on le crée
+        if (!System.IO.File.Exists(cheminFichierStats))
+        {
+            System.IO.FileStream fs = System.IO.File.Open(Application.persistentDataPath + "/Stats" + nomActivite + ".txt", System.IO.FileMode.Append);
+            {
+                System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(libelleStats);
+                fs.Write(stats, 0, stats.Length);
+            }
+            fs.Close();
+
+            //System.IO.FileInfo f = new System.IO.FileInfo(Application.persistentDataPath + "/Stats" + nomActivite + ".txt");
+            //Debug.Log("J'écris le fichier");
+            //Debug.Log(Application.persistentDataPath + "/Stats" + nomActivite + ".txt");
+            //System.IO.StreamWriter sw;
+            //sw = f.CreateText();
+            //sw.WriteLine(libelleStats);
+            //sw.Close();
+
+        }  
+    }
+
+
+    protected static void ObtenirStatsDernierePartie()
+    {
+        string derniereLigne = null;
+        string ligneTraitee;
+
+        using (var reader = new System.IO.StreamReader(Application.persistentDataPath + "/Stats" + nomActivite + ".txt"))
+        {
+            while ((ligneTraitee = reader.ReadLine()) != null)
+            {
+                derniereLigne = ligneTraitee;
+            }
+        }
+
+
+        tableauStats = derniereLigne.Split(new char[] { ',' });
+        for (int i = 0; i <= tableauStats.Length - 1; i++)
+        {
+            Debug.Log("i : " + i + " valeur : " + tableauStats[i]);
+        }
+
+        bool isNumeric = int.TryParse(tableauStats[0], out idPartie);
+        if (isNumeric)
+        {
+            Debug.Log("idPartie : " + idPartie);
+            idPartie++;
+            Debug.Log("idPartie maj : " + idPartie);
+        }
+        else
+        {
+            idPartie = 1;
+            Debug.Log("idPartie : " + idPartie);
+        }
     }
 
     public void AfficherDialogue(Texture2D pnj, string txt, string txt2) {

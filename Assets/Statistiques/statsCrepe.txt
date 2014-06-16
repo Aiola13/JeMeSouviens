@@ -1,0 +1,2 @@
+idPartie,tempsPartie,nbErreurs,nbAppelsAide,nbIngOptUtil,nbCrepesFaites
+1,2,2,2,2,2

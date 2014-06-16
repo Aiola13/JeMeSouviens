@@ -7,8 +7,9 @@ public class UIButtonsCrepe : TouchLogic {
 	public GUITexture texValidation;
 	public GUITexture texNextState;
 	
-	void Start() {
+	void Awake() {
 		GameManager.NePasAfficherTexture(texValidation);
+		GameObject.Find("validerText").guiText.enabled = false;
 	}
 
 	public override void OnTouchBegan() {

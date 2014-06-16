@@ -3,38 +3,35 @@ using System.Collections;
 
 public class DialogueCrepe : TouchLogic {
 	
-	public GUITexture texValidation;
-	
 	Vector3 camPreparationPatePos = new Vector3(0, 2, -3);
 	Vector3 camCuissonPos = new Vector3(-2.7f, 2, -3);
 
     protected Ray ray;
 	protected RaycastHit hit;
+    public static bool canRestartChrono = false;
 
 	void Start() {
-        GameManager.AfficherTexture(texValidation);
-		GameObject.Find("validerText").guiText.enabled = false;
+
 	}
 	
 	public override void OnTouchEndedAnywhere () {
 
 		// State quete noemie
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
-			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 			CameraMove(camPreparationPatePos);
-            GameManager.AfficherTexture(texValidation);
-			GameObject.Find("validerText").guiText.enabled = true;
             GameManager.ActiverDrag();
+			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 		}
 		
 		// State aide de skypi
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
-			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
             GameManager.ActiverDrag();
+            canRestartChrono = true;
+			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
-        if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManager.boutonValidation == true) {
+        else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManager.boutonValidation == true) {
             GameManager.boutonValidation = false;
 			
 			// si on a reussit la recette on passe a l'etalage du beurre
@@ -44,21 +41,23 @@ public class DialogueCrepe : TouchLogic {
 				RotateCat();
 			}
             GameManager.ActiverDrag();
+            canRestartChrono = true;
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
             GameManager.boutonValidation = false;
+            canRestartChrono = true;
 		}
 		
 		// State etalage beurre
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
-
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
+            canRestartChrono = true;
 		}
 
 		// State cuisson
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
-
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
+            canRestartChrono = true;
 		}
 
 		// if we touch the cat
