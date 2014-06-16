@@ -62,7 +62,7 @@ public class Parcelle : MonoBehaviour {
 	}
 
 	public void AEteSeme(GUITexture leg) {
-		renderer.material.color = Color.gray;
+		renderer.material.color = new Color(0.3F, 0.5F, 0.3F, 0.3F);
 		_legume = leg;
 		PositionnerArrosoir();
 		ChangeState(ParcelleState.graine, ParcelleState.arrosage);

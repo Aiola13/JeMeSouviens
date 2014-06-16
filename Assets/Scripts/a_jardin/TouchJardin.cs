@@ -31,6 +31,8 @@ public class TouchJardin : TouchLogic {
 	// dragNdrop legumes
 	public bool dragging = false;		// est vrai si on drag un legume a partir de l'ui
 	public GUITexture legumeDragged;
+	public Transform grainePrefab;
+	private Transform graineClone;
 
 	// accelerometre arrosage
 	private GameObject arrosoir;
@@ -67,7 +69,8 @@ public class TouchJardin : TouchLogic {
 				Parcelle scriptParcelle = parcelle.GetComponent<Parcelle>();
 
 				if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
-					if (Input.touchCount == 1) {
+					// si on commence le swipe sur la parcelle selectionne
+					if (Input.touchCount == 1 && selectedParcelle && selectedParcelle.tag == parcelle.tag) {
 						fp = Input.GetTouch(0).position;
 						lp = Input.GetTouch(0).position;
 					}
@@ -82,6 +85,8 @@ public class TouchJardin : TouchLogic {
 						if ((carotte.HitTest(Input.GetTouch(0).position))) {
 							dragging = true;
 							legumeDragged = carotte;
+							Vector3 pos = new Vector3(hit.point.x, 1, hit.point.z);
+							graineClone = (Transform)Instantiate(grainePrefab, pos, Quaternion.identity) as Transform;
 						}
 						else if (tomate.HitTest(Input.GetTouch(0).position)) {
 							dragging = true;
@@ -120,6 +125,10 @@ public class TouchJardin : TouchLogic {
 
 			ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
+			// si on est en train de dragger, on met a jour la position de la graine
+			if (dragging) {
+				graineClone.position = new Vector3(hit.point.x, 1, hit.point.z);
+			}
 
 			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
 
@@ -148,7 +157,6 @@ public class TouchJardin : TouchLogic {
 					#endregion
 				}
 			}
-
 		}
 		#endregion
 	}
@@ -209,33 +217,27 @@ public class TouchJardin : TouchLogic {
 
 			ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
-			// si on est en train de dragger un legume et qu'on termine l'appui en dehors d'une parcelle
-			if (dragging && Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "FloorJardin")) {
-				dragging = false;
+			// si on a termine un touch en dehors d'une parcelle, sur le jardin
+			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "FloorJardin")) {
+				// si on etait en train de dragger un legume
+				if (dragging) {
+					AnnulerGraine();
+				}
+				// on deselectionne la parcelle couremment selectionne
+				else if (selectedParcelle) {
+					selectedParcelle.GetComponent<Parcelle>().AEteDeSelectionne();
+					selectedParcelle = null;
+					NePasAfficherUILegumes();
+				}
 			}
 
-			// lorsqu'on appui sur une parcelle
-			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
+			// si on a termine un touch en sur une parcelle
+			else if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
 
 				GameObject parcelle = hit.collider.gameObject;
 				Parcelle scriptParcelle = parcelle.GetComponent<Parcelle>();
 
-				// si on a selectionne avant une parcelle differente de celle touché actuellement, on met son etat en deselectionné
-				if (selectedParcelle && selectedParcelle.tag != parcelle.tag) {
-					selectedParcelle.GetComponent<Parcelle>().AEteDeSelectionne();
-					NePasAfficherUILegumes();
-
-					// si on etait en train de dragger, dragging vaut faux si on termine le drag sur une autre parcelle que celle selectionné
-					if (dragging)
-						dragging = false;
-				}
-
-				// la nouvelle parcelle selectionné est celle qu'on a touché
-				selectedParcelle = parcelle;
-				selectedParcelle.tag = parcelle.tag;
-
-	
-				// la parcelle change d'etat seulement si une interaction se fait dessus quand elle est selectionné
+				// si on termine un touch sur une parcelle selectionne
 				if (scriptParcelle.isSelected) {
 
 					// faire 3 petits swipe pour creuser
@@ -257,13 +259,16 @@ public class TouchJardin : TouchLogic {
 					// changement d'etat traité dans AjoutLegume(), GameManagerJardin()->SelectionnerLegume()->AjoutLegume()
 					else if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
 						#region drag ended
-						//if (selectedParcelle.tag == parcelle.tag) {
-
 						if (dragging && Input.touchCount == 1) {
-							AjoutLegume(legumeDragged);
-							dragging = false;
+							// si le legume a ete plante, on le place correctement
+							if (AjoutLegume(legumeDragged)) {
+								graineClone.position = new Vector3(parcelle.transform.position.x, 0.15f, parcelle.transform.position.z);
+								dragging = false;
+							}
+							else {
+								AnnulerGraine();
+							}
 						}
-						//}
 						#endregion
 					}
 
@@ -276,18 +281,36 @@ public class TouchJardin : TouchLogic {
 					// la plante est mature
 					else if (scriptParcelle._curState == Parcelle.ParcelleState.mature) {
 
-						
 						scriptParcelle.EstMature();
 					}
 				}
-				// si la parcelle n'etait pas deja selectionne
+
+				// si on termine un touch sur une parcelle non selectionne
 				else {
-					// si on reselectionne une parcelle qui attend une graine
-					if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
-						AfficherUILegumes();
+					// si on etait en train de dragger, on annule le placement de la graine
+					if (dragging && Input.touchCount == 1) {
+						AnnulerGraine();
+					}
+					// sinon on a termine le touch sur une parcelle non selectionne
+					else {
+						if (selectedParcelle) {
+							selectedParcelle.GetComponent<Parcelle>().AEteDeSelectionne();
+							NePasAfficherUILegumes();
+						}
+
+						// la nouvelle parcelle selectionné est celle qu'on a touché
+						selectedParcelle = parcelle;
+						selectedParcelle.tag = parcelle.tag;
+						scriptParcelle.AEteSelectionne();
+
+
+						// si on reselectionne une parcelle qui attend une graine
+						if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+							AfficherUILegumes();
+						}
 					}
 
-					scriptParcelle.AEteSelectionne();
+
 				}
 
 				//print (hit.collider.tag + "   " + scriptParcelle._curState + "   " + scriptParcelle._legume);
@@ -296,34 +319,9 @@ public class TouchJardin : TouchLogic {
 		#endregion
 	}
 
-
-
-	// SelectionnerLegume est utilisé dans GameManagerJardin
-	public void SelectionnerLegume() {
-		if (Input.touchCount == 1) {
-			if (Input.GetTouch(0).phase == TouchPhase.Ended) {
-
-				if ((carotte.HitTest(Input.GetTouch(0).position))) {
-					AjoutLegume(carotte);
-				}
-				else if (tomate.HitTest(Input.GetTouch(0).position)) {
-					AjoutLegume(tomate);
-				}
-				else if (choux.HitTest(Input.GetTouch(0).position)) {
-					AjoutLegume(choux);
-				}
-				else if (aubergine.HitTest(Input.GetTouch(0).position)) {
-					AjoutLegume(aubergine);
-				}
-				else if (patate.HitTest(Input.GetTouch(0).position)) {
-					AjoutLegume(patate);
-				}
-				else if (oignon.HitTest(Input.GetTouch(0).position)) {
-					AjoutLegume(oignon);
-				}
-
-			}
-		}
+	void AnnulerGraine() {
+		dragging = false;
+		Destroy (graineClone.gameObject);
 	}
 
 	// accélérometre
@@ -354,15 +352,18 @@ public class TouchJardin : TouchLogic {
 
 
 	#region methodes pour l'UI
-	// ajoute un legume lorsqu'on appui sur un bouton de legume
-	void AjoutLegume(GUITexture gTex) {
+	// renvoit vrai si on peut ajouter un legume, faux sinon
+	bool AjoutLegume(GUITexture gTex) {
 		QueteJardin scriptQueteJardin = GetComponent<QueteJardin>();
 		
 		// si le legume a ete plante
-		if(scriptQueteJardin.VerifierAjoutLegume(gTex.gameObject)) {
+		if (scriptQueteJardin.VerifierAjoutLegume(gTex.gameObject)) {
 			NePasAfficherUILegumes();
 			selectedParcelle.GetComponent<Parcelle>().AEteSeme(gTex);
+			return true;
 		}
+		else
+			return false;
 	}
 
 	// verifie si on a valider la quete ds la phase 1 ou 2 quand on appui sur lebouton de validation

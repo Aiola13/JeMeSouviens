@@ -2500,6 +2500,8 @@ MonoBehaviour:
   selectedParcelle: {fileID: 0}
   dragging: 0
   legumeDragged: {fileID: 0}
+  grainePrefab: {fileID: 400000, guid: 9ad1ab3f57195fa4eb7b1c5ed94d3a7b, type: 2}
+  graineClone: {fileID: 0}
 --- !u!114 &1438670617
 MonoBehaviour:
   m_ObjectHideFlags: 0
