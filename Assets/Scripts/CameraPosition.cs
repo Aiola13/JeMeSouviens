@@ -4,10 +4,13 @@ using System.Collections;
 public class CameraPosition : MonoBehaviour
 {
 	public float speed = 20.0f;         // The relative speed at which the camera will catch up.
+	/*
 	private float posCrepe = 0.0f;
 	private float posPeche  = 20.0f;
     private float posJardin = 40.0f;
+*/
 	private float posCam;
+
 
     public GameObject focus;
 

@@ -2446,6 +2446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  texValidation: {fileID: 1790167629}
   noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 9d68ca9aef22d9340b67a9408cd5cff9, type: 3}
@@ -2463,7 +2464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f00702598ea364f932f4e824cba916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texValidation: {fileID: 1790167629}
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0

@@ -23,15 +23,17 @@ public class GameManagerJardin :  GameManager{
 		attente,
 		planterLegumeObligatoire,
 		afficherLegumesPlantes,
-		parcelleMaxAtteint
+		parcelleMaxAtteint,
+		arroserLegumes
 	}
 
+	private float _alertTime = 0.0f;
 	public static AlerteState _alertState;
 
 	public Texture2D jessica;
 
-	public TouchJardin touchJardin;
-	public QueteJardin queteJardin;
+	private TouchJardin touchJardin;
+	private QueteJardin queteJardin;
 
 	#endregion attributs
 
@@ -70,9 +72,14 @@ public class GameManagerJardin :  GameManager{
 
 			// si une parcelle est selectionné
 			if (touchJardin.selectedParcelle) {
+				/*
 				// si la parcelle selectionné est dans l'etat de plantation d'une graine
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
 					touchJardin.SelectionnerLegume();
+				}
+				*/
+				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
+					touchJardin.ArroserLegume();
 				}
 			}
 		}
@@ -95,6 +102,7 @@ public class GameManagerJardin :  GameManager{
 
 		}
 		#endregion
+
 
 		#region score
 		// score
@@ -125,7 +133,7 @@ public class GameManagerJardin :  GameManager{
 
 		// Affichage de la quete 2
 		else if (curGameState == GameState.queteJessicaP2) {
-			AfficherDialogue(jessica, "queteJessicaP2");
+			AfficherDialogue(jessica, queteJardin.QueteP1());
 		}
 		#endregion
 		
@@ -182,30 +190,51 @@ public class GameManagerJardin :  GameManager{
 
 
 		#region alert handling
+		// quand on doit plante le legume obligatoire
 		if (_alertState == AlerteState.planterLegumeObligatoire) {
-			StartCoroutine(AlertReset("N'oublie pas de planter le legume obligatoire: " + queteJardin.getLegumeName(queteJardin.legumeObligatoire) + ".", 3.0f));
+			Alerte("N'oublie pas de planter le legume obligatoire: " + queteJardin.getLegumeName(queteJardin.legumeObligatoire) + ".", 5.0f);
 		}
+		// quand on appui sur le bouton d'info
 		else if (_alertState == AlerteState.afficherLegumesPlantes) {
-			StartCoroutine(AlertReset(queteJardin.getLegumesPlantes(), 3.0f));
+			Alerte(queteJardin.getLegumesPlantes(), 5.0f);
 		}
+		// quand on peut plus planté
 		else if (_alertState == AlerteState.parcelleMaxAtteint) {
-			StartCoroutine(AlertReset("Le nombre de legumes autorise a planter a été atteint.", 3.0f));
+			Alerte("Le nombre de legumes autorise a planter a été atteint.", 5.0f);
+		}
+		// si un legumes n'a pas ete arrose
+		else if (_alertState == AlerteState.arroserLegumes) {
+			Alerte("Tu as oublié d'arroser un légume.", 5.0f);
 		}
 		#endregion
 	}
 	#endregion
 
-	// Affiche une alerte pendant tps secondes puis reset l'etat alerte
-	IEnumerator AlertReset(string txt, float tps) {
-		AfficherAlerte(txt);
-		yield return new WaitForSeconds(tps);
-		_alertState = AlerteState.attente;
+
+	#region autres méthodes
+	// permet de configurer une alerte
+	public void SetAlerte(AlerteState state) {
+		_alertState = state;
+		_alertTime = 0.0f;
 	}
+
+	// Affiche l'alerte txt pendant tps secondes puis reset l'etat alerte a 'en attente'
+	void Alerte(string txt, float tps) {
+		_alertTime += Time.deltaTime;
+		AfficherAlerte(txt);
+
+		if (_alertTime > tps) {
+			_alertState = AlerteState.attente;
+			_alertTime = 0.0f;
+		}
+	}
+
 
 	// Parameters: prev State, curr State
 	void ChangeState(GameState prev, GameState current) {
 		curGameState = current;
 		prevGameState = prev;
 	}
+	#endregion
 
 }

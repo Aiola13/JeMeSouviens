@@ -20,26 +20,36 @@ public class Parcelle : MonoBehaviour {
 	public bool isSelected = false;
 
 	public int _nbTimesDigged = 0;
+	
+	public GameObject arrosoir;
+	private Vector3 arrosoirOffset = new Vector3 (0, 1.2f, 0);
+	private Vector3 ArrosoirOriginalPos = new Vector3 (-5, 2, 0);
 
 
-	void Awake() {
+	void Start() {
 		_curState = ParcelleState.creuser;
 		renderer.material = dirt;
+
+		arrosoir = GameObject.FindGameObjectWithTag("Arrosoir");
+		ArrosoirOriginalPos = arrosoir.transform.position;
 	}
 
 
 	public void AEteSelectionne() {
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = true;
+		if (_curState == ParcelleState.arrosage)
+			PositionnerArrosoir();
 		isSelected = true;
 	}
 
 	public void AEteDeSelectionne() {
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
+		arrosoir.transform.position = ArrosoirOriginalPos;
 		isSelected = false;
 	}
 
 
-	public void AEteCreuser() {
+	public void AEteCreuse() {
 		renderer.material = plowDirt;
 		if (_nbTimesDigged == 1)
 			renderer.material.color = new Color(1.0F, 1.0F, 1.0F, 0.5F);
@@ -51,13 +61,18 @@ public class Parcelle : MonoBehaviour {
 		}
 	}
 
-	public void AEtePlante() {
+	public void AEteSeme(GUITexture leg) {
 		renderer.material.color = Color.gray;
+		_legume = leg;
+		PositionnerArrosoir();
 		ChangeState(ParcelleState.graine, ParcelleState.arrosage);
 	}
 
-	public void AEteArroser() {
+	public void AEteArrose() {
 		renderer.material = grass;
+		EnleverArrosoir();
+		QueteJardin scriptQueteJardin = GameObject.Find("_GameManager").GetComponent<QueteJardin>();
+		scriptQueteJardin.IncrementNbLegumesArroses();
 		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
 	}
 
@@ -78,6 +93,14 @@ public class Parcelle : MonoBehaviour {
 			return true;
 		else
 			return false;
+	}
+
+	void PositionnerArrosoir() {
+		arrosoir.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+	}
+
+	void EnleverArrosoir() {
+		arrosoir.transform.position = ArrosoirOriginalPos;
 	}
 
 	// Parameters: prev State, curr State

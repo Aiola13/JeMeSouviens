@@ -3,8 +3,6 @@ using System.Collections;
 
 public class DialogueCrepe : TouchLogic {
 	
-	public GUITexture texValidation;
-	
 	Vector3 camPreparationPatePos = new Vector3(0, 2, -3);
 	Vector3 camCuissonPos = new Vector3(-2.7f, 2, -3);
 
@@ -12,25 +10,22 @@ public class DialogueCrepe : TouchLogic {
 	protected RaycastHit hit;
 
 	void Start() {
-        GameManager.AfficherTexture(texValidation);
-		GameObject.Find("validerText").guiText.enabled = false;
+
 	}
 	
 	public override void OnTouchEndedAnywhere () {
 
 		// State quete noemie
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.queteNoemie) {
-			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 			CameraMove(camPreparationPatePos);
-            GameManager.AfficherTexture(texValidation);
-			GameObject.Find("validerText").guiText.enabled = true;
             GameManager.ActiverDrag();
+			ChangeState(GameManagerCrepe.GameState.queteNoemie, GameManagerCrepe.GameState.preparationPate);
 		}
 		
 		// State aide de skypi
 		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
-			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
             GameManager.ActiverDrag();
+			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
