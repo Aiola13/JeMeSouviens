@@ -98,6 +98,8 @@ public class TouchLogicDrag : MonoBehaviour {
             {
                 //print(ObjectToDrag.name + " ne fait pas partie de la quete");
 
+				GameManagerCrepe.sonDragFalse.Play();
+
                 ResetPosition();
             }
 

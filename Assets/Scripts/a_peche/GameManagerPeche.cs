@@ -76,7 +76,7 @@ public class GameManagerPeche : GameManager {
         print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation);
 
         if (!jeanClaude || !skypi) {
-            Debug.LogError("Ajouter les textures!");
+            Debug.LogError("Ajouter les textures !");
             return;
         }
 
@@ -95,7 +95,7 @@ public class GameManagerPeche : GameManager {
 
             modeDegivrage();
 
-            AfficherAide("Dégivre le trou en dessinant le symbole!");
+            AfficherAide("Dégivre le trou en dessinant le symbole !");
 
             videos.playVidDegivrer();
 
@@ -115,7 +115,7 @@ public class GameManagerPeche : GameManager {
 
             modePeche();
             if (peche.aMordu()) {
-                AfficherAide("Releve la tablette maintenant!");
+                AfficherAide("Releve la tablette maintenant !");
             }
             else {
                 AfficherAide("Patience un poisson va bientôt mordre à l'hameçon.");
@@ -195,7 +195,7 @@ public class GameManagerPeche : GameManager {
         else if (curGameState == GameState.finDePartie) {
 
             if (quetePeche.verifVictoire()) {
-                AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
+                AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute !");
             } else {
                 string poissonsCorrects = "Poissons corrects : \n";
                 string poissonsIncorrects = "Poissons incorrects : \n";

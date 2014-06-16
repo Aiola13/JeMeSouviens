@@ -104,7 +104,7 @@ public class Gesture : MonoBehaviour
 				// the player has NOT drawn the correct symbol
 				else {
 					//GuiText.guiText.text = "Recommencez svp!";
-					Debug.Log("Recommencez svp!");                    
+					Debug.Log("Recommencez svp !");                    
 					GameManagerPeche.errorBip.Play ();
 				}
 

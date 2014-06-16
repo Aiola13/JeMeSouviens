@@ -129,7 +129,7 @@ public class QueteCrepe : MonoBehaviour {
     public string texteQuete()
     {
         string quete = "Bonjour que dirais-tu de m'aider à préparer des crêpes?\n";
-        quete += "J'ai déjà mis quelques ingrédients dans le saladier!\n";
+        quete += "J'ai déjà mis quelques ingrédients dans le saladier !\n";
         quete += "Voici les ingrédients que tu dois ajouter pour finir la pâte :\n\n";
 
 		for (int i = 0; i < liste_quete.Count; i++)

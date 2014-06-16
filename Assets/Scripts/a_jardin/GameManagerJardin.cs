@@ -120,7 +120,7 @@ public class GameManagerJardin :  GameManager{
 	void OnGUI() {
 
 		if (!jessica) {
-			Debug.LogError("Ajouter les textures!");
+			Debug.LogError("Ajouter les textures !");
 			return;
 		}
 
