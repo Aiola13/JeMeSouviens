@@ -3,17 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class QueteJardin : MonoBehaviour {
-	
-	private int nbLegumes = 6;
+
+	private GameManagerJardin gmJardin;
+
+	private int nbLegumes;
 	private int nbParcelles = 3;
 
-	public GameObject[] listeLegumes;
+	public int nbLegumesArroses = 0;
+
+	private GameObject[] listeLegumes;
 	public List<GameObject> legumesPlantes;
+	public List<GameObject> legumesPlantesEnP1;
 
 	public GameObject legumeObligatoire;
 
 
 	void Start () {
+		gmJardin = GetComponent<GameManagerJardin>();
+
+		nbLegumes = GameObject.Find("UI_Legumes").transform.childCount;
 		listeLegumes = new GameObject[nbLegumes];
 	
 		InitListeLegumes();
@@ -63,20 +71,20 @@ public class QueteJardin : MonoBehaviour {
 	}
 
 
-	// ajoute un nouveau legume a la liste de legumes plantés
-	public bool AjouterLegume(GameObject legume) {
+	// ajoute un nouveau legume a la liste de legumes plantés et retourne vrai si le legume a ete plante
+	public bool VerifierAjoutLegume(GameObject legume) {
 		
 		// legume est ajouté si on n'a pas depassé nbParcelles
 		if (legumesPlantes.Count < nbParcelles) {
 			// si on a pas planté le legume obligatoire lorsqu'on est sur le point de plante un legume sur la derniere parcelle, on previent le joueur
 			if (legumesPlantes.Count == nbParcelles - 1) {
-				// si legume obligatoire a deja ete plante ou que le legume qu'on va plante est le gume obligatoire
+				// si legume obligatoire a deja ete plante ou que le legume qu'on va plante est legume obligatoire
 				if (VerifierLegume(legumeObligatoire) || legumeObligatoire.name == legume.name) {
 					legumesPlantes.Add(legume);
 					return true;
 				}
 				else {
-					GameManagerJardin._alertState = GameManagerJardin.AlerteState.planterLegumeObligatoire;
+					gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 					return false;
 				}
 			}
@@ -87,11 +95,33 @@ public class QueteJardin : MonoBehaviour {
 			}
 		}
 		else {
-			GameManagerJardin._alertState = GameManagerJardin.AlerteState.parcelleMaxAtteint;
+			gmJardin.SetAlerte(GameManagerJardin.AlerteState.parcelleMaxAtteint);
 			return false;
 		}
 	}
 
+	// incremente de 1 le nombre de legumes arroses
+	public void IncrementNbLegumesArroses() {
+		nbLegumesArroses++;
+	}
+
+	// retourne vrai si tous les legumes ont ete arroses
+	public bool VerifierLegumesArroses() {
+		if (nbLegumesArroses == legumesPlantes.Count)
+			return true;
+		else {
+			return false;
+		}
+
+	}
+
+	// on enregistre la liste de legumes plantés en p1 puis on reset les parcelles
+	public void EnregistrerLegumes() {
+		legumesPlantesEnP1 = legumesPlantes;
+		legumesPlantes = null;
+	}
+
+	// permet d'avoir le bon article devant chaque légume
 	public string getLegumeName(GameObject legume) {
 		if (legume.name == "carotte")
 			return "une carotte";
@@ -109,6 +139,7 @@ public class QueteJardin : MonoBehaviour {
 			return "null";
 	}
 
+	// retourne la liste des legumes plantés pendant l'une des phases
 	public string getLegumesPlantes() {
 		string txt = "Tu as plantés " + legumesPlantes.Count + " légumes:\n";
 		for (int i = 0; i < legumesPlantes.Count; i++) {
@@ -117,7 +148,7 @@ public class QueteJardin : MonoBehaviour {
 			if (i != legumesPlantes.Count - 1)
 				txt += ", ";
 		}
-		txt += "\nLe légume obligatoire a planté est: " + getLegumeName(legumeObligatoire) + ".";
+		txt += "\nLe légume obligatoire a planté est " + getLegumeName(legumeObligatoire) + ".";
 		return txt;
 	}
 
@@ -129,4 +160,8 @@ public class QueteJardin : MonoBehaviour {
 		return txt;
 	}
 
+	public string QueteP2(){
+		string txt = "Essai de reconstituer les légumes que tu avais planté.\n";
+		return txt;
+	}
 }
