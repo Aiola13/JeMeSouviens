@@ -8,6 +8,7 @@ public class DialogueCrepe : TouchLogic {
 
     protected Ray ray;
 	protected RaycastHit hit;
+    public static bool canRestartChrono = false;
 
 	void Start() {
 
@@ -23,13 +24,14 @@ public class DialogueCrepe : TouchLogic {
 		}
 		
 		// State aide de skypi
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.aideDeSkypi) {
             GameManager.ActiverDrag();
+            canRestartChrono = true;
 			ChangeState(GameManagerCrepe.GameState.aideDeSkypi, GameManagerCrepe.prevGameState);
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
-        if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManager.boutonValidation == true) {
+        else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManager.boutonValidation == true) {
             GameManager.boutonValidation = false;
 			
 			// si on a reussit la recette on passe a l'etalage du beurre
@@ -39,21 +41,23 @@ public class DialogueCrepe : TouchLogic {
 				RotateCat();
 			}
             GameManager.ActiverDrag();
+            canRestartChrono = true;
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
             GameManager.boutonValidation = false;
+            canRestartChrono = true;
 		}
 		
 		// State etalage beurre
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
-
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
+            canRestartChrono = true;
 		}
 
 		// State cuisson
-		if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
-
+		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
+            canRestartChrono = true;
 		}
 
 		// if we touch the cat
