@@ -325,6 +325,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  rejouer: {fileID: 2800000, guid: 2b0511a31f90d4f4c940fb59954619f3, type: 3}
+  etoile: {fileID: 2800000, guid: 2c3ae273427952a4883ed0f681140398, type: 3}
+  texValidation: {fileID: 505864818}
+  texAnnulation: {fileID: 339991329}
+  texReplay: {fileID: 1800847263}
   jeanClaude: {fileID: 2800000, guid: 6cf74338e767b024baa3216f95763b82, type: 3}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 5af94a03e2bb4f64db2e93408001c51c, type: 3}
@@ -332,8 +337,6 @@ MonoBehaviour:
   canneaPeche: {fileID: 8300000, guid: 44c7e87ed01f269419bb3a8ff9d49307, type: 3}
   bipMauvais: {fileID: 8300000, guid: 25274b5dcc19afc47a12af45e09ca927, type: 3}
   bipBon: {fileID: 8300000, guid: 42c0719a01ac1ad4c885dacf2edc8dbb, type: 3}
-  validation: {fileID: 505864818}
-  annulation: {fileID: 339991329}
 --- !u!114 &158588582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +628,7 @@ GameObject:
   - 131: {fileID: 339991329}
   - 114: {fileID: 339991328}
   m_Layer: 0
-  m_Name: GUI_Annulation
+  m_Name: texAnnulation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -644,7 +647,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texValidation: {fileID: 505864818}
   texAnnulation: {fileID: 339991329}
-  texMenu: {fileID: 0}
+  texMenu: {fileID: 1269728590}
+  texReplay: {fileID: 1800847263}
 --- !u!131 &339991329
 GUITexture:
   m_ObjectHideFlags: 0
@@ -983,6 +987,34 @@ Transform:
   - {fileID: 1709568305}
   - {fileID: 788452620}
   m_Father: {fileID: 0}
+--- !u!1 &499915112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 499915113}
+  m_Layer: 0
+  m_Name: GUI_Replay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &499915113
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 499915112}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1800847262}
+  - {fileID: 1920476719}
+  m_Father: {fileID: 1007470066}
 --- !u!1 &505864816
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +1026,7 @@ GameObject:
   - 131: {fileID: 505864818}
   - 114: {fileID: 505864819}
   m_Layer: 0
-  m_Name: GUI_Validation
+  m_Name: texValidation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1043,7 +1075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texValidation: {fileID: 505864818}
   texAnnulation: {fileID: 339991329}
-  texMenu: {fileID: 0}
+  texMenu: {fileID: 1269728590}
+  texReplay: {fileID: 1800847263}
 --- !u!1 &513994352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,7 +1217,7 @@ Transform:
   m_GameObject: {fileID: 529066080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .889999986, y: .430000007, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .300000012, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 1583736114}
 --- !u!132 &529066082
@@ -1208,7 +1241,7 @@ GUIText:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
-  m_PixelCorrect: 1
+  m_PixelCorrect: 0
   m_RichText: 1
 --- !u!1 &588586593
 GameObject:
@@ -1921,7 +1954,7 @@ Transform:
   m_GameObject: {fileID: 903722296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .889999986, y: .829999983, z: 0}
-  m_LocalScale: {x: .5, y: .800000012, z: 1}
+  m_LocalScale: {x: .300000012, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 2018502516}
 --- !u!132 &903722298
@@ -1940,11 +1973,11 @@ GUIText:
   m_TabSize: 4
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Material: {fileID: 0}
-  m_FontSize: 0
+  m_FontSize: 20
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_PixelCorrect: 0
   m_RichText: 1
 --- !u!1 &914016965
@@ -2193,6 +2226,7 @@ Transform:
   m_Children:
   - {fileID: 1818510339}
   - {fileID: 1100936379}
+  - {fileID: 499915113}
   - {fileID: 1583736114}
   - {fileID: 2018502516}
   m_Father: {fileID: 0}
@@ -2610,7 +2644,7 @@ Transform:
   m_GameObject: {fileID: 1206887207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .0700000003, y: .430000007, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .300000012, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 1818510339}
 --- !u!132 &1206887209
@@ -2634,7 +2668,7 @@ GUIText:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
-  m_PixelCorrect: 1
+  m_PixelCorrect: 0
   m_RichText: 1
 --- !u!1001 &1217718320
 Prefab:
@@ -2707,7 +2741,7 @@ GameObject:
   - 131: {fileID: 1269728590}
   - 114: {fileID: 1269728589}
   m_Layer: 0
-  m_Name: menuButton
+  m_Name: texMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2738,6 +2772,7 @@ MonoBehaviour:
   texValidation: {fileID: 505864818}
   texAnnulation: {fileID: 339991329}
   texMenu: {fileID: 1269728590}
+  texReplay: {fileID: 1800847263}
 --- !u!131 &1269728590
 GUITexture:
   m_ObjectHideFlags: 0
@@ -3528,6 +3563,68 @@ MeshFilter:
   m_PrefabInternal: {fileID: 417711497}
   m_GameObject: {fileID: 1797970561}
   m_Mesh: {fileID: 4300004, guid: ea595e2dbfe38c84e93e842837951de2, type: 3}
+--- !u!1 &1800847261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1800847262}
+  - 131: {fileID: 1800847263}
+  - 114: {fileID: 1800847264}
+  m_Layer: 0
+  m_Name: texReplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1800847262
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1800847261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .310000002, y: .119999997, z: 0}
+  m_LocalScale: {x: .100000001, y: .150000006, z: 1}
+  m_Children: []
+  m_Father: {fileID: 499915113}
+--- !u!131 &1800847263
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1800847261}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: 2b0511a31f90d4f4c940fb59954619f3, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
+--- !u!114 &1800847264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1800847261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822e8e8c0d494664f8c3061f45aaa12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texValidation: {fileID: 505864818}
+  texAnnulation: {fileID: 339991329}
+  texMenu: {fileID: 1269728590}
+  texReplay: {fileID: 1800847263}
 --- !u!1 &1802002652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,6 +3998,56 @@ Prefab:
   m_RootGameObject: {fileID: 437800593}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1920476718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1920476719}
+  - 132: {fileID: 1920476720}
+  m_Layer: 0
+  m_Name: replay_text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1920476719
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920476718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .270000011, y: .0599999987, z: 0}
+  m_LocalScale: {x: .300000012, y: .5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 499915113}
+--- !u!132 &1920476720
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920476718}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: Rejouer
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 20
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_PixelCorrect: 0
+  m_RichText: 1
 --- !u!1 &1936157386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3968,7 +4115,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2018502516}
   m_Layer: 0
-  m_Name: menu
+  m_Name: GUI_Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -34,25 +34,32 @@ public class DialoguePeche : TouchLogic {
 
         } 
         
-        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.finDePartie) {
-            Application.LoadLevel("a_menu");
-        }
+        // State fin de partie
 
-        
+        else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.finDePartie) {
+            ChangeState(GameManagerPeche.GameState.finDePartie, GameManagerPeche.GameState.score);
+        }
 
 
         // Si on touche Skypi
-        ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-        if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-            switch (GameManagerPeche.curGameState) {
-                case GameManagerPeche.GameState.degivrerTrou:
-                    ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.aideDeSkypi);
-                    break;
-                case GameManagerPeche.GameState.pecher:
-                    ChangeState(GameManagerPeche.GameState.pecher, GameManagerPeche.GameState.aideDeSkypi);
-                    break;
+
+        if (GameManagerPeche.curGameState == GameManagerPeche.GameState.degivrerTrou ||
+            GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
+
+            ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
+                switch (GameManagerPeche.curGameState) {
+                    case GameManagerPeche.GameState.degivrerTrou:
+                        ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.aideDeSkypi);
+                        break;
+                    case GameManagerPeche.GameState.pecher:
+                        ChangeState(GameManagerPeche.GameState.pecher, GameManagerPeche.GameState.aideDeSkypi);
+                        break;
+                }
+                GameManagerPeche.miaulement.Play();
+                GameManagerPeche.nbAppelsAide++;
             }
-            GameManagerPeche.miaulement.Play();
+
         }
 
     }
