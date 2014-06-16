@@ -51,7 +51,7 @@ public class TouchJardin : TouchLogic {
 		NePasAfficherUILegumes();
 		NePasAfficherBoutons();
 	}
-
+	
 
 	public override void OnTouchBeganAnywhere () {
 		
@@ -83,30 +83,22 @@ public class TouchJardin : TouchLogic {
 				if (selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
 					if (Input.touchCount == 1) {
 						if ((carotte.HitTest(Input.GetTouch(0).position))) {
-							dragging = true;
-							legumeDragged = carotte;
-							Vector3 pos = new Vector3(hit.point.x, 1, hit.point.z);
-							graineClone = (Transform)Instantiate(grainePrefab, pos, Quaternion.identity) as Transform;
+							BeginDrag (carotte, hit.point);
 						}
 						else if (tomate.HitTest(Input.GetTouch(0).position)) {
-							dragging = true;
-							legumeDragged = tomate;
+							BeginDrag (tomate, hit.point);
 						}
 						else if (choux.HitTest(Input.GetTouch(0).position)) {
-							dragging = true;
-							legumeDragged = choux;
+							BeginDrag (choux, hit.point);
 						}
 						else if (aubergine.HitTest(Input.GetTouch(0).position)) {
-							dragging = true;
-							legumeDragged = aubergine;
+							BeginDrag (aubergine, hit.point);
 						}
 						else if (patate.HitTest(Input.GetTouch(0).position)) {
-							dragging = true;
-							legumeDragged = patate;
+							BeginDrag (patate, hit.point);
 						}
 						else if (oignon.HitTest(Input.GetTouch(0).position)) {
-							dragging = true;
-							legumeDragged = oignon;
+							BeginDrag (oignon, hit.point);
 						}
 					}
 				}
@@ -117,6 +109,9 @@ public class TouchJardin : TouchLogic {
 	}
 
 
+	////////////////////////////////////////////////////////////////////////////////////
+	
+
 	public override void OnTouchMovedAnywhere () {
 
 		#region plantation on touch moved
@@ -125,10 +120,12 @@ public class TouchJardin : TouchLogic {
 
 			ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
 
+			#region drag moved
 			// si on est en train de dragger, on met a jour la position de la graine
 			if (dragging) {
 				graineClone.position = new Vector3(hit.point.x, 1, hit.point.z);
 			}
+			#endregion
 
 			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
 
@@ -146,12 +143,11 @@ public class TouchJardin : TouchLogic {
 					}
 					#endregion
 
-					#region drag moved
+					#region drag moved inside selected parcelle
 					// si on est en train de dragger et que la parcelle touché est dans la phase de plantation
 					if (dragging && scriptParcelle._curState == Parcelle.ParcelleState.graine) {
 						if (Input.touchCount == 1) {
-
-							print("moving");
+							//print("moving");
 						}
 					}
 					#endregion
@@ -161,6 +157,9 @@ public class TouchJardin : TouchLogic {
 		#endregion
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////////////
+	
 
 	public override void OnTouchEndedAnywhere () {
 
@@ -319,10 +318,26 @@ public class TouchJardin : TouchLogic {
 		#endregion
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////////////
+
+
+	#region autres methodes
+	// dragging vaut vrai, le lgume draggue est fixé et on instantie un clone d'une graine
+	void BeginDrag(GUITexture gTex, Vector3 v) {
+		dragging = true;
+		legumeDragged = gTex;
+		Vector3 pos = new Vector3(v.x, 1, v.z);
+		graineClone = (Transform)Instantiate(grainePrefab, pos, Quaternion.identity) as Transform;
+		graineClone.tag = "Graine";
+	}
+
+	// dragging vaut false et on detruit la graine couremment draggé
 	void AnnulerGraine() {
 		dragging = false;
 		Destroy (graineClone.gameObject);
 	}
+
 
 	// accélérometre
 	public void ArroserLegume() {
@@ -342,13 +357,12 @@ public class TouchJardin : TouchLogic {
 	}
 
 
-
 	// Parameters: prev State, curr State
 	void ChangeState(GameManagerJardin.GameState prev, GameManagerJardin.GameState current) { 
 		GameManagerJardin.curGameState = current;
 		GameManagerJardin.prevGameState = prev;
 	}
-
+	#endregion
 
 
 	#region methodes pour l'UI
@@ -366,6 +380,7 @@ public class TouchJardin : TouchLogic {
 			return false;
 	}
 
+
 	// verifie si on a valider la quete ds la phase 1 ou 2 quand on appui sur lebouton de validation
 	void ValiderLegumes() {
 		if (Input.touchCount == 1) {
@@ -375,14 +390,16 @@ public class TouchJardin : TouchLogic {
 
 				// plantation 1
 				if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) {
-					// si on a plante le legume obligatoire, on passe a la transition
-					if (scriptQueteJardin.VerifierLegume()) {
+					// on regarde si on peut passe a la transition
+
+					// si on a plante le legume obligatoire
+					if (scriptQueteJardin.VerifierLegumeObligatoire()) {
 						// tous les legumes ont ete arrosés
 						if (scriptQueteJardin.VerifierLegumesArroses()) {
-							scriptQueteJardin.EnregistrerLegumes();
 							selectedParcelle = null;
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
+							scriptQueteJardin.InitQueteP2();
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
 						}
 						// un legume n'a pas été arrosé
@@ -396,18 +413,33 @@ public class TouchJardin : TouchLogic {
 
 				// plantation 2
 				else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2) {
+					// on regarde si on peut passer au score
 
-					//verifier ici si la liste de legumes plante a la p1 a ete replante correctement
+					// verifier ici si la liste de legumes plante a la p1 a ete replante correctement en p2
 
-					ChangeState(GameManagerJardin.GameState.planterP2, GameManagerJardin.GameState.score);
-					selectedParcelle = null;
-					NePasAfficherUILegumes();
-					NePasAfficherBoutons();
+					// si on a plante le legume obligatoire
+					if (scriptQueteJardin.VerifierLegumeObligatoire()) {
+						// tous les legumes ont ete arrosés
+						if (scriptQueteJardin.VerifierLegumesArroses()) {
+							selectedParcelle = null;
+							NePasAfficherUILegumes();
+							NePasAfficherBoutons();
+							scriptQueteJardin.InitQueteP2();
+							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
+						}
+						// un legume n'a pas été arrosé
+						else 
+							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
+					}
+					// le légume obligatoire n'a pas été planté
+					else
+						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 				}
 
 			}
 		}
 	}
+
 
 	// affiche une alerte quand on appui sur le bouton d'info
 	void AfficherLegumesPlantes() {
@@ -419,6 +451,7 @@ public class TouchJardin : TouchLogic {
 		
 	}
 
+
 	// retourne au menu quand on appui sur le bouton de menu
 	void RetournerMenu() {
 		if (Input.touchCount == 1) {
@@ -427,6 +460,7 @@ public class TouchJardin : TouchLogic {
 			}
 		}
 	}
+
 
 	// active et affiche l'UI des legumes
 	public void AfficherUILegumes() {
@@ -437,7 +471,8 @@ public class TouchJardin : TouchLogic {
 		GameManager.AfficherTexture(patate);
 		GameManager.AfficherTexture(oignon);
 	}
-	
+
+
 	// désactive et enleve l'UI des legumes
 	public void NePasAfficherUILegumes() {
 		GameManager.NePasAfficherTexture(carotte);
@@ -448,6 +483,7 @@ public class TouchJardin : TouchLogic {
 		GameManager.NePasAfficherTexture(oignon);
 	}
 
+
 	// active et affiche les boutons de validation et d'info
 	void AfficherBoutons() {
 		GameManager.AfficherTexture(validation);
@@ -455,7 +491,8 @@ public class TouchJardin : TouchLogic {
 
 		GameManager.AfficherTexture(info);
 	}
-	
+
+
 	// désactive et enleve le bouton de validation
 	void NePasAfficherBoutons() {
 		GameManager.NePasAfficherTexture(validation);

@@ -49,35 +49,14 @@ public class GameManagerJardin :  GameManager{
 
 	#region Update
 	void Update() {
-
 		//print("cur : " + curGameState + "    prev :  " + prevGameState);
 
-
-		#region quetes
-		// quete 1
-		if (curGameState == GameState.queteJessicaP1) {
-
-		}
-
-		// quete 2
-		else if (curGameState == GameState.queteJessicaP2) {
-			
-		}
-		#endregion
-		
-		
 		#region plantation
 		// phase de plantation numéro 1 ou 2
-		else if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
+		if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
 
 			// si une parcelle est selectionné
 			if (touchJardin.selectedParcelle) {
-				/*
-				// si la parcelle selectionné est dans l'etat de plantation d'une graine
-				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
-					touchJardin.SelectionnerLegume();
-				}
-				*/
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
 					touchJardin.ArroserLegume();
 				}
@@ -87,18 +66,8 @@ public class GameManagerJardin :  GameManager{
 		
 		
 		#region transition
-		// dialogue 1 de la tansition 
-		else if (curGameState == GameState.dialogueTransition1) {
-
-		}
-
 		// phase de transition
 		else if (curGameState == GameState.transition) {
-
-		}
-
-		// dialogue 2 de la tansition 2
-		else if (curGameState == GameState.dialogueTransition2) {
 
 		}
 		#endregion
@@ -114,6 +83,7 @@ public class GameManagerJardin :  GameManager{
 	#endregion
 
 
+	////////////////////////////////////////////////////////////////////////////////////////
 
 
 	#region OnGUI
@@ -128,12 +98,12 @@ public class GameManagerJardin :  GameManager{
 		#region quetes
 		// Affichage de la quete 1
 		if (curGameState == GameState.queteJessicaP1) {
-			AfficherDialogue(jessica, queteJardin.QueteP1());
+			AfficherDialogue(jessica, queteJardin.DialogueQueteP1());
 		}
 
 		// Affichage de la quete 2
 		else if (curGameState == GameState.queteJessicaP2) {
-			AfficherDialogue(jessica, queteJardin.QueteP1());
+			AfficherDialogue(jessica, queteJardin.DialogueQueteP2());
 		}
 		#endregion
 		
@@ -210,6 +180,7 @@ public class GameManagerJardin :  GameManager{
 	}
 	#endregion
 
+	////////////////////////////////////////////////////////////////////////////////////////
 
 	#region autres méthodes
 	// permet de configurer une alerte

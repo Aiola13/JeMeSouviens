@@ -42,6 +42,7 @@ public class Parcelle : MonoBehaviour {
 		isSelected = true;
 	}
 
+
 	public void AEteDeSelectionne() {
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
 		arrosoir.transform.position = ArrosoirOriginalPos;
@@ -61,12 +62,14 @@ public class Parcelle : MonoBehaviour {
 		}
 	}
 
+
 	public void AEteSeme(GUITexture leg) {
 		renderer.material.color = new Color(0.3F, 0.5F, 0.3F, 0.3F);
 		_legume = leg;
 		PositionnerArrosoir();
 		ChangeState(ParcelleState.graine, ParcelleState.arrosage);
 	}
+
 
 	public void AEteArrose() {
 		renderer.material = grass;
@@ -76,16 +79,19 @@ public class Parcelle : MonoBehaviour {
 		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
 	}
 
+
 	public void EstMature() {
 		renderer.material.color = Color.white;
 		renderer.material.mainTexture = _legume.texture;
 	}
-	
+
+
 	public void IncrementDigged() {
 		// we need 3 little swipes to fully plow a plot
 		if (_nbTimesDigged < 3)
 			_nbTimesDigged++;
 	}
+
 
 	// returns true if we have fully digged the plot, else return false
 	public bool IsFullyDigged() {
@@ -95,13 +101,18 @@ public class Parcelle : MonoBehaviour {
 			return false;
 	}
 
-	void PositionnerArrosoir() {
-		arrosoir.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+
+	public void ResetParcelle() {
+		_curState = ParcelleState.creuser;
+		_prevState = ParcelleState.creuser;
+
+		renderer.material = dirt;
+		_legume = null;
+		isSelected = false;
+		_nbTimesDigged = 0;
+		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
 	}
 
-	void EnleverArrosoir() {
-		arrosoir.transform.position = ArrosoirOriginalPos;
-	}
 
 	// Parameters: prev State, curr State
 	public void ChangeState(ParcelleState prev, ParcelleState current) { 
@@ -109,4 +120,13 @@ public class Parcelle : MonoBehaviour {
 		_prevState = prev;
 	}
 
+
+	void PositionnerArrosoir() {
+		arrosoir.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+	}
+
+
+	void EnleverArrosoir() {
+		arrosoir.transform.position = ArrosoirOriginalPos;
+	}
 }
