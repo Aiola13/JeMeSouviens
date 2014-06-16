@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
     // affiche une boite de dialogue avec comme texture pnj et comme texte txt,
     public void AfficherDialogue(Texture2D pnj, string txt) {
 
-        GameManagerCrepe.chrono.Stop();
+        //GameManagerCrepe.chrono.Stop();
         style.fontSize = Screen.height / 36;
         style.alignment = TextAnchor.MiddleLeft;
         style.font = (Font)Resources.Load("Roboto-Regular");
