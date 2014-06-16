@@ -13,14 +13,14 @@ public class GameManagerPeche : GameManager {
         finDePartie
     }
 
-    public static int compteurPoisson = 0;
+    public static int compteurPoisson;
 
     public static GameState curGameState;
     public static GameState prevGameState;
 
     public static QuetePeche quetePeche;
     public static Peche peche;
-    public static VideoFeedback videos;
+    public static AnimatedFeedbackPeche videos;
 
     public Texture2D jeanClaude;
     public Texture2D skypi;
@@ -42,7 +42,7 @@ public class GameManagerPeche : GameManager {
     public GUITexture validation;
     public GUITexture annulation;
 
-	private bool makeNewSymbol = false;
+	private bool makeNewSymbol;
 
     GameObject canne;
 
@@ -51,11 +51,13 @@ public class GameManagerPeche : GameManager {
     // Use this for initialization
 	void Start () {
 
+        compteurPoisson = 0;
+        makeNewSymbol = false;
         canne = GameObject.FindGameObjectWithTag("CanneAPeche");
 
         quetePeche = GetComponent<QuetePeche>();
         peche = GetComponent<Peche>();
-        videos = GetComponent<VideoFeedback>();
+        videos = GetComponent<AnimatedFeedbackPeche>();
 
         curGameState = GameState.queteJeanClaude;
 
