@@ -225,6 +225,7 @@ public class QueteCrepe : MonoBehaviour {
         else
         {
             GameManagerCrepe.nbErreurs++;
+            Debug.Log("Erreur");
         }
         return ingredientValide;
     }
