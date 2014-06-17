@@ -65,10 +65,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void ActiverDrag() {
-        Camera.main.GetComponent<TouchLogicDrag>().enabled = true;
+        Camera.main.GetComponent<IngredientsDrag>().enabled = true;
     }
     public static void DesactiverDrag() {
-        Camera.main.GetComponent<TouchLogicDrag>().enabled = false;
+        Camera.main.GetComponent<IngredientsDrag>().enabled = false;
     }
 
     // affiche une boite de dialogue avec comme texture pnj et comme texte txt,

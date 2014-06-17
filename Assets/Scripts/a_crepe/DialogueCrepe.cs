@@ -31,29 +31,21 @@ public class DialogueCrepe : TouchLogic {
 		}
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
-        else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate && GameManager.boutonValidation == true) {
-            GameManager.boutonValidation = false;
+        else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
 			
-			// si on a reussit la recette on passe a l'etalage du beurre
-			if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
-				ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.etalerLeBeurre);
+			if (GameManagerCrepe.bQueteAccomplie) {
+                ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLaPate);
 				CameraMove(camCuissonPos);
 				RotateCat();
 			}
             GameManager.ActiverDrag();
             canRestartChrono = true;
 		}
-		
-		// si on est en train de preparer la pate et qu'on a appuyer n'importe ou
-		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
-            GameManager.boutonValidation = false;
+
+        // State étaler la pate
+        else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLaPate) {
             canRestartChrono = true;
-		}
-		
-		// State etalage beurre
-		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.etalerLeBeurre) {
-            canRestartChrono = true;
-		}
+        }
 
 		// State cuisson
 		else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.cuissonCrepe) {
@@ -67,9 +59,6 @@ public class DialogueCrepe : TouchLogic {
 			switch (GameManagerCrepe.curGameState) {
 				case GameManagerCrepe.GameState.preparationPate:
 					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
-					break;
-				case GameManagerCrepe.GameState.etalerLeBeurre:
-					ChangeState(GameManagerCrepe.GameState.etalerLeBeurre, GameManagerCrepe.GameState.aideDeSkypi);
 					break;
 				case GameManagerCrepe.GameState.cuissonCrepe:
 					ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);

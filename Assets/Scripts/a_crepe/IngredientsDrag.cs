@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TouchLogicDrag : MonoBehaviour {
+public class IngredientsDrag : MonoBehaviour {
 
 	//private GUIText guiTextDrop;
 
@@ -88,17 +88,17 @@ public class TouchLogicDrag : MonoBehaviour {
 
             if (GameManagerCrepe.queteCrepe.ajouterIngredientSaladier(ObjectToDrag.gameObject))
             {
-                //print(ObjectToDrag.name + " a correctement ete ajoute");
-
                 ObjectToDrag.gameObject.SetActive(false);
-
                 GameManagerCrepe.sonDragOK.Play();
+                if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+                    GameManagerCrepe.bQueteAccomplie = true;
+                }
             }
             else
             {
-                //print(ObjectToDrag.name + " ne fait pas partie de la quete");
-
                 ResetPosition();
+                GameManager.nbErreurs++;
+                GameManagerCrepe.sonErreur.Play();
             }
 
 		}
