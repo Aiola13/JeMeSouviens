@@ -222,11 +222,7 @@ public class QueteCrepe : MonoBehaviour {
             liste_saladier.Add(ingredient.tag);
             ingredient.SetActive(false);
         }
-        else
-        {
-            GameManagerCrepe.nbErreurs++;
-            Debug.Log("Erreur");
-        }
+
         return ingredientValide;
     }
 

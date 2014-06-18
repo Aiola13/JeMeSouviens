@@ -53,19 +53,22 @@ public class DialogueCrepe : TouchLogic {
 		}
 
 		// if we touch the cat
-		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-            GameManager.DesactiverDrag();
-			switch (GameManagerCrepe.curGameState) {
-				case GameManagerCrepe.GameState.preparationPate:
-					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
-					break;
-				case GameManagerCrepe.GameState.cuissonCrepe:
-					ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
-					break;
-			}
-            GameManagerCrepe.miaulement.Play();
-		}
+        if (GameManagerCrepe.curGameState != GameManagerCrepe.GameState.queteNoemie && GameManagerCrepe.curGameState != GameManagerCrepe.GameState.score) {
+            ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
+                GameManager.DesactiverDrag();
+                switch (GameManagerCrepe.curGameState) {
+                    case GameManagerCrepe.GameState.preparationPate:
+                        ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+                        break;
+                    case GameManagerCrepe.GameState.cuissonCrepe:
+                        ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
+                        break;
+                }
+                GameManagerCrepe.nbAppelsAide++;
+                GameManagerCrepe.miaulement.Play();
+            }
+        }
 	}
 
     protected void RotateCat() {
