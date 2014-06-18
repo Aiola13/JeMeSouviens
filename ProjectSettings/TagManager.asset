@@ -49,9 +49,8 @@ TagManager:
   - leg_oignon
   - FloorJardin
   - Arrosoir
+  - ArrosoirEmpty
   - Graine
-  - PateFreeze
-  - Pate
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
