@@ -21,7 +21,8 @@ public class Parcelle : MonoBehaviour {
 
 	public int _nbTimesDigged = 0;
 	
-	public GameObject arrosoir;
+	public Transform arrosoir;
+	public Transform arrosoirEmpty;
 	private Vector3 arrosoirOffset = new Vector3 (0, 1.2f, 0);
 	private Vector3 ArrosoirOriginalPos = new Vector3 (-5, 2, 0);
 
@@ -30,7 +31,11 @@ public class Parcelle : MonoBehaviour {
 		_curState = ParcelleState.creuser;
 		renderer.material = dirt;
 
-		arrosoir = GameObject.FindGameObjectWithTag("Arrosoir");
+		arrosoir = GameObject.FindGameObjectWithTag("Arrosoir").transform;
+		arrosoirEmpty = GameObject.FindGameObjectWithTag("ArrosoirEmpty").transform;
+
+		arrosoir.gameObject.renderer.enabled = false;
+
 		ArrosoirOriginalPos = arrosoir.transform.position;
 	}
 
@@ -126,11 +131,27 @@ public class Parcelle : MonoBehaviour {
 
 
 	void PositionnerArrosoir() {
-		arrosoir.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+		arrosoir.gameObject.renderer.enabled = true;
+		arrosoir.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+
+		/* trick pour que l'arrosoir ait la meme orientation que la camera */
+		// arrosoir devient le parent de arrosoirEmpty
+		arrosoirEmpty.parent = arrosoir;
+		// on reset le transform de arrosoirEmpty
+		arrosoirEmpty.position = Vector3.zero;
+		// on déparente arrosoirEmpty
+		arrosoirEmpty.parent = null;
+		// on rotate arrosoirEmpty pour s'ajuster a la camera
+		arrosoirEmpty.eulerAngles = Camera.main.transform.eulerAngles;
+		// arrosoirEmpty devient le parent de arrosoir
+		arrosoir.parent = arrosoirEmpty;
+		arrosoirEmpty.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
 	}
 
 
 	void EnleverArrosoir() {
-		arrosoir.transform.position = ArrosoirOriginalPos;
+		arrosoir.position = new Vector3(ArrosoirOriginalPos.x, ArrosoirOriginalPos.y, ArrosoirOriginalPos.z);
+		arrosoir.gameObject.renderer.enabled = false;
 	}
 }

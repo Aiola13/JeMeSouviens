@@ -13,7 +13,7 @@ GameObject:
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Arrosoir
-  m_TagString: Untagged
+  m_TagString: Arrosoir
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
-  m_LocalPosition: {x: -0, y: -1.66451275, z: 0}
+  m_LocalPosition: {x: -7.72499466, y: -.0513423644, z: 5.05083942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
