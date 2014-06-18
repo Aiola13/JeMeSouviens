@@ -399,7 +399,8 @@ public class TouchJardin : TouchLogic {
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
 							scriptQueteJardin.InitQueteP2();
-							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
+							//ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
+							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.queteJessicaP2);
 						}
 						// un legume n'a pas été arrosé
 						else 

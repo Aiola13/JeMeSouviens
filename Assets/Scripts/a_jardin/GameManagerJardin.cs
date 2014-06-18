@@ -117,18 +117,18 @@ public class GameManagerJardin :  GameManager{
 		// affiche l'aide pour la phase de plantation numéro 1 ou 2
 		else if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
 			if (touchJardin.selectedParcelle == null) {
-				AfficherAide("Selectionne une parcelle.");
+				AfficherAide("Selectionne une parcelle en la touchant avec le doigt.");
 			}
 			else {
 
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.creuser) {
-					AfficherAide("Creuse la parcelle.");
+					AfficherAide("Creuse la parcelle trois fois avec avec de petits mouvements du doigt.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
-					AfficherAide("Plante une graine.");
+					AfficherAide("Plante une graine en la maintenant et en la d\xe9posant sur la parcelle.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
-					AfficherAide("Arrose la parcelle.");
+					AfficherAide("Arrose la parcelle en inclinant la tablette.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.mature) {
 					AfficherAide("Selectionne une autre parcelle ou valide.");
@@ -167,7 +167,7 @@ public class GameManagerJardin :  GameManager{
 		#region alert handling
 		// quand on doit plante le legume obligatoire
 		if (_alertState == AlerteState.planterLegumeObligatoire) {
-			Alerte("N'oublie pas de planter le legume obligatoire: " + queteJardin.getLegumeName(queteJardin.legumeObligatoire) + ".", 5.0f);
+			Alerte("N'oublie pas de planter le l\xe9gume obligatoire: " + queteJardin.getLegumeName(queteJardin.legumeObligatoire) + ".", 5.0f);
 		}
 		// quand on appui sur le bouton d'info
 		else if (_alertState == AlerteState.afficherLegumesPlantes) {
@@ -175,7 +175,7 @@ public class GameManagerJardin :  GameManager{
 		}
 		// quand on peut plus planté
 		else if (_alertState == AlerteState.parcelleMaxAtteint) {
-			Alerte("Le nombre de legumes autorise a planter a \xe9t\xe9 atteint.", 5.0f);
+			Alerte("Le nombre de l\xe9gumes autoris\xe9 a planter a \xe9t\xe9 atteint.", 5.0f);
 		}
 		// si un legumes n'a pas ete arrose
 		else if (_alertState == AlerteState.arroserLegumes) {
