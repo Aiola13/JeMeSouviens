@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 
     private static string nomActivite = "";
     private static string cheminFichierStats = "";
-    private static string libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
+    private static string libelleStats;
     protected static string[] tableauStats;
 
     public static System.Diagnostics.Stopwatch chrono;
@@ -115,15 +115,6 @@ public class GameManager : MonoBehaviour {
                 fs.Write(stats, 0, stats.Length);
             }
             fs.Close();
-
-            //System.IO.FileInfo f = new System.IO.FileInfo(Application.persistentDataPath + "/Stats" + nomActivite + ".txt");
-            //Debug.Log("J'écris le fichier");
-            //Debug.Log(Application.persistentDataPath + "/Stats" + nomActivite + ".txt");
-            //System.IO.StreamWriter sw;
-            //sw = f.CreateText();
-            //sw.WriteLine(libelleStats);
-            //sw.Close();
-
         }  
     }
 
@@ -278,6 +269,7 @@ public class GameManager : MonoBehaviour {
         tempsPartie = 0.0f;
         nbErreurs = 0;
         nbAppelsAide = 0;
+        libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
     }
 
 

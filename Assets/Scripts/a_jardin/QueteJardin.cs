@@ -165,7 +165,7 @@ public class QueteJardin : MonoBehaviour {
 	public void InitQueteP2() {
 
 		// on enregistre la liste de legumes plantés en p1
-		legumesPlantesEnP1 = legumesPlantes;
+		legumesPlantesEnP1 = new List<GameObject>(legumesPlantes);
 		legumesPlantes.Clear();
 		nbLegumesArroses = 0;
 

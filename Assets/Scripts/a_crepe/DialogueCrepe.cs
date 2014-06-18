@@ -32,13 +32,13 @@ public class DialogueCrepe : TouchLogic {
 		
 		// si on est en train de preparer la pate et qu'on a appuyer n'importe sur le bouton de validation
         else if (GameManagerCrepe.curGameState == GameManagerCrepe.GameState.preparationPate) {
-			/********************************************************
+
 			if (GameManagerCrepe.bQueteAccomplie) {
                 ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.etalerLaPate);
 				CameraMove(camCuissonPos);
 				RotateCat();
 			}
-			*/
+
             GameManager.ActiverDrag();
             canRestartChrono = true;
 		}
@@ -54,19 +54,22 @@ public class DialogueCrepe : TouchLogic {
 		}
 
 		// if we touch the cat
-		ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-		if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
-            GameManager.DesactiverDrag();
-			switch (GameManagerCrepe.curGameState) {
-				case GameManagerCrepe.GameState.preparationPate:
-					ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
-					break;
-				case GameManagerCrepe.GameState.cuissonCrepe:
-					ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
-					break;
-			}
-            GameManagerCrepe.miaulement.Play();
-		}
+        if (GameManagerCrepe.curGameState != GameManagerCrepe.GameState.queteNoemie && GameManagerCrepe.curGameState != GameManagerCrepe.GameState.score) {
+            ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+            if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
+                GameManager.DesactiverDrag();
+                switch (GameManagerCrepe.curGameState) {
+                    case GameManagerCrepe.GameState.preparationPate:
+                        ChangeState(GameManagerCrepe.GameState.preparationPate, GameManagerCrepe.GameState.aideDeSkypi);
+                        break;
+                    case GameManagerCrepe.GameState.cuissonCrepe:
+                        ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
+                        break;
+                }
+                GameManagerCrepe.nbAppelsAide++;
+                GameManagerCrepe.miaulement.Play();
+            }
+        }
 	}
 
     protected void RotateCat() {
