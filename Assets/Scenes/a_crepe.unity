@@ -2384,11 +2384,7 @@ GameObject:
   - 114: {fileID: 1188117294}
   - 114: {fileID: 1188117296}
   - 114: {fileID: 1188117297}
-<<<<<<< HEAD
-  - 114: {fileID: 1188117295}
-=======
   - 114: {fileID: 1188117298}
->>>>>>> 1f080997cd864b78c21764d1510793beb516e8fc
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
