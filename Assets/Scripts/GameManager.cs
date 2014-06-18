@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     private static string cheminFichierStats = "";
     private static string libelleStats;
     protected static string[] tableauStats;
+    protected static int[] tableauStatSpecifique;
+    protected static bool isNumeric;
 
     public static System.Diagnostics.Stopwatch chrono;
 
@@ -35,10 +37,6 @@ public class GameManager : MonoBehaviour {
 		TextHighlight.font = (Font)Resources.Load("Roboto-Regular");
 	}
 
-    void Update()
-    {
-        Debug.Log("Je suis dane le GameManager");
-    }
 
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume) {
@@ -270,6 +268,32 @@ public class GameManager : MonoBehaviour {
         nbErreurs = 0;
         nbAppelsAide = 0;
         libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
+    }
+
+    protected void GetStatsSpecifique(int numColonne)
+    {
+        int i = 0;
+        int valeur = 0;
+
+        string derniereLigne = null;
+        string ligneTraitee;
+
+        using (var reader = new System.IO.StreamReader(Application.persistentDataPath + "/Stats" + nomActivite + ".txt"))
+        {
+            while ((ligneTraitee = reader.ReadLine()) != null)
+            {
+                derniereLigne = ligneTraitee;
+                tableauStats = derniereLigne.Split(new char[] { ',' });
+                Debug.Log("Contenu tableau : " + tableauStats[numColonne]);
+                isNumeric = int.TryParse(tableauStats[numColonne], out valeur);
+                if (isNumeric)
+                {
+                    tableauStatSpecifique[i] = valeur;
+                    Debug.Log("i : " + i + " ; valeur : " + valeur);
+                }
+                i++;
+            }
+        }
     }
 
 
