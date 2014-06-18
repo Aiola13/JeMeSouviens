@@ -37,11 +37,11 @@ public class TouchJardin : TouchLogic {
 	// accelerometre arrosage
 	private Transform arrosoir;
 	private float zRot = 0.0f;
-	private float maxAngle = 130.0f;	// angle maximum pour l'arrosoir
+	private float maxAngle = 60.0f;	// angle maximum pour l'arrosoir
 	private float accMax = 0.5f;		// pourcentage d'orientation de la tablette
 
 	// camera
-	public float rotateSpeed = 10.0f;
+	private float rotateSpeed = 60.0f;
 	private float rot = 0.0f;
 
 	private Ray ray;
@@ -51,6 +51,7 @@ public class TouchJardin : TouchLogic {
 	void Start() {
 		gmJardin = GetComponent<GameManagerJardin>();
 		arrosoir = GameObject.FindGameObjectWithTag("Arrosoir").transform;
+
 
 		NePasAfficherUILegumes();
 		NePasAfficherBoutons();
@@ -170,6 +171,14 @@ public class TouchJardin : TouchLogic {
 					}
 					#endregion
 				}
+				#region Camera rotate
+				else {
+					if (!dragging) {
+						rot -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
+						Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rot, 0.0f);
+					}
+				}
+				#endregion
 			}
 		}
 		#endregion
@@ -376,8 +385,10 @@ public class TouchJardin : TouchLogic {
 		else if (zRot < 5)
 			zRot = 0;
 
-		//float yRot = Camera.main.transform.eulerAngles.y;
-		arrosoir.eulerAngles = new Vector3(270, 270, zRot);
+		Transform arrosoirEmpty = GameObject.FindGameObjectWithTag("ArrosoirEmpty").transform;
+
+		float xRot = arrosoirEmpty.eulerAngles.x;
+		arrosoir.eulerAngles = new Vector3(0, 0, zRot);
 	}
 
 

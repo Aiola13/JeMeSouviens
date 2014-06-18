@@ -134,7 +134,9 @@ public class Parcelle : MonoBehaviour {
 		arrosoir.gameObject.renderer.enabled = true;
 		arrosoir.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
 
-		/* trick pour que l'arrosoir ait la meme orientation que la camera */
+		/*
+
+		// trick pour que l'arrosoir ait la meme orientation que la camera
 		// arrosoir devient le parent de arrosoirEmpty
 		arrosoirEmpty.parent = arrosoir;
 		// on reset le transform de arrosoirEmpty
@@ -145,13 +147,18 @@ public class Parcelle : MonoBehaviour {
 		arrosoirEmpty.eulerAngles = Camera.main.transform.eulerAngles;
 		// arrosoirEmpty devient le parent de arrosoir
 		arrosoir.parent = arrosoirEmpty;
-		arrosoirEmpty.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		arrosoirEmpty.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+
+		//arrosoir.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+		arrosoir.eulerAngles = arrosoirEmpty.eulerAngles;
+		*/
 
 	}
 
 
 	void EnleverArrosoir() {
-		arrosoir.position = new Vector3(ArrosoirOriginalPos.x, ArrosoirOriginalPos.y, ArrosoirOriginalPos.z);
+		//arrosoirEmpty.parent = null;
+		//arrosoir.position = new Vector3(ArrosoirOriginalPos.x, ArrosoirOriginalPos.y, ArrosoirOriginalPos.z);
 		arrosoir.gameObject.renderer.enabled = false;
 	}
 }
