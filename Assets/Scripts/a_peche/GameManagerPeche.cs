@@ -125,7 +125,7 @@ public class GameManagerPeche : GameManager {
 
             if (peche.poissonPeche) {
                 canneApeche.Stop();
-                AfficherDialogue(jeanClaude, peche.infoPoisson, "");
+                AfficherDialogue(jeanClaude, peche.infoPoisson, false);
                 AfficherTexture(validation);
                 AfficherTexture(annulation);
 

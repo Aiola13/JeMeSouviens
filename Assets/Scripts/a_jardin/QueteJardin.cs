@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 
 public class QueteJardin : MonoBehaviour {
 
@@ -11,42 +12,21 @@ public class QueteJardin : MonoBehaviour {
 
 	public int nbLegumesArroses = 0;			// permet de lever une alerte lorsqu'unlegume a oublie d'etre arrosé
 
+	public GameObject legumeObligatoire;
+
 	private GameObject[] listeLegumes;
 	public List<GameObject> legumesPlantes;
 	public List<GameObject> legumesPlantesEnP1;
-
-	public List<GameObject> test;
-
-
-	public GameObject legumeObligatoire;
 
 
 	void Start () {
 		gmJardin = GetComponent<GameManagerJardin>();
 
 		InitQueteP1();
-
-
-		test.Add (listeLegumes[0]);
-		test.Add (listeLegumes[1]);
-		test.Add (listeLegumes[2]);
-		//ComparerLegumes(legumesPlantesEnP1, legumesPlantes);
-		ComparerLegumes(test, legumesPlantes);
 	}
 
 
-	/*
-	void Update() {
-
-		string txt = "obl: [" + legumeObligatoire.name + "]  ||  " + legumesPlantes.Count + " Sup: ";
-		for (int i = 0; i < legumesPlantes.Count; i++) {
-			txt = txt + legumesPlantes[i].name + "   ";
-		}
-		print(txt);
-	}
-	*/
-
-
+	#region Dialogue and String Management
 	public string DialogueQueteP1(){
 		string txt = "Bonjour, que dirais-tu de t'occuper du potager un petit peu?\n";
 		txt += "Tu es libre de planter ce que tu veux.\n";
@@ -57,12 +37,101 @@ public class QueteJardin : MonoBehaviour {
 
 
 	public string DialogueQueteP2(){
-		string txt = "Essai de reconstituer les légumes que tu avais planté.\n";
+		string txt = "Essai de reconstituer les l\xe9gumes que tu avais plant\xe9.\n";
+		return txt;
+	}
+	
+
+	// permet d'avoir le bon article devant chaque légume
+	public string getLegumeName(GameObject legume) {
+		if (legume.name == "carotte")
+			return "une carotte";
+		else if (legume.name == "tomate")
+			return "une tomate";
+		else if (legume.name == "choux")
+			return "un choux";
+		else if (legume.name == "aubergine")
+			return "une aubergine";
+		else if (legume.name == "patate")
+			return "une patate";
+		else if (legume.name == "oignon")
+			return "un oignon";
+		else
+			return "null";
+	}
+
+
+	// retourne un string de legumes a partir de liste
+	public string getListeLegumes(List<GameObject> liste) {
+		string txt = "";
+		for (int i = 0; i < liste.Count; i++) {
+			txt += liste[i].name;
+			if (i != liste.Count - 1)
+				txt += ", ";
+		}
 		return txt;
 	}
 
 
-	//
+	// retourne la liste des legumes plantés pendant l'une des phases
+	public string getLegumesPlantes() {
+		string txt = "";
+		if (legumesPlantes.Count == 0)
+			txt += "Tu n'as pas encore plant\xe9 de l\xe9gumes.";
+		else {
+			txt = "Tu as plant\xe9s " + legumesPlantes.Count + " l\xe9gume";
+			if (legumesPlantes.Count >1)
+				txt += "s";
+			txt += ":\n";
+			txt += getListeLegumes(legumesPlantes);
+		}
+		txt += "\nLe l\xe9gume obligatoire a plant\xe9 est " + getLegumeName(legumeObligatoire) + ".";
+		return txt;
+	}
+
+
+	// retourne un texte donnant les legumes oublies et les legumes en trop 
+	public string ScoreText() {
+
+		// on fait des copies des listes legumesPlantes et legumesPlantesEnP1
+		List<GameObject> L1 = new List<GameObject>(legumesPlantesEnP1);
+		List<GameObject> L2 = new List<GameObject>(legumesPlantes);
+		
+		// on itere a travers la liste legumesPlantesEnP1 puis on compare avec la liste legumesPlantes (celle en p2), on retire de L1 et L2 les elements en commun
+		for (int i = 0; i < legumesPlantesEnP1.Count; i++) {
+			GameObject go = legumesPlantesEnP1[i];
+			if (L2.Contains(go)) {
+				L1.Remove(go);
+				L2.Remove(go);
+			}
+		}
+		
+		string legumesOublies = getListeLegumes(L1);
+		string legumesEnTrop = getListeLegumes(L2);
+		
+		string txt = "";
+		if (string.IsNullOrEmpty(legumesOublies))
+			txt += "Bravo! Tu n'as pas oubli\xe9 de l\xe9gumes.\n";
+		else {
+			txt += "Tu as oubli\xe9 de planter " + L1.Count + " l\xe9gume";
+			if (L1.Count > 1)
+				txt += "s";
+			txt += ":\n" + legumesOublies + "\n";
+		}
+		
+		if (!string.IsNullOrEmpty(legumesEnTrop)) {
+			txt += "Tu as plant\xe9 " + L2.Count + " l\xe9gume";
+			if (L2.Count > 1)
+				txt += "s";
+			txt += " en trop:\n" + legumesEnTrop + "\n";
+		}
+		
+		return txt;
+	}
+	#endregion
+
+
+	// initialisation de la quete en phase 1
 	public void InitQueteP1() {
 
 		// nombre de légumes differents dans l'ui
@@ -92,12 +161,12 @@ public class QueteJardin : MonoBehaviour {
 	}
 
 
-	//
+	// Reset les parcelles et enleve les graines crées
 	public void InitQueteP2() {
 
 		// on enregistre la liste de legumes plantés en p1
 		legumesPlantesEnP1 = legumesPlantes;
-		legumesPlantes = null;
+		legumesPlantes.Clear();
 		nbLegumesArroses = 0;
 
 		// on reset les parcelles
@@ -170,19 +239,6 @@ public class QueteJardin : MonoBehaviour {
 	}
 
 
-	// Compare les légumes de list1 avec list2
-	void ComparerLegumes(List<GameObject> list1, List<GameObject> list2) {
-
-		List<GameObject> l1;
-		List<GameObject> l2;
-
-		//for (GameObject go in l1 {
-
-		//}
-		//legumesPlantes.
-	}
-
-
 	// incremente de 1 le nombre de legumes arroses
 	public void IncrementNbLegumesArroses() {
 		nbLegumesArroses++;
@@ -196,39 +252,8 @@ public class QueteJardin : MonoBehaviour {
 		else {
 			return false;
 		}
-
 	}
 
 
-	// permet d'avoir le bon article devant chaque légume
-	public string getLegumeName(GameObject legume) {
-		if (legume.name == "carotte")
-			return "une carotte";
-		else if (legume.name == "tomate")
-			return "une tomate";
-		else if (legume.name == "choux")
-			return "un choux";
-		else if (legume.name == "aubergine")
-			return "une aubergine";
-		else if (legume.name == "patate")
-			return "une patate";
-		else if (legume.name == "oignon")
-			return "un oignon";
-		else
-			return "null";
-	}
-
-
-	// retourne la liste des legumes plantés pendant l'une des phases
-	public string getLegumesPlantes() {
-		string txt = "Tu as plantés " + legumesPlantes.Count + " légumes:\n";
-		for (int i = 0; i < legumesPlantes.Count; i++) {
-			txt += legumesPlantes[i].name;
-			if (i != legumesPlantes.Count - 1)
-				txt += ", ";
-		}
-		txt += "\nLe légume obligatoire a planté est " + getLegumeName(legumeObligatoire) + ".";
-		return txt;
-	}
-
+	
 }

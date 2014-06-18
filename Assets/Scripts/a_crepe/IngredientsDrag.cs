@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TouchLogicDrag : MonoBehaviour {
+public class IngredientsDrag : MonoBehaviour {
 
 	//private GUIText guiTextDrop;
 

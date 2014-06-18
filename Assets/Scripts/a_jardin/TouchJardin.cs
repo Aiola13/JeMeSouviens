@@ -163,6 +163,9 @@ public class TouchJardin : TouchLogic {
 
 	public override void OnTouchEndedAnywhere () {
 
+		// on vérifie si on a appuyé sur le bouton de menu
+		RetournerMenu();
+		
 		#region DIALOGUES
 		// quete 1
 		if (GameManagerJardin.curGameState == GameManagerJardin.GameState.queteJessicaP1) {
@@ -195,7 +198,6 @@ public class TouchJardin : TouchLogic {
 		// score
 		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.score) {
 			// FAIRE UN RETOUR MENU ICI
-			ChangeState(GameManagerJardin.GameState.score, GameManagerJardin.GameState.queteJessicaP1);
 		}
 		#endregion
 
@@ -204,9 +206,6 @@ public class TouchJardin : TouchLogic {
 		// si on touche une parcelle
 		else if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		         (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
-
-			// on vérifie si on a appuyé sur le bouton de menu
-			RetournerMenu();
 
 			// on vérifie si on a appuyé sur le bouton de validation
 			ValiderLegumes();
@@ -255,7 +254,7 @@ public class TouchJardin : TouchLogic {
 					}
 
 					// on plante la graine, faire un drag and drop
-					// changement d'etat traité dans AjoutLegume(), GameManagerJardin()->SelectionnerLegume()->AjoutLegume()
+					// changement d'etat traité dans AjoutLegume(gTex), Appel dans TouchJardin
 					else if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
 						#region drag ended
 						if (dragging && Input.touchCount == 1) {
@@ -272,7 +271,7 @@ public class TouchJardin : TouchLogic {
 					}
 
 					// accélérometre pour arroser
-					// changement d'etat traité dans ArroserLegume(), GameManagerJardin()->ArroserLegume()
+					// changement d'etat traité dans ArroserLegume(), Appel dans GameManagerJardin
 					else if (scriptParcelle._curState == Parcelle.ParcelleState.arrosage) {
 
 					}
@@ -388,14 +387,14 @@ public class TouchJardin : TouchLogic {
 				
 				QueteJardin scriptQueteJardin = GetComponent<QueteJardin>();
 
-				// plantation 1
+				#region plantation 1
 				if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) {
-					// on regarde si on peut passe a la transition
-
 					// si on a plante le legume obligatoire
 					if (scriptQueteJardin.VerifierLegumeObligatoire()) {
 						// tous les legumes ont ete arrosés
 						if (scriptQueteJardin.VerifierLegumesArroses()) {
+							// on passe a la phase de transition
+
 							selectedParcelle = null;
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
@@ -410,21 +409,21 @@ public class TouchJardin : TouchLogic {
 					else
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 				}
+				#endregion
 
-				// plantation 2
+				#region plantation 2
 				else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2) {
-					// on regarde si on peut passer au score
-
 					// verifier ici si la liste de legumes plante a la p1 a ete replante correctement en p2
 
 					// si on a plante le legume obligatoire
 					if (scriptQueteJardin.VerifierLegumeObligatoire()) {
 						// tous les legumes ont ete arrosés
 						if (scriptQueteJardin.VerifierLegumesArroses()) {
+							// on passe au score
+
 							selectedParcelle = null;
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
-							scriptQueteJardin.InitQueteP2();
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
 						}
 						// un legume n'a pas été arrosé
@@ -435,6 +434,7 @@ public class TouchJardin : TouchLogic {
 					else
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 				}
+				#endregion
 
 			}
 		}

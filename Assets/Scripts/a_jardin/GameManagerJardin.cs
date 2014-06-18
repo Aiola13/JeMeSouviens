@@ -89,6 +89,11 @@ public class GameManagerJardin :  GameManager{
 	#region OnGUI
 	void OnGUI() {
 
+
+		//AfficherAlerte("ceci est une <a>alerte\n");
+		//AfficherAlerteAvecSurbrillance("ceci est une <a>alerte \net ca <a>aussi \n encore <a>une");
+		//test ("ceci est une <a>alerte\net ca <a>aussi \n encore <a>une a\n b\n c\n d\n");
+
 		if (!jessica) {
 			Debug.LogError("Ajouter les textures!");
 			return;
@@ -154,7 +159,7 @@ public class GameManagerJardin :  GameManager{
 		#region score
 		// affichage du tableau de score
 		else if (curGameState == GameState.score) {
-			AfficherDialogue(jessica, "score");
+			AfficherAlerte(queteJardin.ScoreText());
 		}
 		#endregion
 
@@ -170,11 +175,11 @@ public class GameManagerJardin :  GameManager{
 		}
 		// quand on peut plus planté
 		else if (_alertState == AlerteState.parcelleMaxAtteint) {
-			Alerte("Le nombre de legumes autorise a planter a été atteint.", 5.0f);
+			Alerte("Le nombre de legumes autorise a planter a \xe9t\xe9 atteint.", 5.0f);
 		}
 		// si un legumes n'a pas ete arrose
 		else if (_alertState == AlerteState.arroserLegumes) {
-			Alerte("Tu as oublié d'arroser un légume.", 5.0f);
+			Alerte("Tu as oubli\xe9 d'arroser un l\xe9gume.", 5.0f);
 		}
 		#endregion
 	}

@@ -4,8 +4,9 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     public Texture2D Tex_dialogue;
-    protected GUIStyle style = new GUIStyle();
-    protected int brd = Screen.height / 100;
+    public GUIStyle TextNormal = new GUIStyle();
+	public GUIStyle TextHighlight = new GUIStyle();
+	protected int brd = Screen.height / 100;
 
     public static bool nextState = false;
     public static bool boutonValidation = false;
@@ -27,6 +28,12 @@ public class GameManager : MonoBehaviour {
 
     /////////////////////////////////////////////////////////////////////
  
+
+	void Awake() {
+		TextNormal.font = (Font)Resources.Load("Roboto-Regular");
+		TextHighlight.font = (Font)Resources.Load("Roboto-Regular");
+	}
+
     void Update()
     {
         Debug.Log("Je suis dane le GameManager");
@@ -54,29 +61,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void ActiverDrag() {
-        Camera.main.GetComponent<TouchLogicDrag>().enabled = true;
+		Camera.main.GetComponent<IngredientsDrag>().enabled = true;
     }
     public static void DesactiverDrag() {
-        Camera.main.GetComponent<TouchLogicDrag>().enabled = false;
+		Camera.main.GetComponent<IngredientsDrag>().enabled = false;
     }
-
-    // affiche une boite de dialogue avec comme texture pnj et comme texte txt,
-    public void AfficherDialogue(Texture2D pnj, string txt) {
-
-        //GameManagerCrepe.chrono.Stop();
-        style.fontSize = Screen.height / 36;
-        style.alignment = TextAnchor.MiddleLeft;
-        style.font = (Font)Resources.Load("Roboto-Regular");
-
-        GUI.DrawTexture(new Rect(brd, Screen.height * 2 / 3, Screen.width - brd * 2, Screen.height / 3 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
-        GUI.DrawTexture(new Rect(brd * 2, Screen.height * 2 / 3 + brd, Screen.width / 5, Screen.height / 3 - brd * 3), pnj, ScaleMode.ScaleToFit, true, 0);
-        GUI.Box(new Rect(Screen.width * 1 / 4, Screen.height * 7 / 10 + brd * 2, Screen.width - 20, Screen.height / 5 - 10), txt, style);
-
-        //style.alignment = TextAnchor.MiddleCenter;
-        style.fontSize = Screen.height / 28;
-        GUI.Box(new Rect(Screen.width * 2 / 3, Screen.height * 2 / 3 + brd * 2, Screen.width / 10, Screen.height / 3 - 10), "TOUCHER POUR CONTINUER !", style);
-        DialogueCrepe.canRestartChrono = false;
-    }
+	
 
     protected static void CreerFichierStats()
     {
@@ -156,40 +146,207 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void AfficherDialogue(Texture2D pnj, string txt, string txt2) {
-        style.fontSize = Screen.height / 36;
-        style.alignment = TextAnchor.MiddleLeft;
-        style.font = (Font)Resources.Load("Roboto-Regular");
 
-        GUI.DrawTexture(new Rect(brd, Screen.height * 2 / 3, Screen.width - brd * 2, Screen.height / 3 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
-        GUI.DrawTexture(new Rect(brd * 2, Screen.height * 2 / 3 + brd, Screen.width / 5, Screen.height / 3 - brd * 3), pnj, ScaleMode.ScaleToFit, true, 0);
-        GUI.Box(new Rect(Screen.width * 1 / 4, Screen.height * 7 / 10 + brd * 2, Screen.width - 20, Screen.height / 5 - 10), txt, style);
 
-        //style.alignment = TextAnchor.MiddleCenter;
-        style.fontSize = Screen.height / 28;
-        GUI.Box(new Rect(Screen.width * 2 / 3, Screen.height * 2 / 3 + brd * 2, Screen.width / 10, Screen.height / 3 - 10), txt2, style);
-    }
+	// affiche une boite de dialogue avec comme texture pnj et comme texte txt,
+	public void AfficherDialogue(Texture2D pnj, string txt, bool displayContinuer = true) {
+		
+		//GameManagerCrepe.chrono.Stop();
+		TextNormal.fontSize = Screen.height / 36;
+		TextNormal.alignment = TextAnchor.MiddleLeft;
+
+		float paddingX = Screen.width * 1 / 100;
+		float paddingY = Screen.height * 1 / 100;
+
+		Rect texRect = new Rect(paddingX, Screen.height * 2/3 - paddingY, Screen.width - 2*paddingX, Screen.height / 3);
+		Rect pnjRect = new Rect(paddingX, Screen.height * 2/3 - paddingY, Screen.height / 3, Screen.height / 3);
+		Rect txtRect = new Rect(Screen.height / 3 + 2*paddingX, Screen.height * 2 / 3 - paddingY, Screen.height / 3, Screen.height / 3);
+
+		GUI.DrawTexture(texRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.DrawTexture(pnjRect, pnj, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(txtRect, txt, TextNormal);
+
+		if (displayContinuer) {
+			string continueText = "TOUCHER POUR CONTINUER!";
+			float sizeX = TextNormal.CalcSize(new GUIContent(continueText)).x;
+			float sizeY = TextNormal.CalcSize(new GUIContent(continueText)).y;
+
+			Rect continueRect = new Rect(Screen.width - sizeX - 2*paddingX, Screen.height - sizeY - 2*paddingY, sizeX, sizeY);
+
+			GUI.Label(continueRect, continueText, TextNormal);
+		}
+
+		DialogueCrepe.canRestartChrono = false;
+	}
+
+
 
 	// affiche une aide en bas de l'écran sur l'action courrante a faire
 	public void AfficherAide(string txt) {
-		style.fontSize = Screen.height / 24;
-		style.alignment = TextAnchor.MiddleLeft;
-		style.font = (Font)Resources.Load("Roboto-Regular");
-		
-		GUI.DrawTexture(new Rect(brd * 30, Screen.height * 90 / 100, Screen.width - brd * 60, Screen.height * 10 / 100 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
-		GUI.Box(new Rect(brd * 40, Screen.height * 90 / 100, Screen.width - brd * 70, Screen.height * 10 / 100 - brd), txt, style);
+		TextNormal.fontSize = Screen.height / 24;
+		TextNormal.alignment = TextAnchor.MiddleCenter;
+
+		float paddingX = Screen.width * 5 / 100;
+		float paddingY = Screen.height * 5 / 100;
+		float sizeX = TextNormal.CalcSize(new GUIContent(txt)).x + paddingX;
+		float sizeY = TextNormal.CalcSize(new GUIContent(txt)).y + paddingY;
+
+		// positionné en bas de l'ecran
+		Rect myRect = new Rect(Screen.width / 2 - (sizeX  / 2), Screen.height - sizeY, sizeX, sizeY);
+
+		GUI.DrawTexture(myRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(myRect, txt, TextNormal);
 	}
+
+
 
 	// affiche une alerte au centre de l'écran
 	public void AfficherAlerte(string txt) {
-		style.fontSize = Screen.height / 25;
-		style.alignment = TextAnchor.MiddleCenter;
-		style.font = (Font)Resources.Load("Roboto-Regular");
+		TextNormal.fontSize = Screen.height / 25;
+		TextNormal.alignment = TextAnchor.MiddleCenter;
 
-		string[] phrases = txt.Split('\n');
-		int h = phrases.Length * 10;
+		float paddingX = Screen.width * 5 / 100;
+		float paddingY = Screen.height * 5 / 100;
+		float sizeX = TextNormal.CalcSize(new GUIContent(txt)).x + paddingX;
+		float sizeY = TextNormal.CalcSize(new GUIContent(txt)).y + paddingY;
 
-		GUI.DrawTexture(new Rect(brd * 30, Screen.height * 50 / 100 - h, Screen.width - brd * 60, Screen.height * h / 100 - brd), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
-		GUI.Box(new Rect(brd * 30, Screen.height * 50 / 100 - h, Screen.width - brd * 60, Screen.height * h / 100 - brd), txt, style);
+		// positionné au centre
+		Rect myRect = new Rect(Screen.width / 2 - (sizeX / 2), Screen.height / 2 - (sizeY / 2), sizeX, sizeY);
+
+		GUI.DrawTexture(myRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(myRect, txt, TextNormal);
+	}
+
+
+
+
+
+
+
+
+
+
+	#region SURBRILLANCE A FAIRE MARCHER BOWDEL
+
+	// affiche une alerte au centre de l'écran
+	public void test(string txt) {
+		TextNormal.fontSize = Screen.height / 25;
+		TextNormal.alignment = TextAnchor.MiddleCenter;
+
+		// first split the txt string in lines
+		string[] lines = txt.Split('\n');
+
+		Vector2 finalSize = Vector2.zero;
+
+		for (int l = 0; l < lines.Length; l++) {
+			string myText = lines[l];
+			Vector2 size = new Vector2(TextNormal.CalcSize(new GUIContent(myText)).x, TextNormal.CalcSize(new GUIContent(myText)).y);
+
+			if (size.x > finalSize.x) finalSize.x = size.x;
+			finalSize.y += size.y;
+		}
+
+		for (int l = 0; l < lines.Length; l++) {
+			string myText = lines[l];
+			Vector2 size = new Vector2(TextNormal.CalcSize(new GUIContent(myText)).x, TextNormal.CalcSize(new GUIContent(myText)).y);
+			Vector2 pos = new Vector2(Screen.width / 2 - (size.x / 2), Screen.height / 2 - (finalSize.y / 2) + size.y*l);
+
+			// positionné au centre
+			Rect myRect = new Rect(pos.x, pos.y, size.x, size.y);
+			
+			//GUI.DrawTexture(myRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+			GUI.DrawTexture(new Rect(Screen.width / 2 - (finalSize.x / 2), Screen.height / 2 - (finalSize.y / 2), finalSize.x, finalSize.y), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+
+			GUI.Label(myRect, myText, TextNormal);
+		}
+
+		
+
+
+
+	}
+	
+	
+	// affiche une alerte au centre de l'écran
+	public void AfficherAlerteAvecSurbrillance(string txt) {
+		TextHighlight.fontSize = Screen.height / 25;
+		TextHighlight.alignment = TextAnchor.MiddleCenter;
+
+		// first split the txt string in lines
+		string[] lines = txt.Split('\n');
+
+
+
+		for (int l = 0; l < lines.Length; l++) {
+
+
+
+			// split each line in words
+			string[] words = txt.Split(' ');
+
+			// create an array called TextItem of words elements
+			TextItem[] itemArray = new TextItem[words.Length];
+
+			for (int i = 0; i < itemArray.Length; i++) {
+				string[] s = words[i].Split(new string[] { "<a>" }, System.StringSplitOptions.None);
+
+				// si le mot est alerte, on change sa couleur en rouge sinon la couleur est noir
+				if (s.Length > 1) {
+					itemArray[i] = new TextItem(s[1], Color.red);
+					
+					for (int j = 0; j < s.Length; j++) {
+						print(s[j]);
+					}
+				}
+				else
+					itemArray[i] = new TextItem(s[0], Color.black);
+			}
+
+
+			float paddingX = Screen.width * 5 / 100;
+			float paddingY = Screen.height * 5 / 100;
+			float sizeX = TextHighlight.CalcSize(new GUIContent(txt)).x + paddingX;
+			float sizeY = TextHighlight.CalcSize(new GUIContent(txt)).y + paddingY;
+			
+			// positionné au centre
+			Rect theRect = new Rect(Screen.width / 2 - (sizeX / 2), Screen.height / 2 - (sizeY / 2), sizeX, sizeY);
+			GUI.DrawTexture(theRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+			
+			foreach (TextItem thisItem in itemArray) {
+				
+				// create a GUIContent and calculate its size
+				GUIContent theContent = new GUIContent(thisItem.text);
+				Vector2 theSize = TextHighlight.CalcSize(theContent);
+				
+				TextHighlight.normal.textColor = thisItem.color;
+				theRect.width = theSize.x;
+				
+				GUI.Label(theRect, theContent, TextHighlight);
+				
+				// set the x-value of the next box to the end of the last box
+				theRect.x += theSize.x + 5;
+			}
+		}
+	}
+	#endregion
+}
+
+#region SURBRILLANCE A FAIRE MARCHER BOWDEL
+public class TextItem {
+
+	public string text;
+	public Color color ;
+
+	// default constructor
+	public TextItem () {
+		text = "";
+		color = Color.white;
+	}
+
+	public TextItem (string s, Color c) {
+		text = s;
+		color = c;
 	}
 }
+#endregion
+
