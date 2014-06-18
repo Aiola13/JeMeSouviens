@@ -262,9 +262,14 @@ public class TouchJardin : TouchLogic {
 							if (AjoutLegume(legumeDragged)) {
 								graineClone.position = new Vector3(parcelle.transform.position.x, 0.15f, parcelle.transform.position.z);
 								dragging = false;
+
+								// jouer un son de drag fini sur une parcelle ici
+
 							}
 							else {
 								AnnulerGraine();
+
+								// jouer un son de drag annuler ici
 							}
 						}
 						#endregion
@@ -399,16 +404,27 @@ public class TouchJardin : TouchLogic {
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
 							scriptQueteJardin.InitQueteP2();
+
+							// jouer un son good pr valider
+
 							//ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.queteJessicaP2);
 						}
 						// un legume n'a pas été arrosé
-						else 
+						else {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
+
+							// jouer un son alerte arrosage
+
+						}
 					}
 					// le légume obligatoire n'a pas été planté
-					else
+					else {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
+
+						// jouer un son alerte planter legumes obligatoire
+
+					}
 				}
 				#endregion
 
@@ -425,15 +441,25 @@ public class TouchJardin : TouchLogic {
 							selectedParcelle = null;
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
+
+							// jouer un son good pr valider
+
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
 						}
 						// un legume n'a pas été arrosé
-						else 
+						else {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
+
+							// jouer un son alerte arrosage
+						}
 					}
 					// le légume obligatoire n'a pas été planté
-					else
+					else {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
+
+						// jouer un son alerte planter legumes obligatoire
+
+					}
 				}
 				#endregion
 
