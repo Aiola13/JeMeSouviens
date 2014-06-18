@@ -153,9 +153,6 @@ public class QueteJardin : MonoBehaviour {
 			}
 		}
 
-		// override nbParcelles here
-		nbParcelles = 3;
-
 		// set le legume obligatoire a planté
 		legumeObligatoire = SelectionnerLegumeObligatoire();
 	}

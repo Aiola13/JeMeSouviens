@@ -40,6 +40,10 @@ public class TouchJardin : TouchLogic {
 	private float maxAngle = 130.0f;	// angle maximum pour l'arrosoir
 	private float accMax = 0.5f;		// pourcentage d'orientation de la tablette
 
+	// camera
+	public float rotateSpeed = 10.0f;
+	private float rot = 0.0f;
+
 	private Ray ray;
 	private RaycastHit hit;
 	#endregion
@@ -50,12 +54,14 @@ public class TouchJardin : TouchLogic {
 
 		NePasAfficherUILegumes();
 		NePasAfficherBoutons();
+
+		rot = Camera.main.transform.eulerAngles.x;
 	}
 	
 
 	public override void OnTouchBeganAnywhere () {
 		
-		#region plantation on touch began
+		#region PLANTATION on touch began
 		// si on touche une parcelle
 		if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		    (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
@@ -114,11 +120,22 @@ public class TouchJardin : TouchLogic {
 
 	public override void OnTouchMovedAnywhere () {
 
-		#region plantation on touch moved
+		#region PLANTATION on touch moved
 		if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		    (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
 
 			ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+
+			#region Camera rotate
+			// si on a termine un touch en dehors d'une parcelle, sur le jardin
+			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "FloorJardin")) {
+				if (!dragging) {
+					rot -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
+					Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rot, 0.0f);
+				}
+			}
+			#endregion
+
 
 			#region drag moved
 			// si on est en train de dragger, on met a jour la position de la graine
@@ -127,6 +144,7 @@ public class TouchJardin : TouchLogic {
 			}
 			#endregion
 
+			// si on bouge sur une parcelle
 			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
 
 				GameObject parcelle = hit.collider.gameObject;
@@ -202,7 +220,7 @@ public class TouchJardin : TouchLogic {
 		#endregion
 
 
-		#region plantation on touch ended
+		#region PLANTATION on touch ended
 		// si on touche une parcelle
 		else if ((GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP1) || 
 		         (GameManagerJardin.curGameState == GameManagerJardin.GameState.planterP2)){
