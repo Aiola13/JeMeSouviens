@@ -88,17 +88,17 @@ public class IngredientsDrag : MonoBehaviour {
 
             if (GameManagerCrepe.queteCrepe.ajouterIngredientSaladier(ObjectToDrag.gameObject))
             {
-                //print(ObjectToDrag.name + " a correctement ete ajoute");
-
                 ObjectToDrag.gameObject.SetActive(false);
-
                 GameManagerCrepe.sonDragOK.Play();
+                if (GameManagerCrepe.queteCrepe.queteAccomplie()) {
+                    GameManagerCrepe.bQueteAccomplie = true;
+                }
             }
             else
             {
-                //print(ObjectToDrag.name + " ne fait pas partie de la quete");
-
                 ResetPosition();
+                GameManager.nbErreurs++;
+                GameManagerCrepe.sonErreur.Play();
             }
 
 		}

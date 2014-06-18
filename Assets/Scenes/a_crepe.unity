@@ -866,7 +866,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 489207422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0700000003, y: .899999976, z: 0}
+  m_LocalPosition: {x: .0700000003, y: .5, z: 0}
   m_LocalScale: {x: .100000001, y: .150000006, z: 1}
   m_Children: []
   m_Father: {fileID: 1474844878}
@@ -1933,6 +1933,52 @@ Prefab:
   m_RootGameObject: {fileID: 685130971}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &990120035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 990120036}
+  - 131: {fileID: 990120037}
+  m_Layer: 0
+  m_Name: ecranFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &990120036
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 990120035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .150000006, y: .850000024, z: 0}
+  m_LocalScale: {x: .25, y: .25, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1474844878}
+--- !u!131 &990120037
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 990120035}
+  m_Enabled: 1
+  m_Texture: {fileID: 0}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
 --- !u!1001 &1011585225
 Prefab:
   m_ObjectHideFlags: 0
@@ -2338,7 +2384,11 @@ GameObject:
   - 114: {fileID: 1188117294}
   - 114: {fileID: 1188117296}
   - 114: {fileID: 1188117297}
+<<<<<<< HEAD
   - 114: {fileID: 1188117295}
+=======
+  - 114: {fileID: 1188117298}
+>>>>>>> 1f080997cd864b78c21764d1510793beb516e8fc
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2446,6 +2496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
+  rejouer: {fileID: 0}
+  etoile: {fileID: 0}
   texValidation: {fileID: 1790167629}
   noemie: {fileID: 2800000, guid: 4ef5095a1115ed44da11be1d40706176, type: 3}
   skypi: {fileID: 2800000, guid: 903ec7ee532cda94ebe6be8cd1e9997d, type: 3}
@@ -2464,6 +2516,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f00702598ea364f932f4e824cba916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1188117298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188117288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce22551d58106174bb59748e51782a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ecran: {fileID: 990120037}
+  dragIngredients: []
+  etalerPate: []
+  retournerCrepe: []
 --- !u!1001 &1230341769
 Prefab:
   m_ObjectHideFlags: 0
@@ -2901,6 +2968,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 990120036}
   - {fileID: 760630165}
   - {fileID: 489207424}
   - {fileID: 447359714}

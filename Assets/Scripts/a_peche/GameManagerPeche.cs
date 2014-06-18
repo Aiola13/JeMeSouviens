@@ -10,7 +10,8 @@ public class GameManagerPeche : GameManager {
         degivrerTrou,
         pecher,
         aideDeSkypi,
-        finDePartie
+        finDePartie,
+        score
     }
 
     public static int compteurPoisson;
@@ -22,13 +23,16 @@ public class GameManagerPeche : GameManager {
     public static Peche peche;
     public static AnimatedFeedbackPeche videos;
 
+    public GUITexture texValidation;
+    public GUITexture texAnnulation;
+    public GUITexture texReplay;
+
     public Texture2D jeanClaude;
     public Texture2D skypi;
 
     public AudioClip musiqueAmbiance;
     public AudioClip miaulementSkypi;
     public AudioClip canneaPeche;
-
 
     public static AudioSource ambiance;
     public static AudioSource miaulement;
@@ -39,9 +43,6 @@ public class GameManagerPeche : GameManager {
 	public static AudioSource errorBip;
 	public static AudioSource goodBip;
 
-    public GUITexture validation;
-    public GUITexture annulation;
-
 	private bool makeNewSymbol;
 
     GameObject canne;
@@ -51,29 +52,26 @@ public class GameManagerPeche : GameManager {
     // Use this for initialization
 	void Start () {
 
-        compteurPoisson = 0;
-        makeNewSymbol = false;
-        canne = GameObject.FindGameObjectWithTag("CanneAPeche");
-
-        quetePeche = GetComponent<QuetePeche>();
-        peche = GetComponent<Peche>();
-        videos = GetComponent<AnimatedFeedbackPeche>();
-
-        curGameState = GameState.queteJeanClaude;
-
-        ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
-        miaulement = AddAudio(miaulementSkypi, false, false, 0.8f);
-        canneApeche = AddAudio(canneaPeche, false, false, 0.8f);	
-		errorBip = AddAudio(bipMauvais, false, false, 1.0f);
-		goodBip = AddAudio(bipBon, false, false, 1.0f);
-
-        ambiance.Play();
+        initGameManager();
+        initGameManagerPeche();
+        chrono = new System.Diagnostics.Stopwatch();
+        GameManager.chrono.Start();
+        
 	}
+
+    void Update() {
+        if (GameManagerPeche.curGameState == GameState.aideDeSkypi || GameManagerPeche.curGameState == GameState.queteJeanClaude ||
+            GameManagerPeche.curGameState == GameState.finDePartie || GameManagerPeche.curGameState == GameState.score) {
+            GameManager.chrono.Stop();
+            Debug.Log("Je stoppe le chrono " + GameManagerPeche.curGameState);
+        } else
+            GameManager.chrono.Start();
+    }
 
     #region OnGUI
     void OnGUI() {
 
-        print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation);
+        //print("INGM cur : " + curGameState + "    prev :  " + prevGameState + "          bouton validation = " + boutonValidation + "        bouton annulation = " + boutonAnnulation);
 
         if (!jeanClaude || !skypi) {
             Debug.LogError("Ajouter les textures!");
@@ -125,20 +123,15 @@ public class GameManagerPeche : GameManager {
 
             if (peche.poissonPeche) {
                 canneApeche.Stop();
-                AfficherDialogue(jeanClaude, peche.infoPoisson, false);
-                AfficherTexture(validation);
-                AfficherTexture(annulation);
 
-                GameObject.Find("annuler_text").guiText.enabled = true;
-                GameObject.Find("valider_text").guiText.enabled = true;
+                AfficherDialogue(jeanClaude, peche.infoPoisson, false);
+                GameManager.AfficherTexture(texValidation, GameObject.Find("valider_text").guiText);
+                GameManager.AfficherTexture(texAnnulation, GameObject.Find("annuler_text").guiText);
 
                 if (boutonValidation) {
 
-                    NePasAfficherTexture(validation);
-                    NePasAfficherTexture(annulation);
-
-                    GameObject.Find("annuler_text").guiText.enabled = false;
-                    GameObject.Find("valider_text").guiText.enabled = false;
+                    GameManager.NePasAfficherTexture(texValidation, GameObject.Find("valider_text").guiText);
+                    GameManager.NePasAfficherTexture(texAnnulation, GameObject.Find("annuler_text").guiText);
 
                     if (compteurPoisson < 5) {
 
@@ -152,11 +145,8 @@ public class GameManagerPeche : GameManager {
                 }
                 else if (boutonAnnulation) {
 
-                    NePasAfficherTexture(validation);
-                    NePasAfficherTexture(annulation);
-
-                    GameObject.Find("annuler_text").guiText.enabled = false;
-                    GameObject.Find("valider_text").guiText.enabled = false;
+                    GameManager.NePasAfficherTexture(texValidation, GameObject.Find("valider_text").guiText);
+                    GameManager.NePasAfficherTexture(texAnnulation, GameObject.Find("annuler_text").guiText);
 
                     AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
 
@@ -210,6 +200,16 @@ public class GameManagerPeche : GameManager {
         }
         #endregion
 
+        #region score
+
+        else if (curGameState == GameState.score) {
+
+            GameManager.AfficherTexture(texReplay, GameObject.Find("replay_text").guiText);
+            AfficherScore(calculerEtoilesPeche());
+        }
+
+        #endregion
+
     }
     #endregion OnGUI
 
@@ -228,6 +228,36 @@ public class GameManagerPeche : GameManager {
         canne.SetActive(true);
         transform.position = new Vector3(111, 147, 38);
         transform.eulerAngles = new Vector3(30, 0, 0);
+    }
+
+    void initGameManagerPeche() {
+
+        compteurPoisson = 0;
+        makeNewSymbol = false;
+        canne = GameObject.FindGameObjectWithTag("CanneAPeche");
+
+        quetePeche = GetComponent<QuetePeche>();
+        peche = GetComponent<Peche>();
+        videos = GetComponent<AnimatedFeedbackPeche>();
+
+        curGameState = GameState.queteJeanClaude;
+
+        ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
+        miaulement = AddAudio(miaulementSkypi, false, false, 0.8f);
+        canneApeche = AddAudio(canneaPeche, false, false, 0.8f);
+        errorBip = AddAudio(bipMauvais, false, false, 1.0f);
+        goodBip = AddAudio(bipBon, false, false, 1.0f);
+
+        ambiance.Play();
+    }
+
+    int calculerEtoilesPeche() {
+        if (nbAppelsAide == 0 && nbErreurs == 0 && tempsPartie <= 60.0)
+            return 3;
+        else if (nbAppelsAide <= 2 || nbErreurs <= 1 || tempsPartie <= 90.0)
+            return 2;
+        else
+            return 1;
     }
 
 }

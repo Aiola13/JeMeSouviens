@@ -6,24 +6,25 @@ public class GameManager : MonoBehaviour {
     public Texture2D Tex_dialogue;
     public GUIStyle TextNormal = new GUIStyle();
 	public GUIStyle TextHighlight = new GUIStyle();
-	protected int brd = Screen.height / 100;
+    public Texture rejouer;
+    public Texture etoile;
 
-    public static bool nextState = false;
-    public static bool boutonValidation = false;
+
+    public static bool nextState;
+    public static bool boutonValidation;
+    public static bool boutonAnnulation;
 
     private static string nomActivite = "";
     private static string cheminFichierStats = "";
     private static string libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
     protected static string[] tableauStats;
 
-    protected static System.Diagnostics.Stopwatch chrono;
+    public static System.Diagnostics.Stopwatch chrono;
 
-    protected static int idPartie;
-    protected static float tempsPartie = 0.0f;
+    public static int idPartie;
+    public static float tempsPartie;
     public static int nbErreurs;
-    protected static int nbAppelsAide = 0;
-
-    public static bool boutonAnnulation = false;
+    public static int nbAppelsAide;
 
 
     /////////////////////////////////////////////////////////////////////
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Je suis dane le GameManager");
     }
+
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume) {
         AudioSource newAudio = gameObject.AddComponent<AudioSource>();
@@ -58,6 +60,20 @@ public class GameManager : MonoBehaviour {
     public static void NePasAfficherTexture(GUITexture t) {
         t.guiTexture.enabled = false;
         t.gameObject.SetActive(false);
+    }
+
+    // active et affiche la texture t
+    public static void AfficherTexture(GUITexture t, GUIText text) {
+        t.guiTexture.enabled = true;
+        t.gameObject.SetActive(true);
+        text.enabled = true;
+    }
+
+    // désactive et enleve l'affichage de la texture t
+    public static void NePasAfficherTexture(GUITexture t, GUIText text) {
+        t.guiTexture.enabled = false;
+        t.gameObject.SetActive(false);
+        text.enabled = false;
     }
 
     public static void ActiverDrag() {
@@ -219,8 +235,50 @@ public class GameManager : MonoBehaviour {
 
 
 
+    public void AfficherScore(int nbEtoiles) {
 
+        TextNormal.fontSize = Screen.height / 25;
+		TextNormal.alignment = TextAnchor.MiddleCenter;
+		TextNormal.font = (Font)Resources.Load("Roboto-Regular");
 
+        GUI.BeginGroup(new Rect(Screen.width / 8, Screen.height / 8, Screen.width * 6 / 8, Screen.height * 6 / 8), Tex_dialogue, TextNormal);
+
+		float brd = Screen.height / 100;
+
+        switch(nbEtoiles){
+            case 1:
+                GUI.DrawTexture(new Rect(Screen.width * 3 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "Tu peux faire mieux...", TextNormal);
+                break;
+            case 2:
+                GUI.DrawTexture(new Rect(Screen.width * 5 / 16 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.DrawTexture(new Rect(Screen.width * 7 / 16 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "C'est presque ça!", TextNormal);
+                break;
+            case 3:
+                GUI.DrawTexture(new Rect(Screen.width * 2 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.DrawTexture(new Rect(Screen.width * 3 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.DrawTexture(new Rect(Screen.width * 4 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
+                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "Excellent!", TextNormal);
+                break;
+        }
+        tempsPartie = chrono.Elapsed.Minutes * 60 + chrono.Elapsed.Seconds;
+
+        GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 3 / 8, Screen.width / 2, Screen.height / 15), "Temps : " + tempsPartie + " secondes", TextNormal);
+        GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 7 / 16, Screen.width / 2, Screen.height / 15), "Nombre d'erreurs : " + nbErreurs, TextNormal);
+        GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 2, Screen.width / 2, Screen.height / 15), "Nombre d'aides de Skypi : " + nbAppelsAide, TextNormal);
+
+        GUI.EndGroup();
+    }
+
+    protected void initGameManager() {
+        boutonValidation = false;
+        boutonAnnulation = false;
+        nextState = false;
+        tempsPartie = 0.0f;
+        nbErreurs = 0;
+        nbAppelsAide = 0;
+    }
 
 
 
@@ -232,64 +290,57 @@ public class GameManager : MonoBehaviour {
 	public void test(string txt) {
 		TextNormal.fontSize = Screen.height / 25;
 		TextNormal.alignment = TextAnchor.MiddleCenter;
-
+		
 		// first split the txt string in lines
 		string[] lines = txt.Split('\n');
-
+		
 		Vector2 finalSize = Vector2.zero;
-
+		
 		for (int l = 0; l < lines.Length; l++) {
 			string myText = lines[l];
 			Vector2 size = new Vector2(TextNormal.CalcSize(new GUIContent(myText)).x, TextNormal.CalcSize(new GUIContent(myText)).y);
-
+			
 			if (size.x > finalSize.x) finalSize.x = size.x;
 			finalSize.y += size.y;
 		}
-
+		
 		for (int l = 0; l < lines.Length; l++) {
 			string myText = lines[l];
 			Vector2 size = new Vector2(TextNormal.CalcSize(new GUIContent(myText)).x, TextNormal.CalcSize(new GUIContent(myText)).y);
 			Vector2 pos = new Vector2(Screen.width / 2 - (size.x / 2), Screen.height / 2 - (finalSize.y / 2) + size.y*l);
-
+			
 			// positionné au centre
 			Rect myRect = new Rect(pos.x, pos.y, size.x, size.y);
 			
 			//GUI.DrawTexture(myRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
 			GUI.DrawTexture(new Rect(Screen.width / 2 - (finalSize.x / 2), Screen.height / 2 - (finalSize.y / 2), finalSize.x, finalSize.y), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
-
+			
 			GUI.Label(myRect, myText, TextNormal);
 		}
 
-		
-
-
-
 	}
-	
-	
+
+
 	// affiche une alerte au centre de l'écran
 	public void AfficherAlerteAvecSurbrillance(string txt) {
 		TextHighlight.fontSize = Screen.height / 25;
 		TextHighlight.alignment = TextAnchor.MiddleCenter;
-
+		
 		// first split the txt string in lines
 		string[] lines = txt.Split('\n');
-
-
+		
 
 		for (int l = 0; l < lines.Length; l++) {
 
-
-
 			// split each line in words
 			string[] words = txt.Split(' ');
-
+			
 			// create an array called TextItem of words elements
 			TextItem[] itemArray = new TextItem[words.Length];
-
+			
 			for (int i = 0; i < itemArray.Length; i++) {
 				string[] s = words[i].Split(new string[] { "<a>" }, System.StringSplitOptions.None);
-
+				
 				// si le mot est alerte, on change sa couleur en rouge sinon la couleur est noir
 				if (s.Length > 1) {
 					itemArray[i] = new TextItem(s[1], Color.red);
@@ -301,8 +352,8 @@ public class GameManager : MonoBehaviour {
 				else
 					itemArray[i] = new TextItem(s[0], Color.black);
 			}
-
-
+			
+			
 			float paddingX = Screen.width * 5 / 100;
 			float paddingY = Screen.height * 5 / 100;
 			float sizeX = TextHighlight.CalcSize(new GUIContent(txt)).x + paddingX;
@@ -327,9 +378,10 @@ public class GameManager : MonoBehaviour {
 				theRect.x += theSize.x + 5;
 			}
 		}
-	}
-	#endregion
 }
+}
+
+#endregion
 
 #region SURBRILLANCE A FAIRE MARCHER BOWDEL
 public class TextItem {
