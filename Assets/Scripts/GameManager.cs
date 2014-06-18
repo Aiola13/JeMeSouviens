@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -15,11 +16,12 @@ public class GameManager : MonoBehaviour {
     public static bool boutonAnnulation;
 
     private static string nomActivite = "";
-    private static string cheminFichierStats = "";
+    protected static string cheminFichierStats = "";
     private static string libelleStats;
     protected static string[] tableauStats;
-    protected static int[] tableauStatSpecifique;
+    protected static List<int> listeStatsSpec = new List<int>(); 
     protected static bool isNumeric;
+    protected static bool hasWritenStats;
 
     public static System.Diagnostics.Stopwatch chrono;
 
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour {
         //On check si le fichier de stats n'existe pas, dans ce cas on le crée
         if (!System.IO.File.Exists(cheminFichierStats))
         {
-            System.IO.FileStream fs = System.IO.File.Open(Application.persistentDataPath + "/Stats" + nomActivite + ".txt", System.IO.FileMode.Append);
+            System.IO.FileStream fs = System.IO.File.Open(cheminFichierStats, System.IO.FileMode.Append);
             {
                 System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(libelleStats);
                 fs.Write(stats, 0, stats.Length);
@@ -122,7 +124,7 @@ public class GameManager : MonoBehaviour {
         string derniereLigne = null;
         string ligneTraitee;
 
-        using (var reader = new System.IO.StreamReader(Application.persistentDataPath + "/Stats" + nomActivite + ".txt"))
+        using (var reader = new System.IO.StreamReader(cheminFichierStats))
         {
             while ((ligneTraitee = reader.ReadLine()) != null)
             {
@@ -268,11 +270,12 @@ public class GameManager : MonoBehaviour {
         nbErreurs = 0;
         nbAppelsAide = 0;
         libelleStats = "idPartie,tempsPartie,nbErreurs,nbAppelsAide";
+        hasWritenStats = false;
     }
 
     protected void GetStatsSpecifique(int numColonne)
     {
-        int i = 0;
+        int i = 1;
         int valeur = 0;
 
         string derniereLigne = null;
@@ -284,12 +287,10 @@ public class GameManager : MonoBehaviour {
             {
                 derniereLigne = ligneTraitee;
                 tableauStats = derniereLigne.Split(new char[] { ',' });
-                Debug.Log("Contenu tableau : " + tableauStats[numColonne]);
                 isNumeric = int.TryParse(tableauStats[numColonne], out valeur);
                 if (isNumeric)
                 {
-                    tableauStatSpecifique[i] = valeur;
-                    Debug.Log("i : " + i + " ; valeur : " + valeur);
+                    listeStatsSpec.Add(valeur);
                 }
                 i++;
             }

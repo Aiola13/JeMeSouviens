@@ -49,6 +49,19 @@ public class EtalerPate : MonoBehaviour {
 
 	}
 
+    public static void InitEtalerPate()
+    {
+        Nord = false;
+        Sud = false;
+        Est = false;
+        Ouest = false;
+        NordOuest = false;
+        SudOuest = false;
+        SudEst = false;
+        SudOuest = false;
+        isEtaler = false;
+    }
+
 	// Update is called once per frame
 	void Update () {
 
