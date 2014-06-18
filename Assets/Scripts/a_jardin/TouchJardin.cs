@@ -282,12 +282,11 @@ public class TouchJardin : TouchLogic {
 								dragging = false;
 
 								// jouer un son de drag fini sur une parcelle ici
-
+                                GameManagerJardin.sonDragOK.Play();
 							}
 							else {
-								AnnulerGraine();
-
-								// jouer un son de drag annuler ici
+                               
+                                AnnulerGraine();
 							}
 						}
 						#endregion
@@ -356,6 +355,8 @@ public class TouchJardin : TouchLogic {
 
 	// dragging vaut false et on detruit la graine couremment draggé
 	void AnnulerGraine() {
+        // jouer un son de drag annuler ici
+        GameManagerJardin.sonErreur.Play();
 		dragging = false;
 		Destroy (graineClone.gameObject);
 	}
@@ -424,6 +425,7 @@ public class TouchJardin : TouchLogic {
 							scriptQueteJardin.InitQueteP2();
 
 							// jouer un son good pr valider
+                            GameManagerJardin.sonDragOK.Play();
 
 							//ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.queteJessicaP2);
@@ -433,7 +435,7 @@ public class TouchJardin : TouchLogic {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
 
 							// jouer un son alerte arrosage
-
+                            GameManagerJardin.sonErreur.Play();
 						}
 					}
 					// le légume obligatoire n'a pas été planté
@@ -441,6 +443,7 @@ public class TouchJardin : TouchLogic {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 
 						// jouer un son alerte planter legumes obligatoire
+                        GameManagerJardin.sonErreur.Play();
 
 					}
 				}
@@ -461,7 +464,7 @@ public class TouchJardin : TouchLogic {
 							NePasAfficherBoutons();
 
 							// jouer un son good pr valider
-
+                            GameManagerJardin.sonDragOK.Play();
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
 						}
 						// un legume n'a pas été arrosé
@@ -469,6 +472,7 @@ public class TouchJardin : TouchLogic {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
 
 							// jouer un son alerte arrosage
+                            GameManagerJardin.sonErreur.Play();
 						}
 					}
 					// le légume obligatoire n'a pas été planté
@@ -476,6 +480,7 @@ public class TouchJardin : TouchLogic {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
 
 						// jouer un son alerte planter legumes obligatoire
+                        GameManagerJardin.sonErreur.Play();
 
 					}
 				}

@@ -35,17 +35,47 @@ public class GameManagerJardin :  GameManager{
 	private TouchJardin touchJardin;
 	private QueteJardin queteJardin;
 
+    public AudioClip musiqueAmbiance;
+    public AudioClip dragOK;
+    public AudioClip erreur;
+    public AudioClip sndCreuse;
+    public AudioClip sndArrose;
+    public AudioClip sndSelect;
+    public AudioClip sndPousse;
+
+    public static AudioSource ambiance;
+    public static AudioSource sonDragOK;
+    public static AudioSource sonErreur;
+    public static AudioSource sndASCreuse;
+    public static AudioSource sndASArrose;
+    public static AudioSource sndASSelect;
+    public static AudioSource sndASPousse;
+
 	#endregion attributs
 
 
 	void Start() {
-		curGameState = GameState.queteJessicaP1;
-		_alertState = AlerteState.attente;
-
-		touchJardin = GetComponent<TouchJardin>();
-		queteJardin = GetComponent<QueteJardin>();
+        InitGameManagerJardin();
 	}
 
+    void InitGameManagerJardin()
+    {
+        curGameState = GameState.queteJessicaP1;
+        _alertState = AlerteState.attente;
+
+        touchJardin = GetComponent<TouchJardin>();
+        queteJardin = GetComponent<QueteJardin>();
+
+        ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
+        
+        sonDragOK = AddAudio(dragOK, false, false, 0.6f);
+        sonErreur = AddAudio(erreur, false, false, 0.6f);
+        sndASCreuse = AddAudio(sndCreuse, false, false, 0.6f);
+        sndASArrose = AddAudio(sndArrose, false, false, 0.6f);
+        sndASSelect = AddAudio(sndSelect, false, false, 0.6f);
+        sndASPousse = AddAudio(sndPousse, false, false, 0.6f);
+        ambiance.Play();
+    }
 
 	#region Update
 	void Update() {

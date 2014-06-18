@@ -40,13 +40,14 @@ public class Parcelle : MonoBehaviour {
 		if (_curState == ParcelleState.arrosage)
 			PositionnerArrosoir();
 		isSelected = true;
+        GameManagerJardin.sndASSelect.Play();
 	}
 
 
 	public void AEteDeSelectionne() {
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
 		arrosoir.transform.position = ArrosoirOriginalPos;
-		isSelected = false;
+        isSelected = false;
 	}
 
 
@@ -60,6 +61,7 @@ public class Parcelle : MonoBehaviour {
 			renderer.material.color = new Color(0.3F, 0.3F, 0.3F, 0.8F);
 			ChangeState(ParcelleState.creuser, ParcelleState.graine);
 		}
+        GameManagerJardin.sndASCreuse.Play();
 	}
 
 
@@ -68,6 +70,7 @@ public class Parcelle : MonoBehaviour {
 		_legume = leg;
 		PositionnerArrosoir();
 		ChangeState(ParcelleState.graine, ParcelleState.arrosage);
+        GameManagerJardin.sndASPousse.Play();
 	}
 
 
@@ -77,6 +80,7 @@ public class Parcelle : MonoBehaviour {
 		QueteJardin scriptQueteJardin = GameObject.Find("_GameManager").GetComponent<QueteJardin>();
 		scriptQueteJardin.IncrementNbLegumesArroses();
 		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
+        GameManagerJardin.sndASArrose.Play();
 	}
 
 
