@@ -7,7 +7,7 @@ public class Parcelle : MonoBehaviour {
 		creuser,
 		graine,
 		arrosage,
-		mature
+		maturation
 	}
 	
 	public Material dirt;
@@ -20,7 +20,11 @@ public class Parcelle : MonoBehaviour {
 	public bool isSelected = false;
 
 	public int _nbTimesDigged = 0;
-	
+
+	public bool estMure = false;
+	public float tpsPrEtreMure = 0.0f;
+	private float tpsMaturite = 5.0f;
+
 	public Transform arrosoir;
 	public Transform arrosoirEmpty;
 	private Vector3 arrosoirOffset = new Vector3 (0, 1.2f, 0);
@@ -39,6 +43,20 @@ public class Parcelle : MonoBehaviour {
 		ArrosoirOriginalPos = arrosoir.transform.position;
 	}
 
+
+	void Update() {
+		if (GetCurState() == ParcelleState.maturation) {
+			// si le legume est en train de murir
+			if (tpsPrEtreMure < tpsMaturite)
+				tpsPrEtreMure += Time.deltaTime;
+			// le legume est pret a etre mur
+			else {
+				if (!estMure)
+					AMuri();
+
+			}
+		}
+	}
 
 	public void AEteSelectionne() {
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = true;
@@ -84,14 +102,15 @@ public class Parcelle : MonoBehaviour {
 		EnleverArrosoir();
 		QueteJardin scriptQueteJardin = GameObject.Find("_GameManager").GetComponent<QueteJardin>();
 		scriptQueteJardin.IncrementNbLegumesArroses();
-		ChangeState(ParcelleState.arrosage, ParcelleState.mature);
+		ChangeState(ParcelleState.arrosage, ParcelleState.maturation);
         GameManagerJardin.sndASArrose.Play();
 	}
 
 
-	public void EstMature() {
+	public void AMuri() {
 		renderer.material.color = Color.white;
 		renderer.material.mainTexture = _legume.texture;
+		estMure = true;
 	}
 
 
@@ -119,6 +138,8 @@ public class Parcelle : MonoBehaviour {
 		_legume = null;
 		isSelected = false;
 		_nbTimesDigged = 0;
+		tpsPrEtreMure = 0.0f;
+		estMure = false;
 		(gameObject.GetComponent("Halo") as Behaviour).enabled = false;
 	}
 

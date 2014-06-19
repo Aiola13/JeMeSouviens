@@ -74,6 +74,34 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &46181023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 46181024}
+  m_Layer: 0
+  m_Name: info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &46181024
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 46181023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1487365765}
+  - {fileID: 1961989081}
+  m_Father: {fileID: 2126218327}
 --- !u!1 &58510451
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +195,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &58510457
@@ -273,6 +303,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &199090059
@@ -379,6 +411,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &213678585
@@ -649,6 +683,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &306368004
@@ -755,6 +791,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &340439281
@@ -1069,6 +1107,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &423168615
@@ -1346,6 +1386,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &619632311
@@ -1452,6 +1494,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &677750155
@@ -1614,6 +1658,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &839436983
@@ -1926,6 +1972,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1226726565
@@ -2134,6 +2182,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1302329111
@@ -2408,6 +2458,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1435066086
@@ -2614,7 +2666,6 @@ MonoBehaviour:
   dragging: 0
   legumeDragged: {fileID: 0}
   grainePrefab: {fileID: 400000, guid: 9ad1ab3f57195fa4eb7b1c5ed94d3a7b, type: 2}
-  rotateSpeed: 100
 --- !u!114 &1438670617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,6 +2849,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1468624978
@@ -2821,7 +2874,7 @@ GameObject:
   - 4: {fileID: 1487365765}
   - 131: {fileID: 1487365764}
   m_Layer: 0
-  m_Name: img_info
+  m_Name: infoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2856,7 +2909,7 @@ Transform:
   m_LocalPosition: {x: .0700000003, y: .49000001, z: 0}
   m_LocalScale: {x: .100000001, y: .150000006, z: 1}
   m_Children: []
-  m_Father: {fileID: 2126218327}
+  m_Father: {fileID: 46181024}
 --- !u!1 &1488270452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,6 +3003,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1488270458
@@ -3586,6 +3641,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &1799999135
@@ -3677,6 +3734,56 @@ GUIText:
     rgba: 4294967295
   m_PixelCorrect: 0
   m_RichText: 1
+--- !u!1 &1961989079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1961989081}
+  - 132: {fileID: 1961989080}
+  m_Layer: 0
+  m_Name: infoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!132 &1961989080
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1961989079}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: Info
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 0
+  m_RichText: 1
+--- !u!4 &1961989081
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1961989079}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0399999991, y: .419999987, z: 0}
+  m_LocalScale: {x: .5, y: .800000012, z: 1}
+  m_Children: []
+  m_Father: {fileID: 46181024}
 --- !u!1001 &1973056764
 Prefab:
   m_ObjectHideFlags: 0
@@ -3898,7 +4005,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1487365765}
+  - {fileID: 46181024}
   - {fileID: 973128690}
   - {fileID: 1831245606}
   m_Father: {fileID: 0}
@@ -3995,6 +4102,8 @@ MonoBehaviour:
   _legume: {fileID: 0}
   isSelected: 0
   _nbTimesDigged: 0
+  estMure: 0
+  tpsPrEtreMure: 0
   arrosoir: {fileID: 0}
   arrosoirEmpty: {fileID: 0}
 --- !u!122 &2143471617

@@ -19,6 +19,8 @@ public class QueteJardin : MonoBehaviour {
 	public List<GameObject> legumesPlantesEnP1;
 
 
+
+
 	void Start () {
 		gmJardin = GetComponent<GameManagerJardin>();
 
@@ -29,33 +31,89 @@ public class QueteJardin : MonoBehaviour {
 	#region Dialogue and String Management
 	public string DialogueQueteP1(){
 		string txt = "Bonjour, que dirais-tu de t'occuper du potager un petit peu?\n";
-		txt += "Tu es libre de planter ce que tu veux.\n";
-		txt += "Mais, par contre, j'aurais besoin que tu plantes\n"; 
-		txt += "au moins " + getLegumeName(legumeObligatoire) + " s'il te plait.";
+		txt += "Cette fois, j'aimerais bien que tu plantes au moins " + getLegumeName(legumeObligatoire) + " s'il te plait.\n\n";
+		txt += "Tu es libre de planter d'autres l\xe9gumes.\n";
+		txt += "Par contre, plus tu en plantes plus il sera difficle de te souvenir de ceux que tu as plant\xe9s.\n";
+		txt += "Mais meilleur sera ton score final!";
 		return txt;
 	}
 
 
 	public string DialogueQueteP2(){
-		string txt = "Essai de reconstituer les l\xe9gumes que tu avais plant\xe9.\n";
+		string txt = "";
+		if (legumesPlantesEnP1.Count < 5) {
+			txt += "Pas mal! Tu as plant\xe9 " + legumesPlantesEnP1.Count;
+			if (legumesPlantesEnP1.Count == 1)
+				txt += " l\xe9gume\n\n";
+			else
+				txt +=  " l\xe9gumes\n\n";
+		}
+		else if (legumesPlantesEnP1.Count < 9) {
+			txt += txt += "Bien! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+		}
+		else if (legumesPlantesEnP1.Count < 13) {
+			txt += txt += "Bravo!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+		}
+		else if (legumesPlantesEnP1.Count < 17) {
+			txt += txt += "Impressionnant!!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+		}
+
+		txt += "Maintenant, essai de reconstituer les l\xe9gumes que tu as plant\xe9.\n";
+		txt += "Bonne chance!";
 		return txt;
 	}
 	
 
-	// permet d'avoir le bon article devant chaque légume
-	public string getLegumeName(GameObject legume) {
-		if (legume.name == "carotte")
-			return "une carotte";
-		else if (legume.name == "tomate")
-			return "une tomate";
-		else if (legume.name == "choux")
-			return "un choux";
-		else if (legume.name == "aubergine")
-			return "une aubergine";
-		else if (legume.name == "patate")
-			return "une patate";
-		else if (legume.name == "oignon")
-			return "un oignon";
+	// formate l'objet legume en un string dependement du nombre qu'on donne
+	// par defaut, getLegumeName(GameObject legume) retourne un legume au singulier
+	public string getLegumeName(GameObject legume, int count = 1) {
+
+		if (count == 0) {
+			return "";
+		}
+
+		else if (legume.name == "carotte") {
+			if (count == 1)
+				return "une carotte";
+			else 
+				return count + " carottes";
+		}
+
+		else if (legume.name == "tomate") {
+			if (count == 1)
+				return "une tomate";
+			else 
+				return count + " tomates";
+		}
+
+		else if (legume.name == "choux") {
+			if (count == 1)
+				return "un choux";
+			else 
+				return count + " choux";
+		}
+
+		else if (legume.name == "aubergine") {
+			if (count == 1)
+				return "une aubergine";
+			else 
+				return count + " aubergines";
+		}
+
+		else if (legume.name == "patate") {
+			if (count == 1)
+				return "une patate";
+			else 
+				return count + " patates";
+		}
+
+		else if (legume.name == "oignon") {
+			if (count == 1)
+				return "un oignon";
+			else 
+				return count + " oignons";
+		}
+
 		else
 			return "null";
 	}
@@ -63,29 +121,41 @@ public class QueteJardin : MonoBehaviour {
 
 	// retourne un string de legumes a partir de liste
 	public string getListeLegumes(List<GameObject> liste) {
+		List<GameObject> checkListe = new List<GameObject>();
+
 		string txt = "";
 		for (int i = 0; i < liste.Count; i++) {
-			txt += liste[i].name;
-			if (i != liste.Count - 1)
-				txt += ", ";
+			// si liste[i] n'est pas deja dans notre checkliste
+			if (!checkListe.Contains(liste[i])) {
+				// on recherche toutes les occurences de liste[i]
+				int count = liste.FindAll(s => s.Equals(liste[i])).Count;
+				// on ajoute liste[i] a notre checkListe
+				checkListe.Add(liste[i]);
+
+				// on ajoute une virgule au string si checkliste a plus d'un element
+				if (checkListe.Count > 1)
+					txt += ", ";
+				txt += getLegumeName(liste[i], count);
+			}
 		}
 		return txt;
 	}
 
 
-	// retourne la liste des legumes plantés pendant l'une des phases
+	// retourne la liste des legumes plantés pendant l'une des phases, bouton info
 	public string getLegumesPlantes() {
 		string txt = "";
 		if (legumesPlantes.Count == 0)
-			txt += "Tu n'as pas encore plant\xe9 de l\xe9gumes.";
+			txt += "Tu n'as pas encore plant\xe9 de l\xe9gumes.\n\n";
 		else {
-			txt = "Tu as plant\xe9s " + legumesPlantes.Count + " l\xe9gume";
-			if (legumesPlantes.Count >1)
-				txt += "s";
-			txt += ":\n";
-			txt += getListeLegumes(legumesPlantes);
+			txt = "Tu as plant\xe9s " + legumesPlantes.Count;
+			if (legumesPlantes.Count == 1)
+				txt += " l\xe9gume:\n";
+			else
+				txt += " l\xe9gumes:\n";
+			txt += getListeLegumes(legumesPlantes) + "\n\n";
 		}
-		txt += "\nLe l\xe9gume obligatoire a plant\xe9 est " + getLegumeName(legumeObligatoire) + ".";
+		txt += "Il faut que tu plantes au moins " + getLegumeName(legumeObligatoire) + ".";
 		return txt;
 	}
 
@@ -106,24 +176,33 @@ public class QueteJardin : MonoBehaviour {
 			}
 		}
 		
-		string legumesOublies = getListeLegumes(L1);
-		string legumesEnTrop = getListeLegumes(L2);
-		
+		string strLegumesOublies = getListeLegumes(L1);
+		string strLegumesEnTrop = getListeLegumes(L2);
+
+		// legumes oubliés
 		string txt = "";
-		if (string.IsNullOrEmpty(legumesOublies))
-			txt += "Bravo! Tu n'as pas oubli\xe9 de l\xe9gumes.\n";
+		if (string.IsNullOrEmpty(strLegumesOublies))
+			txt += "Bravo! Tu n'as pas oubli\xe9 de l\xe9gumes.\n\n";
 		else {
-			txt += "Tu as oubli\xe9 de planter " + L1.Count + " l\xe9gume";
-			if (L1.Count > 1)
-				txt += "s";
-			txt += ":\n" + legumesOublies + "\n";
+			txt += "Tu as oubli\xe9 de planter " + L1.Count;
+			if (L1.Count == 1)
+				txt += " l\xe9gume:\n";
+			else
+				txt += " l\xe9gumes:\n";
+			txt += strLegumesOublies + "\n\n";
 		}
-		
-		if (!string.IsNullOrEmpty(legumesEnTrop)) {
-			txt += "Tu as plant\xe9 " + L2.Count + " l\xe9gume";
-			if (L2.Count > 1)
-				txt += "s";
-			txt += " en trop:\n" + legumesEnTrop + "\n";
+
+		// légumes en trop
+		if (!string.IsNullOrEmpty(strLegumesEnTrop)) {
+			txt += "Tu as plant\xe9 " + L2.Count;
+			if (L2.Count == 1)
+				txt += " l\xe9gume en trop:\n";
+			else
+				txt += " l\xe9gumes en trop:\n";
+			txt += strLegumesEnTrop + "\n";
+		}
+		else {
+			txt += "Bravo! Tu n'as plant\xe9 aucun l\xe9gumes suppl\xe9mentaires.\n";
 		}
 		
 		return txt;

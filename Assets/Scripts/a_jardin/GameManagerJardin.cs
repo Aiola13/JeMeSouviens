@@ -160,7 +160,7 @@ public class GameManagerJardin :  GameManager{
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
 					AfficherAide("Arrose la parcelle en inclinant la tablette.");
 				}
-				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.mature) {
+				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.maturation) {
 					AfficherAide("Selectionne une autre parcelle ou valide.");
 				}
 			}

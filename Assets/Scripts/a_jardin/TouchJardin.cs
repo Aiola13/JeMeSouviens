@@ -65,6 +65,11 @@ public class TouchJardin : TouchLogic {
 		// on met a la fin cette ligne de code car on veut checker tous les evenements concernant la rotation de la camera avant
 		rotatingCamera = false;
 	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	
+
 
 	public override void OnTouchBeganAnywhere () {
 		
@@ -225,7 +230,7 @@ public class TouchJardin : TouchLogic {
 
 		// score
 		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.score) {
-			// FAIRE UN RETOUR MENU ICI
+			Rejouer();
 		}
 		#endregion
 
@@ -288,32 +293,15 @@ public class TouchJardin : TouchLogic {
 					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.graine) {
 						#region drag ended
 						if (dragging && Input.touchCount == 1) {
-							// si le legume a ete plante, on le place correctement
+							// si le legume a ete plante
 							if (AjoutLegume(legumeDragged)) {
-								graineClone.position = new Vector3(parcelle.transform.position.x, 0.15f, parcelle.transform.position.z);
-								dragging = false;
-
-								// jouer un son de drag fini sur une parcelle ici
-                                GameManagerJardin.sonDragOK.Play();
+								ValiderGraine();
 							}
 							else {
-                               
                                 AnnulerGraine();
 							}
 						}
 						#endregion
-					}
-
-					// accélérometre pour arroser
-					// changement d'etat traité dans ArroserLegume(), Appel dans GameManagerJardin
-					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.arrosage) {
-
-					}
-
-					// la plante est mature
-					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.mature) {
-
-						scriptParcelle.EstMature();
 					}
 				}
 
@@ -341,8 +329,6 @@ public class TouchJardin : TouchLogic {
 							AfficherUILegumes();
 						}
 					}
-
-
 				}
 
 				//print (hit.collider.tag + "   " + scriptParcelle.GetCurState() + "   " + scriptParcelle._legume);
@@ -365,7 +351,20 @@ public class TouchJardin : TouchLogic {
 		graineClone.tag = "Graine";
 	}
 
-	// dragging vaut false et on detruit la graine couremment draggé
+
+	// on stop le dragging et on fait un feedback pr annoncer que la graine a correctement ete plante
+	void ValiderGraine() {
+		// jouer un son de drag fini sur une parcelle ici
+		GameManagerJardin.sonDragOK.Play();
+		dragging = false;
+		Destroy (graineClone.gameObject);
+
+		// on place la graine au milieu de la parcelle
+		//graineClone.position = new Vector3(parcelle.transform.position.x, 0.15f, parcelle.transform.position.z);
+	}
+
+
+	// on stop le dragging et on fait un feedback pr annoncer que la graine n'as pas été placée correctement
 	void AnnulerGraine() {
         // jouer un son de drag annuler ici
         GameManagerJardin.sonErreur.Play();
@@ -378,7 +377,6 @@ public class TouchJardin : TouchLogic {
 	void  RotateCamera() {
 		// on commence a tourner la camera si le swipe est superieur a une certaine distance
 		if (Mathf.Abs(Input.GetTouch(0).deltaPosition.x) > camRotDist) {
-			print (Input.GetTouch(0).deltaPosition.x);
 			rotatingCamera = true;
 			rotCamera -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
 			Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rotCamera, 0.0f);
@@ -452,17 +450,14 @@ public class TouchJardin : TouchLogic {
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
 							scriptQueteJardin.InitQueteP2();
-
 							// jouer un son good pr valider
                             GameManagerJardin.sonDragOK.Play();
-
 							//ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.dialogueTransition1);
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.queteJessicaP2);
 						}
 						// un legume n'a pas été arrosé
 						else {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
-
 							// jouer un son alerte arrosage
                             GameManagerJardin.sonErreur.Play();
 						}
@@ -470,7 +465,6 @@ public class TouchJardin : TouchLogic {
 					// le légume obligatoire n'a pas été planté
 					else {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
-
 						// jouer un son alerte planter legumes obligatoire
                         GameManagerJardin.sonErreur.Play();
 
@@ -491,7 +485,6 @@ public class TouchJardin : TouchLogic {
 							selectedParcelle = null;
 							NePasAfficherUILegumes();
 							NePasAfficherBoutons();
-
 							// jouer un son good pr valider
                             GameManagerJardin.sonDragOK.Play();
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
@@ -499,7 +492,6 @@ public class TouchJardin : TouchLogic {
 						// un legume n'a pas été arrosé
 						else {
 							gmJardin.SetAlerte(GameManagerJardin.AlerteState.arroserLegumes);
-
 							// jouer un son alerte arrosage
                             GameManagerJardin.sonErreur.Play();
 						}
@@ -507,10 +499,8 @@ public class TouchJardin : TouchLogic {
 					// le légume obligatoire n'a pas été planté
 					else {
 						gmJardin.SetAlerte(GameManagerJardin.AlerteState.planterLegumeObligatoire);
-
 						// jouer un son alerte planter legumes obligatoire
                         GameManagerJardin.sonErreur.Play();
-
 					}
 				}
 				#endregion
@@ -527,7 +517,6 @@ public class TouchJardin : TouchLogic {
 				gmJardin.SetAlerte(GameManagerJardin.AlerteState.afficherLegumesPlantes);
 			}
 		}
-		
 	}
 
 
@@ -538,6 +527,18 @@ public class TouchJardin : TouchLogic {
 				Application.LoadLevel("menu");
 			}
 		}
+	}
+
+
+	// permet de relancer une partie
+	void Rejouer() {
+		/*
+		if (Input.touchCount == 1) {
+			if (rejouer.HitTest(Input.GetTouch(0).position)) {
+				Application.LoadLevel("a_jardin");
+			}
+		}
+		*/
 	}
 
 
@@ -569,6 +570,7 @@ public class TouchJardin : TouchLogic {
 		GameObject.Find("validerText").guiText.enabled = true;
 
 		GameManager.AfficherTexture(info);
+		GameObject.Find("infoText").guiText.enabled = true;
 	}
 
 
@@ -578,6 +580,7 @@ public class TouchJardin : TouchLogic {
 		GameObject.Find("validerText").guiText.enabled = false;
 
 		GameManager.NePasAfficherTexture(info);
+		GameObject.Find("infoText").guiText.enabled = false;
 	}
 	#endregion
 
