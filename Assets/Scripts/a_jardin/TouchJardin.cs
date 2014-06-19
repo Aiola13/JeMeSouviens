@@ -41,8 +41,10 @@ public class TouchJardin : TouchLogic {
 	private float accMax = 0.5f;		// pourcentage d'orientation de la tablette
 
 	// camera
-	private float rotateSpeed = 60.0f;
-	private float rot = 0.0f;
+	private float rotateSpeed = 30.0f;
+	private float rotCamera = 0.0f;
+	private float camRotDist = 1.0f;			// used to set the deltaPosition.x threshold
+	private bool rotatingCamera = false;
 
 	private Ray ray;
 	private RaycastHit hit;
@@ -52,13 +54,17 @@ public class TouchJardin : TouchLogic {
 		gmJardin = GetComponent<GameManagerJardin>();
 		arrosoir = GameObject.FindGameObjectWithTag("Arrosoir").transform;
 
-
 		NePasAfficherUILegumes();
 		NePasAfficherBoutons();
 
-		rot = Camera.main.transform.eulerAngles.x;
+		rotCamera = Camera.main.transform.eulerAngles.x;
 	}
-	
+
+
+	public override void OnNoTouches () {
+		// on met a la fin cette ligne de code car on veut checker tous les evenements concernant la rotation de la camera avant
+		rotatingCamera = false;
+	}
 
 	public override void OnTouchBeganAnywhere () {
 		
@@ -75,7 +81,8 @@ public class TouchJardin : TouchLogic {
 				GameObject parcelle = hit.collider.gameObject;
 				Parcelle scriptParcelle = parcelle.GetComponent<Parcelle>();
 
-				if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
+
+				if (scriptParcelle.isSelected && scriptParcelle.GetCurState() == Parcelle.ParcelleState.creuser) {
 					// si on commence le swipe sur la parcelle selectionne
 					if (Input.touchCount == 1 && selectedParcelle && selectedParcelle.tag == parcelle.tag) {
 						fp = Input.GetTouch(0).position;
@@ -87,7 +94,7 @@ public class TouchJardin : TouchLogic {
 
 			#region drag begin
 			if (selectedParcelle){
-				if (selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
+				if (selectedParcelle.GetComponent<Parcelle>().GetCurState() == Parcelle.ParcelleState.graine) {
 					if (Input.touchCount == 1) {
 						if ((carotte.HitTest(Input.GetTouch(0).position))) {
 							BeginDrag (carotte, hit.point);
@@ -131,8 +138,11 @@ public class TouchJardin : TouchLogic {
 			// si on a termine un touch en dehors d'une parcelle, sur le jardin
 			if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "FloorJardin")) {
 				if (!dragging) {
-					rot -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
-					Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rot, 0.0f);
+					RotateCamera();
+
+					// si on est train d'arroser on veut que l'arrosoir reste face a la camera
+					if (selectedParcelle && selectedParcelle.GetComponent<Parcelle>().GetCurState() == Parcelle.ParcelleState.arrosage)
+						arrosoir.eulerAngles = Camera.main.transform.eulerAngles;
 				}
 			}
 			#endregion
@@ -155,27 +165,18 @@ public class TouchJardin : TouchLogic {
 				if (selectedParcelle && selectedParcelle.tag == parcelle.tag) {
 
 					#region swipe moved
-					if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
+					if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.creuser) {
 						if (Input.touchCount == 1) {
 							lp = Input.GetTouch(0).position;
 						}
 					}
 					#endregion
 
-					#region drag moved inside selected parcelle
-					// si on est en train de dragger et que la parcelle touché est dans la phase de plantation
-					if (dragging && scriptParcelle._curState == Parcelle.ParcelleState.graine) {
-						if (Input.touchCount == 1) {
-							//print("moving");
-						}
-					}
-					#endregion
 				}
 				#region Camera rotate
 				else {
 					if (!dragging) {
-						rot -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
-						Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rot, 0.0f);
+						RotateCamera ();
 					}
 				}
 				#endregion
@@ -248,16 +249,18 @@ public class TouchJardin : TouchLogic {
 				if (dragging) {
 					AnnulerGraine();
 				}
+				/*
 				// on deselectionne la parcelle couremment selectionne
 				else if (selectedParcelle) {
 					selectedParcelle.GetComponent<Parcelle>().AEteDeSelectionne();
 					selectedParcelle = null;
 					NePasAfficherUILegumes();
 				}
+				*/
 			}
 
-			// si on a termine un touch en sur une parcelle
-			else if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles)) {
+			// si on a termine un touch sur une parcelle et qu'on est pas en train de tourner la camera
+			else if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.layer == parcelles) && !rotatingCamera) {
 
 				GameObject parcelle = hit.collider.gameObject;
 				Parcelle scriptParcelle = parcelle.GetComponent<Parcelle>();
@@ -266,7 +269,7 @@ public class TouchJardin : TouchLogic {
 				if (scriptParcelle.isSelected) {
 
 					// faire 3 petits swipe pour creuser
-					if (scriptParcelle._curState == Parcelle.ParcelleState.creuser) {
+					if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.creuser) {
 						// swipe action
 						#region swipe ended
 						if ( ((fp.x - lp.x) > dist) || ((fp.x - lp.x) < -dist) || ((fp.y - lp.y) < -dist) || ((fp.y - lp.y) > dist) ) { 
@@ -282,7 +285,7 @@ public class TouchJardin : TouchLogic {
 
 					// on plante la graine, faire un drag and drop
 					// changement d'etat traité dans AjoutLegume(gTex), Appel dans TouchJardin
-					else if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.graine) {
 						#region drag ended
 						if (dragging && Input.touchCount == 1) {
 							// si le legume a ete plante, on le place correctement
@@ -303,12 +306,12 @@ public class TouchJardin : TouchLogic {
 
 					// accélérometre pour arroser
 					// changement d'etat traité dans ArroserLegume(), Appel dans GameManagerJardin
-					else if (scriptParcelle._curState == Parcelle.ParcelleState.arrosage) {
+					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.arrosage) {
 
 					}
 
 					// la plante est mature
-					else if (scriptParcelle._curState == Parcelle.ParcelleState.mature) {
+					else if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.mature) {
 
 						scriptParcelle.EstMature();
 					}
@@ -334,7 +337,7 @@ public class TouchJardin : TouchLogic {
 
 
 						// si on reselectionne une parcelle qui attend une graine
-						if (scriptParcelle._curState == Parcelle.ParcelleState.graine) {
+						if (scriptParcelle.GetCurState() == Parcelle.ParcelleState.graine) {
 							AfficherUILegumes();
 						}
 					}
@@ -342,7 +345,7 @@ public class TouchJardin : TouchLogic {
 
 				}
 
-				//print (hit.collider.tag + "   " + scriptParcelle._curState + "   " + scriptParcelle._legume);
+				//print (hit.collider.tag + "   " + scriptParcelle.GetCurState() + "   " + scriptParcelle._legume);
 			}
 		}
 		#endregion
@@ -371,6 +374,18 @@ public class TouchJardin : TouchLogic {
 	}
 
 
+	// rotate camera avec swipe
+	void  RotateCamera() {
+		// on commence a tourner la camera si le swipe est superieur a une certaine distance
+		if (Mathf.Abs(Input.GetTouch(0).deltaPosition.x) > camRotDist) {
+			print (Input.GetTouch(0).deltaPosition.x);
+			rotatingCamera = true;
+			rotCamera -= Input.GetTouch(0).deltaPosition.x * rotateSpeed * Time.deltaTime;
+			Camera.main.transform.eulerAngles = new Vector3 ( 50.0f, rotCamera, 0.0f);
+		}
+	}
+
+
 	// accélérometre
 	public void ArroserLegume() {
 		Parcelle scriptParcelle = selectedParcelle.GetComponent<Parcelle>();
@@ -385,10 +400,12 @@ public class TouchJardin : TouchLogic {
 		else if (zRot < 5)
 			zRot = 0;
 
-		Transform arrosoirEmpty = GameObject.FindGameObjectWithTag("ArrosoirEmpty").transform;
+		//Transform arrosoirEmpty = GameObject.FindGameObjectWithTag("ArrosoirEmpty").transform;
+		//float xRot = arrosoirEmpty.eulerAngles.x;
 
-		float xRot = arrosoirEmpty.eulerAngles.x;
-		arrosoir.eulerAngles = new Vector3(0, 0, zRot);
+		// on veut que l'arrosoir reste toujours droit ms face a la camera
+		// la rotation est fixé dans Parcelle.cs->PositionnerArrosoir()
+		arrosoir.eulerAngles = new Vector3(arrosoir.eulerAngles.x, arrosoir.eulerAngles.y, zRot);
 	}
 
 

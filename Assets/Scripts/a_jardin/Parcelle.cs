@@ -130,9 +130,16 @@ public class Parcelle : MonoBehaviour {
 	}
 
 
+	public ParcelleState GetCurState () {
+		return _curState;
+	}
+
+
 	void PositionnerArrosoir() {
 		arrosoir.gameObject.renderer.enabled = true;
 		arrosoir.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + arrosoirOffset;
+
+		arrosoir.eulerAngles = Camera.main.transform.eulerAngles;
 
 		/*
 
