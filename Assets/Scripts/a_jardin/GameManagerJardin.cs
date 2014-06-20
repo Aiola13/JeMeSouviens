@@ -66,7 +66,7 @@ public class GameManagerJardin :  GameManager{
         touchJardin = GetComponent<TouchJardin>();
         queteJardin = GetComponent<QueteJardin>();
 
-        ambiance = AddAudio(musiqueAmbiance, true, true, 0.5f);
+        ambiance = AddAudio(musiqueAmbiance, true, true, 0.8f);
         
         sonDragOK = AddAudio(dragOK, false, false, 0.6f);
         sonErreur = AddAudio(erreur, false, false, 0.6f);
