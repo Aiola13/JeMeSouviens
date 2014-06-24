@@ -3,12 +3,12 @@ using System.Collections;
 
 public class ActiviteMenu : MonoBehaviour {
 
-	public float dist = 100;	// distance to register a swipe in any given direction
+	private float dist = 30;	// distance to register a swipe in any given direction
 	private Vector2 fp ; 	 	// first finger position
 	private Vector2 lp;  		// last finger position
 
 
-	public float speed = 30.0f;         // The relative speed at which the camera will catch up.
+	private float speed = 30.0f;         // The relative speed at which the camera will catch up.
 
 	public int camFocusedOn = 0;		// the camera is focused on the first activity which is Crepe
 	public bool isMoving = false;
@@ -18,14 +18,30 @@ public class ActiviteMenu : MonoBehaviour {
 	// crepe = 0.0f, peche = 20.0f, jardinage = 0.0f
 	private float[] activitePos = new float[3] {0.0f, 20.0f, 40.0f};
 
+	private Vector3 target = new Vector3(0, 0, -10);
 
-	public Vector3 target = new Vector3(0, 0, -10);
-	public GameObject activite;
-
-
+	public GUITexture leftArrow;
+	public GUITexture rightArrow;
+	public GUITexture jouer;
+	public GUITexture menu;
 
 
 	void Update() {
+
+		// we are to the leftmost, we dont display left arrow
+		if (camFocusedOn == 0) {
+			DisplayArrow(leftArrow, false);
+		}
+		// we are to the rightmost, we dont display right arrow
+		else if (camFocusedOn == activitePos.Length - 1) {
+			DisplayArrow(rightArrow, false);
+		}
+		// both arrows are displayed
+		else {
+			DisplayArrow(leftArrow, true);
+			DisplayArrow(rightArrow, true);
+		}
+
 
 		if (isMoving) {
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
@@ -46,40 +62,66 @@ public class ActiviteMenu : MonoBehaviour {
 			}
 
 			else if (touch.phase == TouchPhase.Moved) {
-				lp = Input.GetTouch(0).position;
+				lp = touch.position;
 			}
 
 			else if (touch.phase == TouchPhase.Ended) {
 
-				Ray ray ;
-				RaycastHit hit;
-				ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
+				if (!isMoving) {
 
-				if (Physics.Raycast(ray, out hit)) {
-
-					print (hit.collider.gameObject.name);
-					if (hit.collider.gameObject.name == "BackMenu") {
-						print ("ss");
-						//hit.collider.gameObject.renderer.material.color = Color.green;
-						Application.LoadLevel("a_menu");
+					// touch the right arrow
+					if (rightArrow.HitTest(touch.position)) {
+						OnSwipeLeft();
+					}
+					// touch the left arrow
+					else if (leftArrow.HitTest(touch.position)) {
+						OnSwipeRight();
+					}
+					// touch the play button
+					if (jouer.HitTest(touch.position)) {
+						if (camFocusedOn == 0) 
+							Application.LoadLevel("a_crepe");
+						else if (camFocusedOn == 1) 
+							Application.LoadLevel("a_peche");
+						else if (camFocusedOn == 2) 
+							Application.LoadLevel("a_jardin");
+					}
+					// touch the menu button
+					else if (menu.HitTest(touch.position)) {
+						Application.LoadLevel("menu");
 					}
 
-					else if (hit.collider.gameObject.name == "Peche") {
-						hit.collider.gameObject.renderer.material.color = Color.green;
-						Application.LoadLevel("a_peche");
+					/*
+					Ray ray ;
+					RaycastHit hit;
+					ray = Camera.main.ScreenPointToRay(touch.position);
+
+					if (Physics.Raycast(ray, out hit)) {
+
+						print (hit.collider.gameObject.name);
+						if (hit.collider.gameObject.name == "BackMenu") {
+							print ("ss");
+							//hit.collider.gameObject.renderer.material.color = Color.green;
+							Application.LoadLevel("a_menu");
+						}
+
+						else if (hit.collider.gameObject.name == "Peche") {
+							hit.collider.gameObject.renderer.material.color = Color.green;
+							Application.LoadLevel("a_peche");
+						}
+						
+						else if (hit.collider.gameObject.name == "Crepe") {
+							hit.collider.gameObject.renderer.material.color = Color.green;
+							Application.LoadLevel("a_crepe");
+						} 
+						
+						else if (hit.collider.gameObject.name == "Jardinage") {
+							hit.collider.gameObject.renderer.material.color = Color.green;
+							Application.LoadLevel("a_jardin");
+						}
 					}
-					
-					else if (hit.collider.gameObject.name == "Crepe") {
-						hit.collider.gameObject.renderer.material.color = Color.green;
-						Application.LoadLevel("a_crepe");
-					} 
-					
-					else if (hit.collider.gameObject.name == "Jardinage") {
-						hit.collider.gameObject.renderer.material.color = Color.green;
-						Application.LoadLevel("a_jardin");
-					}
+					*/
 				}
-					
 					
 
 				if (canSwipe) {
@@ -139,4 +181,19 @@ public class ActiviteMenu : MonoBehaviour {
 		print("down");
 	}
 	*/
+
+	// active/desactive et affiche/enleve la texture t
+	public static void DisplayArrow(GUITexture t, bool status) {
+		if (status) {
+			t.guiTexture.enabled = true;
+			t.gameObject.SetActive(true);
+		}
+
+		else {
+			t.guiTexture.enabled = false;
+			t.gameObject.SetActive(false);
+		}
+	}
+
+	
 }
