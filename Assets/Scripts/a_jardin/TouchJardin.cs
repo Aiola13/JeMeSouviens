@@ -18,6 +18,7 @@ public class TouchJardin : TouchLogic {
 	public GUITexture validation;
 	public GUITexture info;
 	public GUITexture menu;
+	public GUITexture rejouer;
 
 	// Parcelles
 	private int parcelles = 8;			// number of the parcelle layer
@@ -56,6 +57,7 @@ public class TouchJardin : TouchLogic {
 
 		NePasAfficherUILegumes();
 		NePasAfficherBoutons();
+		DisplayRejouer(false);
 
 		rotCamera = Camera.main.transform.eulerAngles.x;
 	}
@@ -230,6 +232,7 @@ public class TouchJardin : TouchLogic {
 
 		// score
 		else if (GameManagerJardin.curGameState == GameManagerJardin.GameState.score) {
+			// on check si on a appuyer sur le bouton rejouer
 			Rejouer();
 		}
 		#endregion
@@ -487,6 +490,7 @@ public class TouchJardin : TouchLogic {
 							NePasAfficherBoutons();
 							// jouer un son good pr valider
                             GameManagerJardin.sonDragOK.Play();
+							DisplayRejouer(true);
 							ChangeState(GameManagerJardin.GameState.planterP1, GameManagerJardin.GameState.score);
 						}
 						// un legume n'a pas été arrosé
@@ -532,13 +536,11 @@ public class TouchJardin : TouchLogic {
 
 	// permet de relancer une partie
 	void Rejouer() {
-		/*
 		if (Input.touchCount == 1) {
 			if (rejouer.HitTest(Input.GetTouch(0).position)) {
 				Application.LoadLevel("a_jardin");
 			}
 		}
-		*/
 	}
 
 
@@ -574,13 +576,26 @@ public class TouchJardin : TouchLogic {
 	}
 
 
-	// désactive et enleve le bouton de validation
+	// désactive et enleve le bouton de validation et d'info
 	void NePasAfficherBoutons() {
 		GameManager.NePasAfficherTexture(validation);
 		GameObject.Find("validerText").guiText.enabled = false;
 
 		GameManager.NePasAfficherTexture(info);
 		GameObject.Find("infoText").guiText.enabled = false;
+	}
+
+	// active/desactive et affiche/enleve le bouton rejouer
+	void DisplayRejouer(bool status) {
+		if (status) {
+			GameManager.AfficherTexture(rejouer);
+			GameObject.Find("rejouerText").guiText.enabled = true;
+		}
+		
+		else {
+			GameManager.NePasAfficherTexture(rejouer);
+			GameObject.Find("rejouerText").guiText.enabled = false;
+		}
 	}
 	#endregion
 

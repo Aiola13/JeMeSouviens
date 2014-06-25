@@ -183,7 +183,7 @@ public class ActiviteMenu : MonoBehaviour {
 	*/
 
 	// active/desactive et affiche/enleve la texture t
-	public static void DisplayArrow(GUITexture t, bool status) {
+	void DisplayArrow(GUITexture t, bool status) {
 		if (status) {
 			t.guiTexture.enabled = true;
 			t.gameObject.SetActive(true);
