@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ActiviteMenu : MonoBehaviour {
-
+	
 	private float dist = 30;	// distance to register a swipe in any given direction
 	private Vector2 fp ; 	 	// first finger position
 	private Vector2 lp;  		// last finger position
@@ -24,6 +24,18 @@ public class ActiviteMenu : MonoBehaviour {
 	public GUITexture rightArrow;
 	public GUITexture jouer;
 	public GUITexture menu;
+
+	public Texture2D Tex_dialogue;
+	private GUIStyle TextNormal = new GUIStyle();
+	private bool isLoading = false;
+
+
+	void OnGUI() {
+		if (isLoading) {
+			AfficherAlerte("Chargement...");
+		}
+
+	}
 
 
 	void Update() {
@@ -79,6 +91,8 @@ public class ActiviteMenu : MonoBehaviour {
 					}
 					// touch the play button
 					if (jouer.HitTest(touch.position)) {
+						isLoading = true;
+
 						if (camFocusedOn == 0) 
 							Application.LoadLevel("a_crepe");
 						else if (camFocusedOn == 1) 
@@ -195,5 +209,20 @@ public class ActiviteMenu : MonoBehaviour {
 		}
 	}
 
-	
+	// affiche une alerte au centre de l'écran
+	void AfficherAlerte(string txt) {
+		TextNormal.fontSize = Screen.height / 15;
+		TextNormal.alignment = TextAnchor.MiddleCenter;
+		
+		float paddingX = Screen.width * 5 / 100;
+		float paddingY = Screen.height * 5 / 100;
+		float sizeX = TextNormal.CalcSize(new GUIContent(txt)).x + paddingX;
+		float sizeY = TextNormal.CalcSize(new GUIContent(txt)).y + paddingY;
+		
+		// positionné au centre
+		Rect myRect = new Rect(Screen.width / 2 - (sizeX / 2), Screen.height / 2 - (sizeY / 2), sizeX, sizeY);
+		
+		GUI.DrawTexture(myRect, Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(myRect, txt, TextNormal);
+	}
 }
