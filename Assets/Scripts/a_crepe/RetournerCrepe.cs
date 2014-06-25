@@ -27,11 +27,11 @@ public class RetournerCrepe : MonoBehaviour {
 
 			if(counter >= 3.0f){
 				if(isCook){
-						gameObject.renderer.material.color = Color.black;
+						gameObject.renderer.material.color = new Color32(221,152,92,1);
 					}
 				else{
 
-					gameObject.renderer.material.color = Color.green;
+                    gameObject.renderer.material.color = new Color32(255, 228, 54, 1);
 
 					if (Input.acceleration.y + AccYPrev <= -1.2 && Input.acceleration.z + AccZPrev >= -0.6) {
                         animation.Play("RetournerCrepeAnim");

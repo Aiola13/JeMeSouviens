@@ -205,7 +205,13 @@ public class GameManagerPeche : GameManager {
         else if (curGameState == GameState.score) {
 
             GameManager.AfficherTexture(texReplay, GameObject.Find("replay_text").guiText);
+            if (hasWritenStats == false)
+            {
+                EcrireStatsPeche();
+                hasWritenStats = true;
+            }
             AfficherScore(calculerEtoilesPeche());
+            
         }
 
         #endregion
@@ -258,6 +264,14 @@ public class GameManagerPeche : GameManager {
             return 2;
         else
             return 1;
+    }
+
+    void EcrireStatsPeche()
+    {
+        System.IO.FileStream fs = System.IO.File.Open(cheminFichierStats, System.IO.FileMode.Append);
+        System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(idPartie + "," + tempsPartie + "," + nbErreurs + "," + nbAppelsAide + "\n");
+        fs.Write(stats, 0, stats.Length);
+        fs.Close();
     }
 
 }

@@ -91,13 +91,18 @@ public class GameManager : MonoBehaviour {
             case "a_crepe":
                 Debug.Log("Crepe");
                 nomActivite = "Crepe";
-                libelleStats += ",nbIngOptUtil,nbCrepesFaites\n";
                 break;
 
             case "a_peche":
                 Debug.Log("Pêche");
                 nomActivite = "Peche";
-                libelleStats += ",nbVerifInventaire,nbCapturesRatees,nbPoissonsAttrapes\n";
+                libelleStats += ",nbCapturesRatees\n";
+                break;
+
+            case "a_jardin":
+                Debug.Log("Jardin");
+                nomActivite = "Jardin";
+                libelleStats += ",legumesPlantes,legumesOublies,legumesEnTrop\n";
                 break;
         }
 
@@ -273,10 +278,11 @@ public class GameManager : MonoBehaviour {
         hasWritenStats = false;
     }
 
-    protected void GetStatsSpecifique(int numColonne)
+    protected int GetStatsSpecifique(int numColonne)
     {
         int i = 1;
         int valeur = 0;
+        float moyenne = 0;
 
         string derniereLigne = null;
         string ligneTraitee;
@@ -287,14 +293,25 @@ public class GameManager : MonoBehaviour {
             {
                 derniereLigne = ligneTraitee;
                 tableauStats = derniereLigne.Split(new char[] { ',' });
+                //Debug.Log("Libelle : " + tableauStats[0]);
                 isNumeric = int.TryParse(tableauStats[numColonne], out valeur);
                 if (isNumeric)
                 {
                     listeStatsSpec.Add(valeur);
                 }
+                Debug.Log("Valeur n " + i + " = " + valeur);
                 i++;
             }
         }
+
+
+        foreach (int element in listeStatsSpec)
+        {
+            moyenne += element;
+        }
+        Debug.Log("Moyenne : " + moyenne + " | Liste.count = " + listeStatsSpec.Count);
+        Debug.Log("Moyenne calc : " + Mathf.RoundToInt(moyenne / listeStatsSpec.Count));
+        return Mathf.RoundToInt(moyenne / listeStatsSpec.Count);
     }
 
 
