@@ -512,9 +512,11 @@ public class TouchJardin : TouchLogic {
 
 	// affiche une alerte quand on appui sur le bouton d'info
 	void AfficherLegumesPlantes() {
-		if (Input.touchCount == 1) {
+		if (Input.touchCount == 1 && GameManagerJardin._alertState == GameManagerJardin.AlerteState.attente) {
 			if (info.HitTest(Input.GetTouch(0).position)) {
 				gmJardin.SetAlerte(GameManagerJardin.AlerteState.afficherLegumesPlantes);
+                GameManager.nbAppelsAide++;
+                Debug.Log("Appel à l'aide n" + GameManager.nbAppelsAide);
 			}
 		}
 	}

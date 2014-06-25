@@ -25,10 +25,10 @@ public class RetournerCrepe : MonoBehaviour {
 
 			if(counter >= 5.0f){
 				if(isCook){
-						gameObject.renderer.material.color = Color.black;
+						gameObject.renderer.material.color = new Color32(221,152,92,1);
 					}
 				else{
-					gameObject.renderer.material.color = Color.green;
+                    gameObject.renderer.material.color = new Color32(255, 228, 54, 1);
 
 					if (Input.acceleration.y <= -0.95 ){
 						mont = true ;

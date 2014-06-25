@@ -51,6 +51,11 @@ public class GameManagerJardin :  GameManager{
     public static AudioSource sndASSelect;
     public static AudioSource sndASPousse;
 
+    public static int nbLegumesOublies;
+    public static int fourchetteLegumesPlantes;
+    public static int nbLegumesEnTrop;
+    public static int nbLegumesBienPlantes;
+
 	#endregion attributs
 
 
@@ -62,6 +67,7 @@ public class GameManagerJardin :  GameManager{
     {
         curGameState = GameState.queteJessicaP1;
         _alertState = AlerteState.attente;
+        chrono = new System.Diagnostics.Stopwatch();
 
         touchJardin = GetComponent<TouchJardin>();
         queteJardin = GetComponent<QueteJardin>();
@@ -75,6 +81,9 @@ public class GameManagerJardin :  GameManager{
         sndASSelect = AddAudio(sndSelect, false, false, 0.6f);
         sndASPousse = AddAudio(sndPousse, false, false, 0.6f);
         ambiance.Play();
+        GameManagerJardin.chrono.Start();
+
+        nbLegumesEnTrop = nbLegumesOublies = fourchetteLegumesPlantes = 0;
     }
 
 	#region Update
@@ -98,7 +107,6 @@ public class GameManagerJardin :  GameManager{
 		#region transition
 		// phase de transition
 		else if (curGameState == GameState.transition) {
-
 		}
 		#endregion
 
@@ -109,6 +117,16 @@ public class GameManagerJardin :  GameManager{
 
 		}
 		#endregion 
+
+        if (curGameState == GameState.score || curGameState == GameState.dialogueTransition1 || curGameState == GameState.transition || curGameState == GameState.dialogueTransition2 || curGameState == GameState.queteJessicaP1 || curGameState == GameState.queteJessicaP2)
+        {
+            chrono.Stop();
+        }
+        else
+        {
+            chrono.Start();
+        }
+        //Debug.Log("Chrono : " + chrono.Elapsed);
 	}
 	#endregion
 
@@ -190,6 +208,13 @@ public class GameManagerJardin :  GameManager{
 		// affichage du tableau de score
 		else if (curGameState == GameState.score) {
 			AfficherAlerte(queteJardin.ScoreText());
+            tempsPartie = chrono.Elapsed.Minutes * 60 + chrono.Elapsed.Seconds;
+            if (hasWritenStats == false)
+            {
+                EcrireStatsJardin();
+                hasWritenStats = true;
+            }
+            AfficherScore(calculerEtoilesJardin());
 		}
 		#endregion
 
@@ -242,5 +267,23 @@ public class GameManagerJardin :  GameManager{
 		prevGameState = prev;
 	}
 	#endregion
+
+    void EcrireStatsJardin()
+    {
+        System.IO.FileStream fs = System.IO.File.Open(cheminFichierStats, System.IO.FileMode.Append);
+        System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(idPartie + "," + tempsPartie + "," + nbErreurs + "," + nbAppelsAide + "," + GameManagerJardin.nbLegumesBienPlantes + "," + GameManagerJardin.nbLegumesOublies + "," + GameManagerJardin.nbLegumesEnTrop  + "\n");
+        fs.Write(stats, 0, stats.Length);
+        fs.Close();
+    }
+
+    int calculerEtoilesJardin()
+    {
+        if (nbAppelsAide == 0 && nbErreurs == 0 && tempsPartie <= 30.0)
+            return 3;
+        else if (nbAppelsAide <= 2 || nbErreurs <= 1 || tempsPartie <= 45.0)
+            return 2;
+        else
+            return 1;
+    }
 
 }

@@ -47,17 +47,22 @@ public class QueteJardin : MonoBehaviour {
 				txt += " l\xe9gume\n\n";
 			else
 				txt +=  " l\xe9gumes\n\n";
+            GameManagerJardin.fourchetteLegumesPlantes = 0;
 		}
 		else if (legumesPlantesEnP1.Count < 9) {
 			txt += txt += "Bien! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+            GameManagerJardin.fourchetteLegumesPlantes = 1;
 		}
 		else if (legumesPlantesEnP1.Count < 13) {
 			txt += txt += "Bravo!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+            GameManagerJardin.fourchetteLegumesPlantes = 2;
 		}
 		else if (legumesPlantesEnP1.Count < 17) {
 			txt += txt += "Impressionnant!!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
+            GameManagerJardin.fourchetteLegumesPlantes = 3;
 		}
 
+        Debug.Log("Fourchette légumes plantés = " + GameManagerJardin.fourchetteLegumesPlantes);
 		txt += "Maintenant, essai de reconstituer les l\xe9gumes que tu as plant\xe9.\n";
 		txt += "Bonne chance!";
 		return txt;
@@ -166,7 +171,9 @@ public class QueteJardin : MonoBehaviour {
 		// on fait des copies des listes legumesPlantes et legumesPlantesEnP1
 		List<GameObject> L1 = new List<GameObject>(legumesPlantesEnP1);
 		List<GameObject> L2 = new List<GameObject>(legumesPlantes);
-		
+
+        GameManagerJardin.nbLegumesBienPlantes = L2.Count;
+
 		// on itere a travers la liste legumesPlantesEnP1 puis on compare avec la liste legumesPlantes (celle en p2), on retire de L1 et L2 les elements en commun
 		for (int i = 0; i < legumesPlantesEnP1.Count; i++) {
 			GameObject go = legumesPlantesEnP1[i];
@@ -175,22 +182,27 @@ public class QueteJardin : MonoBehaviour {
 				L2.Remove(go);
 			}
 		}
-		
+
 		string strLegumesOublies = getListeLegumes(L1);
 		string strLegumesEnTrop = getListeLegumes(L2);
 
 		// legumes oubliés
 		string txt = "";
-		if (string.IsNullOrEmpty(strLegumesOublies))
-			txt += "Bravo! Tu n'as pas oubli\xe9 de l\xe9gumes.\n\n";
-		else {
-			txt += "Tu as oubli\xe9 de planter " + L1.Count;
-			if (L1.Count == 1)
-				txt += " l\xe9gume:\n";
-			else
-				txt += " l\xe9gumes:\n";
-			txt += strLegumesOublies + "\n\n";
-		}
+        if (string.IsNullOrEmpty(strLegumesOublies))
+        {
+            txt += "Bravo! Tu n'as pas oubli\xe9 de l\xe9gumes.\n\n";
+            GameManagerJardin.nbLegumesOublies = 0;
+        }
+        else
+        {
+            txt += "Tu as oubli\xe9 de planter " + L1.Count;
+            if (L1.Count == 1)
+                txt += " l\xe9gume:\n";
+            else
+                txt += " l\xe9gumes:\n";
+            txt += strLegumesOublies + "\n\n";
+            GameManagerJardin.nbLegumesOublies = L1.Count;
+        }
 
 		// légumes en trop
 		if (!string.IsNullOrEmpty(strLegumesEnTrop)) {
@@ -200,11 +212,20 @@ public class QueteJardin : MonoBehaviour {
 			else
 				txt += " l\xe9gumes en trop:\n";
 			txt += strLegumesEnTrop + "\n";
+            GameManagerJardin.nbLegumesEnTrop = L2.Count;
 		}
 		else {
 			txt += "Bravo! Tu n'as plant\xe9 aucun l\xe9gumes suppl\xe9mentaires.\n";
+            GameManagerJardin.nbLegumesEnTrop = 0;
 		}
-		
+        GameManagerJardin.nbLegumesBienPlantes -= GameManagerJardin.nbLegumesEnTrop;
+
+        Debug.Log("Nombre de légumes bien plantés : " + GameManagerJardin.nbLegumesBienPlantes);
+        Debug.Log("Nombre de légumes plantés en trop : " + GameManagerJardin.nbLegumesEnTrop);
+        Debug.Log("Nombre de légumes oubliés : " + GameManagerJardin.nbLegumesOublies);
+        Debug.Log("Chrono final : " + GameManagerJardin.chrono.Elapsed);
+        Debug.Log("Nombre d'appels à l'aide final : " + GameManager.nbAppelsAide);
+        
 		return txt;
 	}
 	#endregion
