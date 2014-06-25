@@ -208,7 +208,7 @@ public class GameManagerJardin :  GameManager{
 		// affichage du tableau de score
 		else if (curGameState == GameState.score) {
 			AfficherAlerte(queteJardin.ScoreText());
-            tempsPartie = chrono.Elapsed.Minutes * 60 + chrono.Elapsed.Seconds;
+
             if (hasWritenStats == false)
             {
                 EcrireStatsJardin();

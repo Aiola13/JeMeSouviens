@@ -62,8 +62,7 @@ public class QueteJardin : MonoBehaviour {
             GameManagerJardin.fourchetteLegumesPlantes = 3;
 		}
 
-        Debug.Log("Fourchette légumes plantés = " + GameManagerJardin.fourchetteLegumesPlantes);
-		txt += "Maintenant, essai de reconstituer les l\xe9gumes que tu as plant\xe9.\n";
+		txt += "Maintenant, essai de replanter les l\xe9gumes que tu as plant\xe9.\n";
 		txt += "Bonne chance!";
 		return txt;
 	}

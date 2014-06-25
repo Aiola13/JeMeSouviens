@@ -879,6 +879,7 @@ MonoBehaviour:
   rightArrow: {fileID: 561250877}
   jouer: {fileID: 1604681353}
   menu: {fileID: 330550064}
+  Tex_dialogue: {fileID: 2800000, guid: 14eeafd23abd2604d86f3db3ef868c40, type: 3}
 --- !u!82 &1831291574
 AudioSource:
   m_ObjectHideFlags: 0
