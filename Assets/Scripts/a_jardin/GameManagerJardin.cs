@@ -34,6 +34,7 @@ public class GameManagerJardin :  GameManager{
 
 	private TouchJardin touchJardin;
 	private QueteJardin queteJardin;
+    private AnimatedFeedbackJardin feedbackJardin;
 
     public AudioClip musiqueAmbiance;
     public AudioClip dragOK;
@@ -65,6 +66,7 @@ public class GameManagerJardin :  GameManager{
 
         touchJardin = GetComponent<TouchJardin>();
         queteJardin = GetComponent<QueteJardin>();
+        feedbackJardin = GetComponent<AnimatedFeedbackJardin>();
 
         ambiance = AddAudio(musiqueAmbiance, true, true, 0.8f);
         
@@ -152,15 +154,19 @@ public class GameManagerJardin :  GameManager{
 			else {
 
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.creuser) {
+                    feedbackJardin.playVidCreuser();
 					AfficherAide("Creuse la parcelle trois fois avec avec de petits mouvements du doigt.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
+                    feedbackJardin.playVidDragGraine();
 					AfficherAide("Plante une graine en la maintenant et en la d\xe9posant sur la parcelle.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.arrosage) {
+                    feedbackJardin.playVidArroser();
 					AfficherAide("Arrose la parcelle en inclinant la tablette.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.maturation) {
+                    feedbackJardin.ecranInvisible();
 					AfficherAide("Selectionne une autre parcelle ou valide.");
 				}
 			}
