@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
     public Texture2D Tex_dialogue;
     public GUIStyle TextNormal = new GUIStyle();
 	public GUIStyle TextHighlight = new GUIStyle();
-    public Texture rejouer;
     public Texture etoile;
 
 
