@@ -58,7 +58,7 @@ public class QueteJardin : MonoBehaviour {
 			txt += txt += "Impressionnant!!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
 		}
 
-		txt += "Maintenant, essai de reconstituer les l\xe9gumes que tu as plant\xe9.\n";
+		txt += "Maintenant, essai de replanter les l\xe9gumes que tu as plant\xe9.\n";
 		txt += "Bonne chance!";
 		return txt;
 	}
