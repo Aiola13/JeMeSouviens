@@ -64,8 +64,8 @@ public class DialogueCrepe : TouchLogic {
 		}
 
 		// if we touch the cat
-        if (GameManagerCrepe.curGameState != GameManagerCrepe.GameState.queteNoemie || 
-            GameManagerCrepe.curGameState != GameManagerCrepe.GameState.score ||
+        if (GameManagerCrepe.curGameState != GameManagerCrepe.GameState.queteNoemie && 
+            GameManagerCrepe.curGameState != GameManagerCrepe.GameState.score &&
             GameManagerCrepe.curGameState != GameManagerCrepe.GameState.aideDeSkypi) {
             ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
             if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
