@@ -5,6 +5,7 @@ public class DialoguePeche : TouchLogic {
 
     private Ray ray;
     private RaycastHit hit;
+    private bool canAskSkypi = true;
 
     public override void OnTouchEndedAnywhere() {
         
@@ -19,6 +20,7 @@ public class DialoguePeche : TouchLogic {
 
         else if (GameManagerPeche.curGameState == GameManagerPeche.GameState.aideDeSkypi) {
             ChangeState(GameManagerPeche.GameState.aideDeSkypi, GameManagerPeche.prevGameState);
+            canAskSkypi = true;
         }
 
         // State Peche
@@ -44,10 +46,12 @@ public class DialoguePeche : TouchLogic {
         // Si on touche Skypi
 
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.degivrerTrou ||
-            GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher) {
-
+        GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher)
+        {
+            Debug.Log("Etat actuel : " + GameManagerPeche.curGameState);
             ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
             if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.tag == "Skypi")) {
+                canAskSkypi = false;
                 switch (GameManagerPeche.curGameState) {
                     case GameManagerPeche.GameState.degivrerTrou:
                         ChangeState(GameManagerPeche.GameState.degivrerTrou, GameManagerPeche.GameState.aideDeSkypi);

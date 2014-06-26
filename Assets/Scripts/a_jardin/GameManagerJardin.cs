@@ -81,6 +81,8 @@ public class GameManagerJardin :  GameManager{
         sndASSelect = AddAudio(sndSelect, false, false, 0.6f);
         sndASPousse = AddAudio(sndPousse, false, false, 0.6f);
         ambiance.Play();
+        initGameManager();
+        CreerFichierStats();
         GameManagerJardin.chrono.Start();
 
         nbLegumesEnTrop = nbLegumesOublies = fourchetteLegumesPlantes = 0;
@@ -214,7 +216,7 @@ public class GameManagerJardin :  GameManager{
                 EcrireStatsJardin();
                 hasWritenStats = true;
             }
-            AfficherScore(calculerEtoilesJardin());
+            AfficherScore(calculerEtoilesJardin(), true);
 		}
 		#endregion
 
@@ -270,6 +272,7 @@ public class GameManagerJardin :  GameManager{
 
     void EcrireStatsJardin()
     {
+        Debug.Log("Chemin :" + cheminFichierStats);
         System.IO.FileStream fs = System.IO.File.Open(cheminFichierStats, System.IO.FileMode.Append);
         System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(idPartie + "," + tempsPartie + "," + nbErreurs + "," + nbAppelsAide + "," + GameManagerJardin.nbLegumesBienPlantes + "," + GameManagerJardin.nbLegumesOublies + "," + GameManagerJardin.nbLegumesEnTrop  + "\n");
         fs.Write(stats, 0, stats.Length);

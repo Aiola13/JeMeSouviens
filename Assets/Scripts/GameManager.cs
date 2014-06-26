@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour {
 
 
 
-    public void AfficherScore(int nbEtoiles) {
+    public void AfficherScore(int nbEtoiles, bool displayLegumes = false) {
 
         TextNormal.fontSize = Screen.height / 25;
 		TextNormal.alignment = TextAnchor.MiddleCenter;
@@ -263,6 +263,14 @@ public class GameManager : MonoBehaviour {
         GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 3 / 8, Screen.width / 2, Screen.height / 15), "Temps : " + tempsPartie + " secondes", TextNormal);
         GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 7 / 16, Screen.width / 2, Screen.height / 15), "Nombre d'erreurs : " + nbErreurs, TextNormal);
         GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 2, Screen.width / 2, Screen.height / 15), "Nombre d'aides de Skypi : " + nbAppelsAide, TextNormal);
+
+        
+        if (displayLegumes)
+        {
+            QueteJardin jardinScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<QueteJardin>();
+
+            //GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 2, Screen.width / 2, Screen.height / 15), jardinScript.ScoreText(), TextNormal);
+        }
 
         GUI.EndGroup();
     }
