@@ -6461,7 +6461,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  rejouer: {fileID: 0}
   etoile: {fileID: 2800000, guid: 2c3ae273427952a4883ed0f681140398, type: 3}
   jessica: {fileID: 2800000, guid: 083c2bf09775762499380b2797a0ccbf, type: 3}
   musiqueAmbiance: {fileID: 8300000, guid: 6bb2be8281ffa0546bc21a12d39f747e, type: 3}

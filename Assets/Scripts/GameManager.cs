@@ -161,8 +161,6 @@ public class GameManager : MonoBehaviour {
 
 	// affiche une boite de dialogue avec comme texture pnj et comme texte txt,
 	public void AfficherDialogue(Texture2D pnj, string txt, bool displayContinuer = true) {
-		
-		//GameManagerCrepe.chrono.Stop();
 		TextNormal.fontSize = Screen.height / 36;
 		TextNormal.alignment = TextAnchor.MiddleLeft;
 
@@ -229,49 +227,74 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-
+	// affiche un écran de score qui dépend du nombre d'etoiles passé en parametre
     public void AfficherScore(int nbEtoiles, bool displayLegumes = false) {
-
         TextNormal.fontSize = Screen.height / 25;
 		TextNormal.alignment = TextAnchor.MiddleCenter;
-		TextNormal.font = (Font)Resources.Load("Roboto-Regular");
 
-        GUI.BeginGroup(new Rect(Screen.width / 8, Screen.height / 8, Screen.width * 6 / 8, Screen.height * 6 / 8), Tex_dialogue, TextNormal);
 
-		float brd = Screen.height / 100;
 
-        switch(nbEtoiles){
-            case 1:
-                GUI.DrawTexture(new Rect(Screen.width * 3 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "Tu peux faire mieux...", TextNormal);
-                break;
-            case 2:
-                GUI.DrawTexture(new Rect(Screen.width * 5 / 16 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.DrawTexture(new Rect(Screen.width * 7 / 16 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "C'est presque ça!", TextNormal);
-                break;
-            case 3:
-                GUI.DrawTexture(new Rect(Screen.width * 2 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.DrawTexture(new Rect(Screen.width * 3 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.DrawTexture(new Rect(Screen.width * 4 / 8 - Screen.width / 40, Screen.height / 8 - brd, Screen.width / 20, Screen.width / 20), etoile, ScaleMode.StretchToFill);
-                GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 4, Screen.width / 2, Screen.height / 15), "Excellent!", TextNormal);
-                break;
-        }
-        tempsPartie = chrono.Elapsed.Minutes * 60 + chrono.Elapsed.Seconds;
+		float texWidth = Screen.width * 70/100;
+		float texHeight = Screen.height * 60/100;
+		float singleLine = texHeight * 10/100;
+		float doubleLine = texHeight * 20/100;
+		float posY = singleLine;
 
-        GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 3 / 8, Screen.width / 2, Screen.height / 15), "Temps : " + tempsPartie + " secondes", TextNormal);
-        GUI.TextArea(new Rect(Screen.width / 8, Screen.height * 7 / 16, Screen.width / 2, Screen.height / 15), "Nombre d'erreurs : " + nbErreurs, TextNormal);
-        GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 2, Screen.width / 2, Screen.height / 15), "Nombre d'aides de Skypi : " + nbAppelsAide, TextNormal);
+		float etoileSize = Screen.width * 5/100;
+		float etoileGroupWidth = nbEtoiles * etoileSize * 2;
 
-        
-        if (displayLegumes)
-        {
+		// si on veut afficher score legumes la box s'agrandit
+		if (displayLegumes) {
+			print ("dispLeg");
+			texHeight = Screen.height * 80/100;
+		}
+
+		// group of everything
+		GUI.BeginGroup(new Rect(Screen.width / 2 - (texWidth / 2), Screen.height / 2 - (texHeight / 2), texWidth, texHeight));
+
+		// texture dialogue
+		GUI.DrawTexture(new Rect(0, 0, texWidth, texHeight), Tex_dialogue, ScaleMode.StretchToFill, true, 0);
+
+		// group of etoiles
+		// we add etoileSize/2 because there is an extra space in the group width
+		GUI.BeginGroup(new Rect(texWidth/2 - etoileGroupWidth/2 + etoileSize/2, posY, etoileGroupWidth, etoileSize));
+		for (int i = 0; i < nbEtoiles; i++) {
+			Rect etoileRect = new Rect(i * etoileSize*2, 0, etoileSize, etoileSize);
+			GUI.DrawTexture(etoileRect, etoile, ScaleMode.StretchToFill);
+		}
+		GUI.EndGroup();
+		posY += etoileSize + singleLine;
+
+		int n = 2;
+		switch(n){
+		case 1:
+			GUI.Label(new Rect(0,posY,texWidth,15), "Tu peux faire mieux...", TextNormal);
+			break;
+		case 2:
+			GUI.Label(new Rect(0,posY,texWidth,15), "C'est presque ça!", TextNormal);
+			break;
+		case 3:
+			GUI.Label(new Rect(0,posY,texWidth,15), "Excellent!", TextNormal);
+			break;
+		}
+		posY += doubleLine;
+
+		tempsPartie = chrono.Elapsed.Minutes * 60 + chrono.Elapsed.Seconds;
+		GUI.Label(new Rect(0,posY,texWidth,15), "Temps : " + tempsPartie + " secondes", TextNormal);
+		posY += singleLine;
+		GUI.Label(new Rect(0,posY,texWidth,15), "Nombre d'erreurs : " + nbErreurs, TextNormal);
+		posY += singleLine;
+		GUI.Label(new Rect(0,posY,texWidth,15), "Nombre d'aides : " + nbAppelsAide, TextNormal);
+		posY += singleLine;
+
+
+        if (displayLegumes) {
+			posY += doubleLine;
             QueteJardin jardinScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<QueteJardin>();
 
-            //GUI.TextArea(new Rect(Screen.width / 8, Screen.height / 2, Screen.width / 2, Screen.height / 15), jardinScript.ScoreText(), TextNormal);
+			GUI.Label(new Rect(0,posY,texWidth,15), jardinScript.ScoreText(), TextNormal);
         }
-
-        GUI.EndGroup();
+		GUI.EndGroup();
     }
 
     protected void initGameManager() {

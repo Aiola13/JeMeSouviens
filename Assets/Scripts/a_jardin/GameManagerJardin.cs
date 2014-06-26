@@ -139,6 +139,7 @@ public class GameManagerJardin :  GameManager{
 	#region OnGUI
 	void OnGUI() {
 
+		//AfficherScore(3, true);
 
 		//AfficherAlerte("ceci est une <a>alerte\n");
 		//AfficherAlerteAvecSurbrillance("ceci est une <a>alerte \net ca <a>aussi \n encore <a>une");
@@ -209,10 +210,9 @@ public class GameManagerJardin :  GameManager{
 		#region score
 		// affichage du tableau de score
 		else if (curGameState == GameState.score) {
-			AfficherAlerte(queteJardin.ScoreText());
+			//AfficherAlerte(queteJardin.ScoreText());
 
-            if (hasWritenStats == false)
-            {
+            if (hasWritenStats == false) {
                 EcrireStatsJardin();
                 hasWritenStats = true;
             }
