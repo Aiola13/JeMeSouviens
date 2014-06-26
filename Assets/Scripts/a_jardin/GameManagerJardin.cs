@@ -52,7 +52,6 @@ public class GameManagerJardin :  GameManager{
     public static AudioSource sndASPousse;
 
     public static int nbLegumesOublies;
-    public static int fourchetteLegumesPlantes;
     public static int nbLegumesEnTrop;
     public static int nbLegumesBienPlantes;
 
@@ -84,8 +83,6 @@ public class GameManagerJardin :  GameManager{
         initGameManager();
         CreerFichierStats();
         GameManagerJardin.chrono.Start();
-
-        nbLegumesEnTrop = nbLegumesOublies = fourchetteLegumesPlantes = 0;
     }
 
 	#region Update
@@ -138,8 +135,6 @@ public class GameManagerJardin :  GameManager{
 
 	#region OnGUI
 	void OnGUI() {
-
-		//AfficherScore(3, true);
 
 		//AfficherAlerte("ceci est une <a>alerte\n");
 		//AfficherAlerteAvecSurbrillance("ceci est une <a>alerte \net ca <a>aussi \n encore <a>une");
@@ -270,23 +265,28 @@ public class GameManagerJardin :  GameManager{
 	}
 	#endregion
 
-    void EcrireStatsJardin()
-    {
+    void EcrireStatsJardin() {
         Debug.Log("Chemin :" + cheminFichierStats);
         System.IO.FileStream fs = System.IO.File.Open(cheminFichierStats, System.IO.FileMode.Append);
-        System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(idPartie + "," + tempsPartie + "," + nbErreurs + "," + nbAppelsAide + "," + GameManagerJardin.nbLegumesBienPlantes + "," + GameManagerJardin.nbLegumesOublies + "," + GameManagerJardin.nbLegumesEnTrop  + "\n");
+        System.Byte[] stats = new System.Text.UTF8Encoding(true).GetBytes(idPartie + "," + tempsPartie + "," + nbErreurs + "," + nbAppelsAide + "," + nbLegumesBienPlantes + "," + nbLegumesOublies + "," + nbLegumesEnTrop  + "\n");
         fs.Write(stats, 0, stats.Length);
         fs.Close();
     }
 
-    int calculerEtoilesJardin()
-    {
-        if (nbAppelsAide == 0 && nbErreurs == 0 && tempsPartie <= 30.0)
+    int calculerEtoilesJardin() {
+
+        if (nbAppelsAide == 0 && nbErreurs == 0 && tempsPartie <= 180.0 && nbLegumesBienPlantes > 12)
+            return 5;
+		else if (nbAppelsAide < 3 && nbErreurs < 3 && tempsPartie <= 180.0 && nbLegumesBienPlantes > 9)
+            return 4;
+		else if (nbAppelsAide < 5 && nbErreurs < 5 && tempsPartie <= 60.0 && nbLegumesBienPlantes > 5)
             return 3;
-        else if (nbAppelsAide <= 2 || nbErreurs <= 1 || tempsPartie <= 45.0)
-            return 2;
-        else
-            return 1;
+		else if (nbAppelsAide < 7 && nbErreurs < 7 && tempsPartie <= 60.0 && nbLegumesBienPlantes > 0)
+			return 2;
+		else
+			return 1;
     }
 
 }
+
+

@@ -47,19 +47,15 @@ public class QueteJardin : MonoBehaviour {
 				txt += " l\xe9gume\n\n";
 			else
 				txt +=  " l\xe9gumes\n\n";
-            GameManagerJardin.fourchetteLegumesPlantes = 0;
 		}
 		else if (legumesPlantesEnP1.Count < 9) {
 			txt += txt += "Bien! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
-            GameManagerJardin.fourchetteLegumesPlantes = 1;
 		}
 		else if (legumesPlantesEnP1.Count < 13) {
 			txt += txt += "Bravo!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
-            GameManagerJardin.fourchetteLegumesPlantes = 2;
 		}
 		else if (legumesPlantesEnP1.Count < 17) {
 			txt += txt += "Impressionnant!!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
-            GameManagerJardin.fourchetteLegumesPlantes = 3;
 		}
 
 		txt += "Maintenant, essai de replanter les l\xe9gumes que tu as plant\xe9.\n";
@@ -218,6 +214,8 @@ public class QueteJardin : MonoBehaviour {
             GameManagerJardin.nbLegumesEnTrop = 0;
 		}
         GameManagerJardin.nbLegumesBienPlantes -= GameManagerJardin.nbLegumesEnTrop;
+
+		GameManagerJardin.nbErreurs = GameManagerJardin.nbLegumesEnTrop + GameManagerJardin.nbLegumesOublies;
 
         Debug.Log("Nombre de légumes bien plantés : " + GameManagerJardin.nbLegumesBienPlantes);
         Debug.Log("Nombre de légumes plantés en trop : " + GameManagerJardin.nbLegumesEnTrop);
