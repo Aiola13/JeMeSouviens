@@ -8,7 +8,6 @@ public class DialoguePeche : TouchLogic {
     private bool canAskSkypi = true;
 
     public override void OnTouchEndedAnywhere() {
-        
 
         // State Quete de JC
 
@@ -43,7 +42,6 @@ public class DialoguePeche : TouchLogic {
         }
 
 
-        // Si on touche Skypi
 
         if (GameManagerPeche.curGameState == GameManagerPeche.GameState.degivrerTrou ||
         GameManagerPeche.curGameState == GameManagerPeche.GameState.pecher)
@@ -66,7 +64,9 @@ public class DialoguePeche : TouchLogic {
 
         }
 
+
     }
+
 
     // Parameters: prev State, curr State
    void ChangeState(GameManagerPeche.GameState prev, GameManagerPeche.GameState current) {

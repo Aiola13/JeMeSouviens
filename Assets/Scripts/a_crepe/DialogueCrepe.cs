@@ -13,8 +13,13 @@ public class DialogueCrepe : TouchLogic {
 	protected RaycastHit hit;
     public static bool canRestartChrono = false;
 
+	public GUITexture rejouer;
+	public GUIText rejouerText;
+
 	void Start() {
         crepe.renderer.enabled = false;
+
+		GameManager.NePasAfficherTexture(rejouer, rejouerText);
 	}
 	
 	public override void OnTouchEndedAnywhere () {
