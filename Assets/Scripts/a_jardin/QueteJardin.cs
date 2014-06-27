@@ -58,7 +58,7 @@ public class QueteJardin : MonoBehaviour {
 			txt += txt += "Impressionnant!!! Tu as plant\xe9 " + legumesPlantesEnP1.Count + " l\xe9gumes\n\n";
 		}
 
-		txt += "Maintenant, essai de replanter les l\xe9gumes que tu as plant\xe9.\n";
+		txt += "Maintenant, essaie de replanter les l\xe9gumes que tu as plant\xe9.\n";
 		txt += "Bonne chance!";
 		return txt;
 	}
@@ -88,7 +88,7 @@ public class QueteJardin : MonoBehaviour {
 
 		else if (legume.name == "choux") {
 			if (count == 1)
-				return "un choux";
+				return "un chou";
 			else 
 				return count + " choux";
 		}

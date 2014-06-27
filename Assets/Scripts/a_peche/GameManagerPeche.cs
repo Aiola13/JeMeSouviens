@@ -113,10 +113,10 @@ public class GameManagerPeche : GameManager {
 
             modePeche();
             if (peche.aMordu()) {
-                AfficherAide("Releve la tablette maintenant!");
+				AfficherAide("Relève la tablette maintenant!");
             }
             else {
-                AfficherAide("Patience un poisson va bientôt mordre à l'hameçon.");
+                AfficherAide("Patience, un poisson va bientôt mordre à l'hameçon.");
             }
             
             videos.ecranInvisible();
@@ -148,7 +148,7 @@ public class GameManagerPeche : GameManager {
                     GameManager.NePasAfficherTexture(texValidation, GameObject.Find("valider_text").guiText);
                     GameManager.NePasAfficherTexture(texAnnulation, GameObject.Find("annuler_text").guiText);
 
-                    AfficherDialogue(jeanClaude, "Le poisson a été relaché dans le lac.");
+					AfficherDialogue(jeanClaude, "Le poisson a été relâché dans le lac.");
 
                 }
             } else if (peche.solGele) {
@@ -166,7 +166,7 @@ public class GameManagerPeche : GameManager {
             string aide = "";
             switch (prevGameState) {
                 case GameState.degivrerTrou:
-                    aide = "Afin de dégivrer le trou, tu dois recopier le symbole qui s'affiche à l'écran mais fais attention à ne pas relever le doigt avant d'avoir terminé.";
+                    aide = "Afin de dégivrer le trou, tu dois dessiner le symbole qui s'affiche à l'écran, mais fais attention à ne pas relever le doigt avant d'avoir terminé.";
                     break;
                 case GameState.pecher:
                     aide = "Lorsqu'un poisson mord à l'hameçon, relève la tablette d'un coup sec pour le sortir de l'eau. \n";
@@ -185,7 +185,7 @@ public class GameManagerPeche : GameManager {
         else if (curGameState == GameState.finDePartie) {
 
             if (quetePeche.verifVictoire()) {
-                AfficherDialogue(jeanClaude, "Félicitation c'est un sans faute!");
+                AfficherDialogue(jeanClaude, "Félicitation, c'est un sans faute!");
             } else {
                 string poissonsCorrects = "Poissons corrects : \n";
                 string poissonsIncorrects = "Poissons incorrects : \n";

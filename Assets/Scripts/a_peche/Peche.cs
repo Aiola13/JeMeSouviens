@@ -108,7 +108,7 @@ public class Peche : MonoBehaviour {
 
         poisson = (GameObject)Instantiate(GameObject.FindGameObjectWithTag(poissonString), positionPoisson, rotationPoisson);
 
-        infoPoisson = "Le poisson que tu vient de pêcher est " + tagNomConvertor(poissonString) + ".\n";
+        infoPoisson = "Le poisson que tu viens de pêcher est " + tagNomConvertor(poissonString) + ".\n";
         infoPoisson += "Veux-tu le garder?";
 
 

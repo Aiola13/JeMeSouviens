@@ -82,6 +82,9 @@ public class DialogueCrepe : TouchLogic {
                     case GameManagerCrepe.GameState.cuissonCrepe:
                         ChangeState(GameManagerCrepe.GameState.cuissonCrepe, GameManagerCrepe.GameState.aideDeSkypi);
                         break;
+					case GameManagerCrepe.GameState.etalerLaPate:
+						ChangeState(GameManagerCrepe.GameState.etalerLaPate, GameManagerCrepe.GameState.aideDeSkypi);
+						break;
                 }
                 GameManagerCrepe.nbAppelsAide++;
                 GameManagerCrepe.miaulement.Play();

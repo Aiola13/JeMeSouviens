@@ -151,7 +151,7 @@ public class QuetePeche : MonoBehaviour {
 
 	public string texteQuete(){
 
-		string quete = "Bonjour est ce que tu serais partant pour une bonne partie de pêche?\n";
+		string quete = "Bonjour est-ce que tu serais partant pour une bonne partie de pêche?\n";
 		quete += "Voici la liste des poissons qu'il faut pêcher, relâche ceux qui ne sont pas dans la liste!\n";
 
         quete += ToStringListePoissons(listeQuete);

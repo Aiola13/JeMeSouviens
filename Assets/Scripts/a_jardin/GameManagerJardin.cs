@@ -163,12 +163,12 @@ public class GameManagerJardin :  GameManager{
 		// affiche l'aide pour la phase de plantation numéro 1 ou 2
 		else if (curGameState == GameState.planterP1 || curGameState == GameState.planterP2) {
 			if (touchJardin.selectedParcelle == null) {
-				AfficherAide("Selectionne une parcelle en la touchant avec le doigt.");
+				AfficherAide("S\xe9lectionne une parcelle en la touchant avec le doigt.");
 			}
 			else {
 
 				if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.creuser) {
-					AfficherAide("Creuse la parcelle trois fois avec avec de petits mouvements du doigt.");
+					AfficherAide("Creuse la parcelle trois fois avec de petits mouvements du doigt.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.graine) {
 					AfficherAide("Plante une graine en la maintenant et en la d\xe9posant sur la parcelle.");
@@ -177,7 +177,7 @@ public class GameManagerJardin :  GameManager{
 					AfficherAide("Arrose la parcelle en inclinant la tablette.");
 				}
 				else if (touchJardin.selectedParcelle.GetComponent<Parcelle>()._curState == Parcelle.ParcelleState.maturation) {
-					AfficherAide("Selectionne une autre parcelle ou valide.");
+					AfficherAide("S\xe9lectionne une autre parcelle ou valide.");
 				}
 			}
 		}
@@ -227,7 +227,7 @@ public class GameManagerJardin :  GameManager{
 		}
 		// quand on peut plus planté
 		else if (_alertState == AlerteState.parcelleMaxAtteint) {
-			Alerte("Le nombre de l\xe9gumes autoris\xe9 a planter a \xe9t\xe9 atteint.", 5.0f);
+			Alerte("Le nombre de l\xe9gumes autoris\xe9 à planter a \xe9t\xe9 atteint.", 5.0f);
 		}
 		// si un legumes n'a pas ete arrose
 		else if (_alertState == AlerteState.arroserLegumes) {
