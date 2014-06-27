@@ -16,7 +16,7 @@ public class ActiviteMenu : MonoBehaviour {
 
 
 	// crepe = 0.0f, peche = 20.0f, jardinage = 0.0f
-	private float[] activitePos = new float[3] {0.0f, 18.5f, 37.0f};
+	private float[] activitePos = new float[3] {0.0f, 20.0f, 40.0f};
 
 	private Vector3 target = new Vector3(0, 0, -10);
 
